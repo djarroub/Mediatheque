@@ -7,24 +7,78 @@ package enterprise.ProjetMediatheque.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  *
  * @author Gilles
  */
 @Entity
-@Table (name="CITY")
+@Table (name="CITY",uniqueConstraints = @UniqueConstraint(columnNames={"POSTAL_CODE", "CITY_NAME"}))
 public class Ville {
-    //TODO : Mettre en place une cle primaire composee
-    // voir lien : http://www.jmdoudoux.fr/java/dej/chap-jpa.htm
-    @Column (name="POSTAL_CODE")
-    @JoinColumn(table = "TABLE_1",name = "CLE_TABLE_1")
-    private int codePostale;
+    //TODO : Verifier l'utilite de @Column (name=".....")
+    @Id @Column (name="POSTAL_CODE")
+    private int codePostal;
     
-    @Column (name="CITY_NAME")
-    @JoinColumn(table = "TABLE_2",name = "CLE_TABLE_2")
+    @Id @Column (name="CITY_NAME")
     private String nomVille;
+    
+    // ---------------------------------
+    //   Constructeur
+    // ---------------------------------
+    /**
+     * Constructeur vide de la classe Ville.
+     */
+    public Ville(){}
+
+    /**
+     * Constructeur de la classe Ville.
+     * @param codePostale Le code postale associee a la Ville.
+     * @param nomVille Le nom de la Ville.
+     */
+    public Ville(int codePostale, String nomVille) {
+        this.codePostal = codePostale;
+        this.nomVille = nomVille;
+    }
+    
+    // ---------------------------------
+    //   Accesseur
+    // ---------------------------------
+    /**
+     * 
+     * @return Le code postale associee a la Ville.
+     */
+    public int getCodePostale() {
+        return codePostal;
+    }
+    
+    /**
+     * 
+     * @return Le nom de la Ville.
+     */
+    public String getNomVille() {
+        return nomVille;
+    }
+    // ---------------------------------
+    //   Modificateur
+    // ---------------------------------
+    /**
+     * 
+     * @param codePostal Le nouveau code postal de la Ville
+     */
+    public void setCodePostale(int codePostal) {
+        this.codePostal = codePostal;
+    }
+
+    /**
+     * 
+     * @param nomVille Le nouveau de la Ville.
+     */
+    public void setNomVille(String nomVille) {
+        this.nomVille = nomVille;
+    }
+    
+    
     
 }
