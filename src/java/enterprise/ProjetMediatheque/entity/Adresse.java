@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,7 +19,8 @@ import javax.persistence.Table;
 @Entity
 @Table (name="ADRESS")
 public class Adresse implements Serializable {
-    @Id @Column (name="ID")
+    @Id @GeneratedValue
+    @Column (name="ID") // innutile car : nom de variable = nom de colomne
     private Long id;
     
     @Column(name="STREET")
@@ -32,6 +34,30 @@ public class Adresse implements Serializable {
     @OneToMany
     @JoinColumn(name="MEMBER_ID")
     private List<Adherent> listeAdherent;  // TODO : verifier si c'est 1 Adherent ou une collection d'adherent que l'on recupere!!
+    
+    
+    // ---------------------------------
+    //   Constructeur
+    // ---------------------------------
+    /**
+     * Constructeur vide de la classe Adresse.
+     */
+    public Adresse(){}
+
+    /**
+     * Constructeur de la classe Adresse.
+     * @param id L'id de la classe Adresse dans la BDD.
+     * @param rue La rue associee a l'adresse.
+     * @param ville La ville associee a l'adresse.
+     * @param listeAdherent La liste d'Adherent qui ont cette Adresse.
+     */
+    public Adresse(Long id, String rue, Ville ville, List<Adherent> listeAdherent) {
+        this.id = id;
+        this.rue = rue;
+        this.ville = ville;
+        this.listeAdherent = listeAdherent;
+    }
+    
     
     // ---------------------------------
     //   Accesseur
