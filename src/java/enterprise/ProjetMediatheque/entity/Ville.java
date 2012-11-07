@@ -20,14 +20,16 @@ import javax.persistence.UniqueConstraint;
 @IdClass(VilleKey.class)
 @Table (name="CITY",uniqueConstraints = @UniqueConstraint(columnNames={"POSTAL_CODE", "CITY_NAME"}))
 public class Ville implements Serializable {
-    @Id @Column (name="POSTAL_CODE")
+    @Id
+    @Column (name="POSTAL_CODE")
     private int codePostal;
     
-    @Id @Column (name="CITY_NAME")
+    @Id
+    @Column (name="CITY_NAME")
     private String nomVille;
 
     
-    // <editor-fold defaultstate="collapsed" desc="Constructeur">
+    // <editor-fold defaultstate="collapsed" desc="Constructeurs">
     /**
      * Constructeur vide de la classe Ville.
      */
@@ -44,7 +46,7 @@ public class Ville implements Serializable {
     }
     // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Accesseur">
+    // <editor-fold defaultstate="collapsed" desc="Accesseurs">
     /**
      * 
      * @return Le code postale associee a la Ville.
@@ -62,7 +64,7 @@ public class Ville implements Serializable {
     }
     // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Modificateur">
+    // <editor-fold defaultstate="collapsed" desc="Modificateurs">
     /**
      * 
      * @param codePostal Le nouveau code postal de la Ville

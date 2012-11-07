@@ -18,7 +18,8 @@ import javax.persistence.Table;
 @Entity
 @Table (name="TASTE")
 public class Gout implements Serializable {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
     
     @Column(name="TASTE_TITLE")
@@ -36,9 +37,7 @@ public class Gout implements Serializable {
     @Column(name="IS_IN_LIBRARY")
     private boolean estDansMediatheque;
     
-    // ---------------------------------
-    //   Constructeur
-    // ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Constructeurs">
     /**
      * Constructeur vide de la classe Gout.
      */
@@ -61,10 +60,9 @@ public class Gout implements Serializable {
         this.ageAdherentGout = ageAdherentGout;
         this.estDansMediatheque = estDansMediatheque;
     }
+    // </editor-fold>
     
-    // ---------------------------------
-    //   Accesseur
-    // ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Accesseurs">
     public Long getId() {
         return id;
     }
@@ -88,11 +86,9 @@ public class Gout implements Serializable {
     public boolean getEstDansMediatheque(){
         return estDansMediatheque;
     }
+    // </editor-fold>
     
-    // ---------------------------------
-    //   Modificateur
-    // ---------------------------------
-
+    // <editor-fold defaultstate="collapsed" desc="Modificateurs">
     public void setId(Long id) {
         this.id = id;
     }
@@ -116,5 +112,5 @@ public class Gout implements Serializable {
     public void setEstDansMediatheque(boolean estDansMediatheque) {
         this.estDansMediatheque = estDansMediatheque;
     }
-    
+    // </editor-fold>
 }
