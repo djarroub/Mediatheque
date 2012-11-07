@@ -16,9 +16,6 @@ import javax.persistence.Table;
 public class Genre implements Serializable {
 
     @Id
-    @Column(name = "ID")
-    private int id;
-
     @Column(name = "NAME")
     private String name;
   
@@ -30,14 +27,10 @@ public class Genre implements Serializable {
     public Genre() {
     }
 
-    public Genre(int id, String name) {
-        this.id = id;
+    public Genre(String name) {
+        
         this.name = name;
                
-    }
-
-    public int getId() {
-        return this.id;
     }
 
     public String getName() {
