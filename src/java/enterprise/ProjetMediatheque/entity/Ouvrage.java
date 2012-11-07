@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Temporal;
 
 /**
@@ -14,6 +16,7 @@ import javax.persistence.Temporal;
  */
 @Entity
 @Table(name = "OUVRAGE")
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public class Ouvrage implements Serializable {
 
     @Id

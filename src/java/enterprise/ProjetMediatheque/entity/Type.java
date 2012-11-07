@@ -5,8 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Date;
-import javax.persistence.Temporal;
+
 
 /**
  *
@@ -24,33 +23,32 @@ public class Type implements Serializable {
     private String dureeEmpruntMax;
   
     @Column(name = "NB_EMPRUNT_MAX")
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date datePremierePublication;
+    private int nbEmpruntMax;
     
     
     /**
-     * Creates a new instance of Ouvrage
+     * Creates a new instance of Type
      */
     public Type() {
     }
 
-    public Type(String id, String titre, Date datePremierePublication) {
-        this.id = id;
-        this.titre = titre;
-        this.datePremierePublication=datePremierePublication;
+    public Type(String nom, String dureeEmpruntMax, int nbEmpruntMax) {
+        this.nom= nom;
+        this.dureeEmpruntMax= dureeEmpruntMax;
+        this.nbEmpruntMax=nbEmpruntMax;
         
     }
 
-    public String getId() {
-        return this.id;
+    public String getNom() {
+        return this.nom;
     }
 
-    public String getTitre() {
-        return this.titre;
+    public String getDureeEmpruntMax() {
+        return this.dureeEmpruntMax;
     }
 
-    public Date getDatePremierePublication(){
-        return this.datePremierePublication;
+    public int getNbEmpruntMax(){
+        return this.nbEmpruntMax;
     }
     
 }
