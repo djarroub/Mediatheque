@@ -11,10 +11,13 @@ import java.util.List;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import static javax.persistence.TemporalType.DATE;
@@ -26,9 +29,15 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @Table(uniqueConstraints={@UniqueConstraint(columnNames={"LAST_NAME", "FIRST_NAME", "BIRTH_DATE"})})
+@SequenceGenerator(
+        name = "MEMBER_SEQUENCE",
+        sequenceName = "MEMBER_SEQUENCE",
+        initialValue = 0,
+        allocationSize = 1)
 public class Adherent implements Serializable {
     @Id
     @Column(name = "CARD_NUMBER")
+    @GeneratedValue(strategy=SEQUENCE, generator="MEMBER_SEQUENCE")
     private int numCarte;
     
     @Column(name = "LAST_NAME")
@@ -73,7 +82,12 @@ public class Adherent implements Serializable {
     }
     
     public Adherent(
-            ) {
+            String _nom,
+            String _prenom,
+            Date _dateNaissance,
+            Date _dateFinCotisation,
+            int _soldeCompte,
+            Adresse _adresse) {
         
     }
 }
