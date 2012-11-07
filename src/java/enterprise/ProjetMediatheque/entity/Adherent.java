@@ -5,6 +5,7 @@
 package enterprise.ProjetMediatheque.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import static javax.persistence.TemporalType.DATE;
 import javax.persistence.UniqueConstraint;
+import java.security.SecureRandom;
 
 /**
  *
@@ -88,6 +90,17 @@ public class Adherent implements Serializable {
             Date _dateFinCotisation,
             int _soldeCompte,
             Adresse _adresse) {
+        SecureRandom random = new SecureRandom();
         
+        this.nom = _nom;
+        this.prenom = _prenom;
+        this.dateNaissance = _dateNaissance;
+        this.motDePasse = new BigInteger(130, random).toString(8);
+        this.dateFinCotisation = _dateFinCotisation;
+        this.dateAdhesion = new Date();
+        this.soldeCompte = _soldeCompte;
+        this.adresse = _adresse;        
+        this.emprunts = new ArrayList<Emprunt>();
+        this.reservations = new ArrayList<Reservation>();
     }
 }
