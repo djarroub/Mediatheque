@@ -21,14 +21,14 @@ import javax.persistence.Table;
 public class Genre implements Serializable {
 
     @Id
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "NOM_GENRE")
+    private String nomGenre;
   
   
     @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "GENRE_OUVRAGE",
     joinColumns = {
-    @JoinColumn(name="NAME_GENRE") 
+    @JoinColumn(name="NOM_GENRE") 
     },
     inverseJoinColumns = {
     @JoinColumn(name="ID_OUVRAGE")
@@ -42,14 +42,14 @@ public class Genre implements Serializable {
     public Genre() {
     }
 
-    public Genre(String name) {
+    public Genre(String nomGenre) {
         
-        this.name = name;
+        this.nomGenre = nomGenre;
                
     }
 
-    public String getName() {
-        return this.name;
+    public String getNomGenre() {
+        return this.nomGenre;
     }
       
     public Set<Ouvrage> getOuvrages() {

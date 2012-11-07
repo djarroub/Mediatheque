@@ -42,7 +42,7 @@ public class Ouvrage implements Serializable {
     @JoinColumn(name="ID_OUVRAGE") 
     },
     inverseJoinColumns = {
-    @JoinColumn(name="NAME_GENRE")
+    @JoinColumn(name="NOM_GENRE")
     }
     )
     private Set<Genre> genres;
