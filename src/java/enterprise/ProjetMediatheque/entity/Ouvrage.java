@@ -8,6 +8,8 @@ import javax.persistence.Table;
 import java.util.Date;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -30,7 +32,14 @@ public class Ouvrage implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datePremierePublication;
     
+    @ManyToMany
+    @JoinColumn(name="ID")
+    private Auteur auteur;
     
+    
+    @ManyToMany
+    @JoinColumn(name="NAME")
+    private Genre genre;
     /**
      * Creates a new instance of Ouvrage
      */
@@ -56,4 +65,10 @@ public class Ouvrage implements Serializable {
         return this.datePremierePublication;
     }
     
+    public Auteur GetAuteur(){
+        return this.auteur;
+}
+    public Genre GetGenre(){
+        return this.genre;
+            }
 }
