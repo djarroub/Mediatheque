@@ -1,14 +1,12 @@
 package enterprise.ProjetMediatheque.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,14 +23,9 @@ public class Adresse implements Serializable {
     @Column(name="STREET")
     private String rue;
     
-    @OneToOne
-    @JoinColumn(name="CITY")
+    @ManyToOne
+    @JoinColumn(name="CITY_ID")
     private Ville ville;
-    
-    // TODO : verifier que c'est bien "OneToMany"
-    @OneToMany
-    @JoinColumn(name="MEMBER_ID")
-    private List<Adherent> listeAdherent;  // TODO : verifier si c'est 1 Adherent ou une collection d'adherent que l'on recupere!!
     
     
     // ---------------------------------
@@ -48,13 +41,12 @@ public class Adresse implements Serializable {
      * @param id L'id de la classe Adresse dans la BDD.
      * @param rue La rue associee a l'adresse.
      * @param ville La ville associee a l'adresse.
-     * @param listeAdherent La liste d'Adherent qui ont cette Adresse.
+     * @param codePostale Le code postal associe a cette Adresse.
      */
-    public Adresse(Long id, String rue, Ville ville, List<Adherent> listeAdherent) {
+    public Adresse(Long id, String rue, Ville ville, int codePostale) {
         this.id = id;
         this.rue = rue;
         this.ville = ville;
-        this.listeAdherent = listeAdherent;
     }
     
     
@@ -85,14 +77,8 @@ public class Adresse implements Serializable {
     public Ville getVille(){
         return ville;
     }
+
     
-    /**
-     * 
-     * @return La liste d'Adherent qui ont cette Adresse.
-     */
-    public List<Adherent> getListeAdherent(){
-        return listeAdherent;
-    }
     // ---------------------------------
     //   Modificateur
     // ---------------------------------
@@ -119,13 +105,5 @@ public class Adresse implements Serializable {
     public void setVille(Ville ville){
         this.ville = ville;
     }
-    
-    /**
-     * 
-     * @param listeAdherent La nouvelle liste d'Adherent qui ont cette Adresse.
-     */
-    public void setListeAdherent(List<Adherent> listeAdherent){
-        this.listeAdherent = listeAdherent;
-    }
-    
+
 }

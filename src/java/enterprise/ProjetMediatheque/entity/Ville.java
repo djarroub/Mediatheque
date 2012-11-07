@@ -4,9 +4,11 @@
  */
 package enterprise.ProjetMediatheque.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -15,18 +17,17 @@ import javax.persistence.UniqueConstraint;
  * @author Gilles
  */
 @Entity
+@IdClass(VilleKey.class)
 @Table (name="CITY",uniqueConstraints = @UniqueConstraint(columnNames={"POSTAL_CODE", "CITY_NAME"}))
-public class Ville {
-    //TODO : Verifier l'utilite de @Column (name=".....")
+public class Ville implements Serializable {
     @Id @Column (name="POSTAL_CODE")
     private int codePostal;
     
     @Id @Column (name="CITY_NAME")
     private String nomVille;
+
     
-    // ---------------------------------
-    //   Constructeur
-    // ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Constructeur">
     /**
      * Constructeur vide de la classe Ville.
      */
@@ -41,15 +42,14 @@ public class Ville {
         this.codePostal = codePostale;
         this.nomVille = nomVille;
     }
+    // </editor-fold>
     
-    // ---------------------------------
-    //   Accesseur
-    // ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Accesseur">
     /**
      * 
      * @return Le code postale associee a la Ville.
      */
-    public int getCodePostale() {
+    public int getCodePostal() {
         return codePostal;
     }
     
@@ -60,9 +60,9 @@ public class Ville {
     public String getNomVille() {
         return nomVille;
     }
-    // ---------------------------------
-    //   Modificateur
-    // ---------------------------------
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Modificateur">
     /**
      * 
      * @param codePostal Le nouveau code postal de la Ville
@@ -78,7 +78,5 @@ public class Ville {
     public void setNomVille(String nomVille) {
         this.nomVille = nomVille;
     }
-    
-    
-    
+    // </editor-fold>
 }
