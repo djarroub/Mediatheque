@@ -1,15 +1,12 @@
 package enterprise.ProjetMediatheque.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,12 +24,8 @@ public class Adresse implements Serializable {
     private String rue;
     
     @ManyToOne
-    @JoinColumn(name="CITY")
+    @JoinColumn(name="CITY_ID")
     private Ville ville;
-    
-    @ManyToOne
-    @JoinColumn(name="POSTAL_CODE")
-    private int codePostale;
     
     
     // ---------------------------------
@@ -54,7 +47,6 @@ public class Adresse implements Serializable {
         this.id = id;
         this.rue = rue;
         this.ville = ville;
-        this.codePostale = codePostale;
     }
     
     
@@ -86,13 +78,6 @@ public class Adresse implements Serializable {
         return ville;
     }
 
-    /**
-     * 
-     * @return Le code postal associe a cette Adresse.
-     */
-    public int getCodePostale() {
-        return codePostale;
-    }
     
     // ---------------------------------
     //   Modificateur
@@ -121,11 +106,4 @@ public class Adresse implements Serializable {
         this.ville = ville;
     }
 
-    /**
-     * 
-     * @param codePostale Le nouveau code postal associe a cette Adresse.
-     */
-    public void setCodePostale(int codePostale) {
-        this.codePostale = codePostale;
-    }
 }

@@ -27,9 +27,7 @@ public class Ville implements Serializable {
     private String nomVille;
 
     
-    // ---------------------------------
-    //   Constructeur
-    // ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Constructeur">
     /**
      * Constructeur vide de la classe Ville.
      */
@@ -44,15 +42,14 @@ public class Ville implements Serializable {
         this.codePostal = codePostale;
         this.nomVille = nomVille;
     }
+    // </editor-fold>
     
-    // ---------------------------------
-    //   Accesseur
-    // ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Accesseur">
     /**
      * 
      * @return Le code postale associee a la Ville.
      */
-    public int getCodePostale() {
+    public int getCodePostal() {
         return codePostal;
     }
     
@@ -63,9 +60,9 @@ public class Ville implements Serializable {
     public String getNomVille() {
         return nomVille;
     }
-    // ---------------------------------
-    //   Modificateur
-    // ---------------------------------
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Modificateur">
     /**
      * 
      * @param codePostal Le nouveau code postal de la Ville
@@ -81,5 +78,5 @@ public class Ville implements Serializable {
     public void setNomVille(String nomVille) {
         this.nomVille = nomVille;
     }
-
+    // </editor-fold>
 }
