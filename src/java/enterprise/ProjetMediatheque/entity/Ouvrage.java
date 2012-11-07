@@ -6,9 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Temporal;
 
@@ -22,7 +25,7 @@ import javax.persistence.Temporal;
 public class Ouvrage implements Serializable {
 
     @Id
-    @Column(name = "ID")
+    @Column(name = "ID_OUVRAGE")
     private String id;
 
     @Column(name = "TITRE")
@@ -32,14 +35,30 @@ public class Ouvrage implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datePremierePublication;
     
-    @ManyToMany
-    @JoinColumn(name="ID")
-    private Auteur auteur;
+    //for joing the tables (many-to-many entre Genre et Ouvrage)
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "GENRE_OUVRAGE",
+    joinColumns = {
+    @JoinColumn(name="ID_OUVRAGE") 
+    },
+    inverseJoinColumns = {
+    @JoinColumn(name="NAME_GENRE")
+    }
+    )
+    private Set<Genre> genres;
     
+    //for joing the tables (many-to-many entre Auteur et Ouvrage)
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "AUTEUR_OUVRAGE",
+    joinColumns = {
+    @JoinColumn(name="ID_OUVRAGE") 
+    },
+    inverseJoinColumns = {
+    @JoinColumn(name="ID_AUTEUR")
+    }
+    )
+    private Set<Auteur> auteurs;
     
-    @ManyToMany
-    @JoinColumn(name="NAME")
-    private Genre genre;
     /**
      * Creates a new instance of Ouvrage
      */
@@ -65,10 +84,10 @@ public class Ouvrage implements Serializable {
         return this.datePremierePublication;
     }
     
-    public Auteur GetAuteur(){
-        return this.auteur;
+    public Set<Auteur> GetAuteurs(){
+        return this.auteurs;
 }
-    public Genre GetGenre(){
-        return this.genre;
-            }
+    public Set<Genre> GetGenre(){
+        return this.genres;
+    }
 }

@@ -1,9 +1,14 @@
 package enterprise.ProjetMediatheque.entity;
 
 import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
@@ -20,6 +25,16 @@ public class Genre implements Serializable {
     private String name;
   
   
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "GENRE_OUVRAGE",
+    joinColumns = {
+    @JoinColumn(name="NAME_GENRE") 
+    },
+    inverseJoinColumns = {
+    @JoinColumn(name="ID_OUVRAGE")
+    }
+    )
+    private Set<Ouvrage> ouvrages;
     
     /**
      * Creates a new instance of Genre
@@ -37,4 +52,8 @@ public class Genre implements Serializable {
         return this.name;
     }
       
+    public Set<Ouvrage> getOuvrages() {
+        
+       return ouvrages;
+    }
 }
