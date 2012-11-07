@@ -4,9 +4,11 @@
  */
 package enterprise.ProjetMediatheque.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -15,14 +17,15 @@ import javax.persistence.UniqueConstraint;
  * @author Gilles
  */
 @Entity
+@IdClass(VilleKey.class)
 @Table (name="CITY",uniqueConstraints = @UniqueConstraint(columnNames={"POSTAL_CODE", "CITY_NAME"}))
-public class Ville {
-    //TODO : Verifier l'utilite de @Column (name=".....")
+public class Ville implements Serializable {
     @Id @Column (name="POSTAL_CODE")
     private int codePostal;
     
     @Id @Column (name="CITY_NAME")
     private String nomVille;
+
     
     // ---------------------------------
     //   Constructeur
@@ -78,7 +81,5 @@ public class Ville {
     public void setNomVille(String nomVille) {
         this.nomVille = nomVille;
     }
-    
-    
-    
+
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,14 +26,13 @@ public class Adresse implements Serializable {
     @Column(name="STREET")
     private String rue;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="CITY")
     private Ville ville;
     
-    // TODO : verifier que c'est bien "OneToMany"
-    @OneToMany
-    @JoinColumn(name="MEMBER_ID")
-    private List<Adherent> listeAdherent;  // TODO : verifier si c'est 1 Adherent ou une collection d'adherent que l'on recupere!!
+    @ManyToOne
+    @JoinColumn(name="POSTAL_CODE")
+    private int codePostale;
     
     
     // ---------------------------------
@@ -48,13 +48,13 @@ public class Adresse implements Serializable {
      * @param id L'id de la classe Adresse dans la BDD.
      * @param rue La rue associee a l'adresse.
      * @param ville La ville associee a l'adresse.
-     * @param listeAdherent La liste d'Adherent qui ont cette Adresse.
+     * @param codePostale Le code postal associe a cette Adresse.
      */
-    public Adresse(Long id, String rue, Ville ville, List<Adherent> listeAdherent) {
+    public Adresse(Long id, String rue, Ville ville, int codePostale) {
         this.id = id;
         this.rue = rue;
         this.ville = ville;
-        this.listeAdherent = listeAdherent;
+        this.codePostale = codePostale;
     }
     
     
@@ -85,14 +85,15 @@ public class Adresse implements Serializable {
     public Ville getVille(){
         return ville;
     }
-    
+
     /**
      * 
-     * @return La liste d'Adherent qui ont cette Adresse.
+     * @return Le code postal associe a cette Adresse.
      */
-    public List<Adherent> getListeAdherent(){
-        return listeAdherent;
+    public int getCodePostale() {
+        return codePostale;
     }
+    
     // ---------------------------------
     //   Modificateur
     // ---------------------------------
@@ -119,13 +120,12 @@ public class Adresse implements Serializable {
     public void setVille(Ville ville){
         this.ville = ville;
     }
-    
+
     /**
      * 
-     * @param listeAdherent La nouvelle liste d'Adherent qui ont cette Adresse.
+     * @param codePostale Le nouveau code postal associe a cette Adresse.
      */
-    public void setListeAdherent(List<Adherent> listeAdherent){
-        this.listeAdherent = listeAdherent;
+    public void setCodePostale(int codePostale) {
+        this.codePostale = codePostale;
     }
-    
 }
