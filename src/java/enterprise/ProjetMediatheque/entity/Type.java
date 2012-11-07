@@ -27,7 +27,7 @@ public class Type implements Serializable {
     
     
     /**
-     * Creates a new instance of Ouvrage
+     * Creates a new instance of Type
      */
     public Type() {
     }
