@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -25,7 +26,10 @@ public class Adresse implements Serializable {
     private String rue;
     
     @ManyToOne
-    @JoinColumn(name="CITY_ID")
+    @JoinColumns ({
+        @JoinColumn (name="CITY_NAME", referencedColumnName="CITY_NAME"),
+        @JoinColumn (name="POASTAL_CODE", referencedColumnName="POASTAL_CODE")
+    })
     private Ville ville;
     
     // <editor-fold defaultstate="collapsed" desc="Constructeurs">

@@ -13,6 +13,14 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>CreateMember</h1>
+        <!--<form id="createMemberForm" action="CreateMember" method="post">
+            <label for="nom">Nom</label> <input type="text" id="nom" name="firstName" />
+            <label for="prenom">Pr&eacute;nom</label><input type="text" id="lastName" name="lastName" placeholder="Pr$eacute;nom" />
+            <label for="date_naissance">Date de naissance</td><td><input type="date" id="date_naissance" name="dateNaissance">
+            <input type="submit" id="CreateRecord" value="CreateRecord" />
+        </form>
+        <a href="ListeMember">Acc&eacute;der &agrave; la liste des membres</a>
+        -->
     </body>
 </html>
