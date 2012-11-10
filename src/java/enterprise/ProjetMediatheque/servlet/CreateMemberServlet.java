@@ -64,34 +64,38 @@ public class CreateMemberServlet extends HttpServlet {
             Adresse adresse = new Adresse(req_rueAdresse, ville);
             
             Date aujourdhui = new Date();
-            /*
-            String _nom,
-            String _prenom,
-            Date _dateNaissance,
-            Date _dateFinCotisation,
-            int _soldeCompte,
-            Adresse _adresse
-            */
+            // TODO : check la date de naissance
+            Date dateNaissance = new Date(req_dateNaissance);
             
-            //Create a person instance out of it
-            Adherent newAdherent = new Adherent(req_nom, req_prenom, aujourdhui, aujourdhui, 0, adresse);
-            //Person person = new Person(id, firstName, lastName);
+            // Creation de l'adherent
+            Adherent newAdherent = new Adherent(req_nom, req_prenom, dateNaissance, aujourdhui, 0, adresse);
             
-            //begin a transaction
+            if(req_motDePasse.equals(req_motDePasseBis)){
+                newAdherent.setMotDePasse(req_motDePasse);
+            }else{
+                request.setAttribute("alert", "<span class=\"alert\">Les 2 mots de passe sont diff&eacute;rent !</span>");
+                request.getRequestDispatcher("createMember").forward(request, response);
+            }
+            
+            // Demarrage de la transaction
             utx.begin();
-            //create an em. 
-            //Since the em is created inside a transaction, it is associsated with 
-            //the transaction
+            
+            //Creation d'un Entity Manager
+            //Since the em is created inside a transaction, it is associsated with the transaction
             em = emf.createEntityManager();
-            //persist the person entity
+            
+            // persist the person entity
             em.persist(newAdherent);
+            
             //commit transaction which will trigger the em to 
             //commit newly created entity into database
             utx.commit();
             
             //Forward to ListPerson servlet to list persons along with the newly
             //created person above
-            request.getRequestDispatcher("ListPerson").forward(request, response);
+            request.setAttribute("nom", req_nom);
+            request.setAttribute("prenom", req_prenom);
+            request.getRequestDispatcher("confirmationCreateMember").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {

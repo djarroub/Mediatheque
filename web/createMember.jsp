@@ -10,10 +10,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Ajout d'un nouvel Adh&eacute;rent</title>
     </head>
     <body>
-        <h1>CreateMember</h1>
+        <h1>Ajout d'un nouvel Adh&eacute;rent</h1>
+        
+        ${requestScope.alert}
+        
         <form id="createMemberForm" action="CreateMember" method="post">
             <label for="prenom">Pr&eacute;nom</label>
             <input type="text"      id="prenom"         name="prenom"/>         <br/>

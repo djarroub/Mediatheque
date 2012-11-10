@@ -104,4 +104,98 @@ public class Adherent implements Serializable {
     public Boolean isRightPassword(String pwd) {
         return this.motDePasse.equals(pwd);
     }
+
+    // <editor-fold defaultstate="collapsed" desc="Accesseur">
+    public Long getNumCarte() {
+        return numCarte;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public Date getDateNaissance() {
+        return dateNaissance;
+    }
+
+    public String getMotDePasse() {
+        return motDePasse;
+    }
+
+    public Date getDateFinCotisation() {
+        return dateFinCotisation;
+    }
+
+    public Date getDateAdhesion() {
+        return dateAdhesion;
+    }
+
+    public int getSoldeCompte() {
+        return soldeCompte;
+    }
+
+    public Adresse getAdresse() {
+        return adresse;
+    }
+
+    public List<Emprunt> getEmprunts() {
+        return emprunts;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+    // </editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Modificateur">
+    public void setNumCarte(Long numCarte) {
+        this.numCarte = numCarte;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public void setDateNaissance(Date dateNaissance) {
+        this.dateNaissance = dateNaissance;
+    }
+
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
+    }
+
+    public void setDateFinCotisation(Date dateFinCotisation) {
+        this.dateFinCotisation = dateFinCotisation;
+    }
+
+    public void setDateAdhesion(Date dateAdhesion) {
+        this.dateAdhesion = dateAdhesion;
+    }
+
+    public void setSoldeCompte(int soldeCompte) {
+        this.soldeCompte = soldeCompte;
+    }
+
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setEmprunts(List<Emprunt> emprunts) {
+        this.emprunts = emprunts;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+    // </editor-fold>
+    
+    
 }
