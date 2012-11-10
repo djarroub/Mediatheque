@@ -12,7 +12,7 @@
     </head>
     <body>
 
-    <h1>Create a Person record</h1>
+    <h1>Create an Ouvrage record</h1>
     <form id="createOuvrageForm" action="CreateOuvrage" method="post">
     <table>
         <tr><td>Titre</td><td><input type="text" id = "titre" name="titre" /></td></tr>
@@ -26,7 +26,7 @@
             </td></tr>
         
         <tr><td>Genres</td><td>
-                <select name="nomGenre" id="nomGenre" multiple="multiple">
+                <select name="nomGenre" id="nomGenre">
                   <c:forEach var="genre" begin="0" items="${requestScope.auteursList}">
                       <option value="${genre.nomGenre}">${genre.nomGenre} </option>
                    </c:forEach>   
