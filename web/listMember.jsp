@@ -4,8 +4,11 @@
     Author     : Gilles
 --%>
 
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%! SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,7 +16,7 @@
         <title>Liste des adh&eacute;rents</title>
     </head>
     <body>
-        <table>
+        <table border="1">
             <tr>
                 <th>Nom</th>
                 <th>Pr&eacute;nom</th>
@@ -29,9 +32,9 @@
                     <td>${adherent.prenom}</td>
                     <td>${adherent.dateNaissance}</td>
                     <td>
-                        ${adherent.adherent.rue}<br/>
-                        ${adherent.adherent.ville.nomVille} - 
-                        ${adherent.adherent.ville.codePostal}
+                        ${adherent.adresse.rue}<br/>
+                        ${adherent.adresse.ville.nomVille} - 
+                        ${adherent.adresse.ville.codePostal}
                     </td>
                     <td>${adherent.dateAdhesion}</td>
                     <td>${adherent.dateFinCotisation}</td>
@@ -39,6 +42,8 @@
                 </tr>
             </c:forEach>    
 
+
         </table>
+        <a href="createMember.jsp">Ajouter un nouvel Adh&eacute;rent.</a>
     </body>
 </html>

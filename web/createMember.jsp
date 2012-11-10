@@ -46,6 +46,6 @@
             <input type="submit"    id="CreateRecord"   value="Valider" />      <br/>
             
         </form>
-        <a href="ListMember">Acc&eacute;der &agrave; la liste des membres</a>
+        <a href="ListMember">Acc&eacute;der &agrave; la liste des adh&eacute;rent</a>
     </body>
 </html>

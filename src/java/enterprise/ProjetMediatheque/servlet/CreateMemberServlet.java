@@ -69,6 +69,7 @@ public class CreateMemberServlet extends HttpServlet {
             //Since the em is created inside a transaction, it is associsated with the transaction
             em = emf.createEntityManager();
             
+            // <editor-fold defaultstate="collapsed" desc="Initialisation de la Ville">
             Ville ville;
             // appelle la namedQuery "Ville.get"
             TypedQuery<Ville> getVille = em.createNamedQuery("Ville.get", Ville.class);
@@ -81,7 +82,9 @@ public class CreateMemberServlet extends HttpServlet {
             }catch(NoResultException e){
                 ville = new Ville(Integer.parseInt(req_codePostal), req_ville);
             }
+            // </editor-fold>
             
+            // <editor-fold defaultstate="collapsed" desc="Initialisation de l'Adresse">
             Adresse adresse = null;
             // appelle la namedQuery "Adresse.get"
             TypedQuery<Adresse> getAdresse = em.createNamedQuery("Adresse.get", Adresse.class);
@@ -94,14 +97,18 @@ public class CreateMemberServlet extends HttpServlet {
                 // si l'adresse n'existe pas deja dans la bdd
                 adresse = new Adresse(req_rueAdresse, ville);
             }
+            // </editor-fold>
             
+            // <editor-fold defaultstate="collapsed" desc="Initialisation de la Date">
             Date aujourdhui = new Date();
-            
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            // TODO : check la date de naissance
             Date dateNaissance = simpleDateFormat.parse(req_dateNaissance);
-                        
-            // Creation de l'adherent
+            // </editor-fold>
+            
+            // TODO : aller cherche le solde en fction de son age et de sa ville
+            int solde = 0;
+            
+            // <editor-fold defaultstate="collapsed" desc="Initialisation de l'Adherent">
             //Adherent newAdherent = new Adherent(req_nom, req_prenom, aujourdhui, aujourdhui, 0, adresse);
             Adherent adherent = null;
             // appelle la namedQuery "Adherent.get"
@@ -116,18 +123,18 @@ public class CreateMemberServlet extends HttpServlet {
                 request.getRequestDispatcher("createMember.jsp").forward(request, response);
             }catch(NoResultException e){
                 // si l'adherent n'existe pas deja dans la bdd
-                adherent = new Adherent(req_nom, req_prenom, dateNaissance, aujourdhui, 0, adresse);
+                adherent = new Adherent(req_nom, req_prenom, dateNaissance, aujourdhui, solde, adresse);
             }
+            // </editor-fold>
             
-            
-            
+            // <editor-fold defaultstate="collapsed" desc="Check que les 2 mots de passe sont identiques">
             if(req_motDePasse.equals(req_motDePasseBis)){
                 adherent.setMotDePasse(req_motDePasse);
             }else{
                 request.setAttribute("alert", "<span class=\"alert\">Les 2 mots de passe sont diff&eacute;rent !</span>");
                 request.getRequestDispatcher("createMember.jsp").forward(request, response);
             }
-            
+            // </editor-fold>
             
             
             // persist the person entity
