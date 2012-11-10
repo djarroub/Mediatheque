@@ -18,6 +18,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 /**
  *
@@ -56,6 +58,7 @@ public class Ouvrage implements Serializable {
     @JoinColumn(name="NOM_GENRE")
     }
     )
+    @Enumerated(EnumType.STRING)
     private Set<Genre> genres;
     
     //for joing the tables (many-to-many entre Auteur et Ouvrage)
@@ -76,9 +79,11 @@ public class Ouvrage implements Serializable {
     public Ouvrage() {
     }
 
-    public Ouvrage(String titre, Date datePremierePublication) {
+    public Ouvrage(String titre, Date datePremierePublication, Set<Auteur> auteurs, Set<Genre> genres) {
         this.titre = titre;
         this.datePremierePublication=datePremierePublication;
+        this.auteurs=auteurs;
+        this.genres=genres;
         
     }
 

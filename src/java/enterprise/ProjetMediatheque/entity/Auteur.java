@@ -29,7 +29,7 @@ public class Auteur implements Serializable {
     @Column(name = "NOM")
     private String nom;
   
-   @Column(name = "PRENOM")
+    @Column(name = "PRENOM")
     private String prenom;
     
    @ManyToMany(cascade=CascadeType.ALL)
@@ -53,7 +53,7 @@ public class Auteur implements Serializable {
         this.id = id;
         this.nom = nom;
         this.prenom=prenom;
-        
+       
     }
 
     public String getId() {
@@ -64,13 +64,10 @@ public class Auteur implements Serializable {
         return this.nom;
     }
 
-   public String getPrenom(){
-   
+    public String getPrenom() {
         return this.prenom;
-   }
-    
-   
-   public Set<Ouvrage> getOuvrages() {
+    }
+    public Set<Ouvrage> getOuvrages() {
         
        return ouvrages;
    }

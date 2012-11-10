@@ -11,14 +11,14 @@ import java.io.Serializable;
  * @author Gilles
  */
 public class ConfigAdhesionKey implements Serializable{
-    private Ville ville;
+    private VilleKey ville;
     private int age;
 
     // <editor-fold defaultstate="collapsed" desc="Constructeur">
     public ConfigAdhesionKey() {
     }
 
-    public ConfigAdhesionKey(Ville ville, int age) {
+    public ConfigAdhesionKey(VilleKey ville, int age) {
         this.ville = ville;
         this.age = age;
     }
@@ -61,7 +61,7 @@ public class ConfigAdhesionKey implements Serializable{
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Accesseur">
-    public Ville getVille() {
+    public VilleKey getVille() {
         return ville;
     }
 
@@ -72,7 +72,7 @@ public class ConfigAdhesionKey implements Serializable{
 
     // <editor-fold defaultstate="collapsed" desc="Modificateur">
 
-    public void setVille(Ville ville) {
+    public void setVille(VilleKey ville) {
         this.ville = ville;
     }
 
