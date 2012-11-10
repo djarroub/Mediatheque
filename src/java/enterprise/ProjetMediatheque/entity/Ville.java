@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -19,6 +20,11 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @IdClass(VilleKey.class)
 @Table (name="CITY")
+@NamedQuery(name = "Ville.get", query = "SELECT v "
+        + "FROM Ville v "
+        + "WHERE v.codePostal = :codePostal "
+        + "AND v.nomVille = :nomVille "
+        + "HAVING COUNT(v) > 0")
 public class Ville implements Serializable {
     @Id
     @Column (name="POSTAL_CODE")

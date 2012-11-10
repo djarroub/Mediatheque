@@ -9,12 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Confirmation cr&eacute;ation Adh&eacute;rent</title>
+        <title>JSP Page</title>
     </head>
     <body>
-        <p>
-            L'adh&eacute;rent(e) ${requestScope.prenom} ${requestScope.nom} a bien &eacute;t&eacute; ajout&eacute;(e).<br/>
-            <a href="createMember.jsp">Ajouter un autre membre</a>
-        </p>
+        <h1>Hello World!</h1>
     </body>
 </html>

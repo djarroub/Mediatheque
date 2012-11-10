@@ -24,6 +24,7 @@ import javax.persistence.Temporal;
 import static javax.persistence.TemporalType.DATE;
 import javax.persistence.UniqueConstraint;
 import java.security.SecureRandom;
+import javax.persistence.CascadeType;
 import javax.persistence.NamedQuery;
 
 /**
@@ -37,7 +38,11 @@ import javax.persistence.NamedQuery;
         sequenceName = "MEMBER_SEQUENCE",
         initialValue = 0,
         allocationSize = 1)
-@NamedQuery(name = "Adherent.get", query = "SELECT a FROM Adherent a WHERE a.numCarte = :numCarte")
+@NamedQuery(name = "Adherent.get", query = "SELECT a "
+        + "FROM Adherent a "
+        + "WHERE a.nom = :nom "
+        + "AND a.prenom = :prenom "
+        + "AND a.dateNaissance = :dateNaissance")
 public class Adherent implements Serializable {
     @Id
     @Column(name = "CARD_NUMBER")
@@ -68,7 +73,7 @@ public class Adherent implements Serializable {
     @Column(name = "ACCOUNT_BALANCE")
     private int soldeCompte;
     
-    @ManyToOne
+    @ManyToOne(cascade= CascadeType.PERSIST)
     @JoinColumn(name = "ADDRESS_ID")
     private Adresse adresse;
     
