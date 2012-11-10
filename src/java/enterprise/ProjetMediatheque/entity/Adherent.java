@@ -72,10 +72,10 @@ public class Adherent implements Serializable {
     @JoinColumn(name = "ADDRESS_ID")
     private Adresse adresse;
     
-    @OneToMany(cascade = ALL, mappedBy = "CARD_NUMBER")
+    @OneToMany(cascade = ALL, mappedBy = "adherent")
     private List<Emprunt> emprunts;
     
-    @OneToMany(cascade = ALL, mappedBy = "CARD_NUMBER")
+    @OneToMany(cascade = ALL, mappedBy = "adherent")
     private List<Reservation> reservations;
     
     public Adherent() {}

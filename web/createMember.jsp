@@ -14,13 +14,35 @@
     </head>
     <body>
         <h1>CreateMember</h1>
-        <!--<form id="createMemberForm" action="CreateMember" method="post">
-            <label for="nom">Nom</label> <input type="text" id="nom" name="firstName" />
-            <label for="prenom">Pr&eacute;nom</label><input type="text" id="lastName" name="lastName" placeholder="Pr$eacute;nom" />
-            <label for="date_naissance">Date de naissance</td><td><input type="date" id="date_naissance" name="dateNaissance">
-            <input type="submit" id="CreateRecord" value="CreateRecord" />
+        <form id="createMemberForm" action="CreateMember" method="post">
+            <label for="prenom">Pr&eacute;nom</label>
+            <input type="text"      id="prenom"         name="prenom"/>         <br/>
+            
+            <label for="nom">Nom</label>
+            <input type="text"      id="nom"            name="nom" />           <br/>
+            
+            <label for="date_naissance">Date de naissance</label>
+            <input type="date"      id="date_naissance" name="dateNaissance" /> <br/>
+            
+            <label for="mdp">Mot de passe</label>
+            <input type="password"  id="mdp"            name="motDePasse" />    <br/>
+            
+            <label for="mdp_bis">R&eacute;p&eacute;ter le mot de passe</label>
+            <input type="password"  id="mdp_bis"            name="motDePasseBis" /> <br/>
+            
+            Adresse :
+            <label for="rue_adresse">Rue</label>
+            <input type="text"      id="rue_adresse"    name="rueAdresse" />    <br/>
+            
+            <label for="ville">Ville</label>
+            <input type="text"      id="ville"          name="ville" />         <br/>
+            
+            <label for="code_postal">Code postal</label>
+            <input type="text"      id="code_postal"    name="codePostal" />    <br/>
+            
+            <input type="submit"    id="CreateRecord"   value="Valider" />      <br/>
+            
         </form>
         <a href="ListeMember">Acc&eacute;der &agrave; la liste des membres</a>
-        -->
     </body>
 </html>
