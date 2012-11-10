@@ -28,7 +28,7 @@ public class Adresse implements Serializable {
     @ManyToOne
     @JoinColumns ({
         @JoinColumn (name="CITY_NAME", referencedColumnName="CITY_NAME"),
-        @JoinColumn (name="POASTAL_CODE", referencedColumnName="POASTAL_CODE")
+        @JoinColumn (name="POSTAL_CODE", referencedColumnName="POSTAL_CODE")
     })
     private Ville ville;
     
