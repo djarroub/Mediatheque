@@ -4,6 +4,8 @@
  */
 package enterprise.ProjetMediatheque.servlet;
 
+import enterprise.ProjetMediatheque.entity.Adherent;
+import enterprise.ProjetMediatheque.entity.Adresse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.annotation.Resource;
@@ -42,16 +44,32 @@ public class CreateMemberServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*assert emf != null;
+        assert emf != null;
         EntityManager em = null;
         
         try {
             //Get the data from user's form
-            String id         = (String) request.getParameter("id");
-            String firstName  = (String) request.getParameter("firstName");
-            String lastName   = (String) request.getParameter("lastName");
+            String prenom           = (String) request.getParameter("prenom");
+            String nom              = (String) request.getParameter("nom");
+            String dateNaissance    = (String) request.getParameter("dateNaissance");
+            String motDePasse       = (String) request.getParameter("motDePasse");
+            String motDePasseBis    = (String) request.getParameter("motDePasseBis");
+            String rueAdresse       = (String) request.getParameter("rueAdresse");
+            String ville            = (String) request.getParameter("ville");
+            int codePostal          = Integer.parseInt(request.getParameter("codePostal"));
+            
+            //Adresse adresse
+            /*
+            String _nom,
+            String _prenom,
+            Date _dateNaissance,
+            Date _dateFinCotisation,
+            int _soldeCompte,
+            Adresse _adresse
+            */
             
             //Create a person instance out of it
+            Adherent newAdherent = new Adherent(nom, prenom, null, null, codePostal, null);
             //Person person = new Person(id, firstName, lastName);
             
             //begin a transaction
@@ -61,7 +79,7 @@ public class CreateMemberServlet extends HttpServlet {
             //the transaction
             em = emf.createEntityManager();
             //persist the person entity
-            em.persist(person);
+            em.persist(newAdherent);
             //commit transaction which will trigger the em to 
             //commit newly created entity into database
             utx.commit();
@@ -76,14 +94,14 @@ public class CreateMemberServlet extends HttpServlet {
             if(em != null) {
                 em.close();
             }
-        }*/
+        }
         
         // <editor-fold defaultstate="collapsed" desc="vieux code">
-        response.setContentType("text/html;charset=UTF-8");
+        /*response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<html>");
+           /*out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet CreateMember</title>");            
             out.println("</head>");
@@ -93,7 +111,7 @@ public class CreateMemberServlet extends HttpServlet {
             out.println("</html>");
         } finally {            
             out.close();
-        }
+        }*/
         // </editor-fold>
     }
 

@@ -40,13 +40,11 @@ public class Adresse implements Serializable {
 
     /**
      * Constructeur de la classe Adresse.
-     * @param id L'id de la classe Adresse dans la BDD.
      * @param rue La rue associee a l'adresse.
      * @param ville La ville associee a l'adresse.
      * @param codePostale Le code postal associe a cette Adresse.
      */
-    public Adresse(Long id, String rue, Ville ville, int codePostale) {
-        this.id = id;
+    public Adresse(String rue, Ville ville) {
         this.rue = rue;
         this.ville = ville;
     }
