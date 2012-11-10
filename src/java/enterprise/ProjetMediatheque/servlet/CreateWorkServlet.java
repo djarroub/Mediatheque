@@ -1,33 +1,3 @@
-/*
- * Copyright (c) 2010, Oracle. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * * Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- *
- * * Redistributions in binary form must reproduce the above copyright notice,
- *   this list of conditions and the following disclaimer in the documentation
- *   and/or other materials provided with the distribution.
- *
- * * Neither the name of Oracle nor the names of its contributors
- *   may be used to endorse or promote products derived from this software without
- *   specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
- * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
- * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
- * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
- * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
- * THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 package enterprise.ProjetMediatheque.servlet;
 
 import enterprise.ProjetMediatheque.entity.Ouvrage;
@@ -51,8 +21,8 @@ import javax.transaction.UserTransaction;
 /**
  * The sevelet class to insert Ouvrage into database
  */
-@WebServlet(name="CreateOuvrageServlet", urlPatterns={"/CreateOuvrage"})
-public class CreateOuvrageServlet extends HttpServlet {
+@WebServlet(name="CreateWorkServlet", urlPatterns={"/CreateWork"})
+public class CreateWorkServlet extends HttpServlet {
     
     @PersistenceUnit
     //The emf corresponding to 
@@ -71,8 +41,6 @@ public class CreateOuvrageServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
-            
-            String id         = (String) request.getParameter("id");
             String titre  = (String) request.getParameter("titre");
            
             Date datePremierePublication = new Date();
@@ -98,7 +66,7 @@ public class CreateOuvrageServlet extends HttpServlet {
             
                               
             //Create an Ouvrage instance out of it
-            Ouvrage ouvrage = new Ouvrage(id, titre, datePremierePublication, auteurs, genres);
+            Ouvrage ouvrage = new Ouvrage(titre, datePremierePublication, auteurs, genres);
             
             //begin a transaction
             utx.begin();
@@ -112,9 +80,9 @@ public class CreateOuvrageServlet extends HttpServlet {
             //commit newly created entity into database
             utx.commit();
             
-            //Forward to ListPerson servlet to list persons along with the newly
-            //created person above
-            request.getRequestDispatcher("ListOuvrage").forward(request, response);
+            //Forward to ListWorks servlet to list works along with the newly
+            //created work above
+            request.getRequestDispatcher("/ListWorks").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
