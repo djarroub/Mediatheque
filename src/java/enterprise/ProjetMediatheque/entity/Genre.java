@@ -1,9 +1,14 @@
 package enterprise.ProjetMediatheque.entity;
 
 import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
@@ -16,13 +21,20 @@ import javax.persistence.Table;
 public class Genre implements Serializable {
 
     @Id
-    @Column(name = "ID")
-    private int id;
-
-    @Column(name = "NAME")
-    private String name;
+    @Column(name = "NOM_GENRE")
+    private String nomGenre;
   
   
+    @ManyToMany(cascade=CascadeType.ALL)
+    @JoinTable(name = "GENRE_OUVRAGE",
+    joinColumns = {
+    @JoinColumn(name="NOM_GENRE") 
+    },
+    inverseJoinColumns = {
+    @JoinColumn(name="ID_OUVRAGE")
+    }
+    )
+    private Set<Ouvrage> ouvrages;
     
     /**
      * Creates a new instance of Genre
@@ -30,18 +42,18 @@ public class Genre implements Serializable {
     public Genre() {
     }
 
-    public Genre(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public Genre(String nomGenre) {
+        
+        this.nomGenre = nomGenre;
                
     }
 
-    public int getId() {
-        return this.id;
-    }
-
-    public String getName() {
-        return this.name;
+    public String getNomGenre() {
+        return this.nomGenre;
     }
       
+    public Set<Ouvrage> getOuvrages() {
+        
+       return ouvrages;
+    }
 }

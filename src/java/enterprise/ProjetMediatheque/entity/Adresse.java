@@ -16,7 +16,8 @@ import javax.persistence.Table;
 @Entity
 @Table (name="ADRESS")
 public class Adresse implements Serializable {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column (name="ID") // innutile car : nom de variable = nom de colomne
     private Long id;
     
@@ -27,10 +28,7 @@ public class Adresse implements Serializable {
     @JoinColumn(name="CITY_ID")
     private Ville ville;
     
-    
-    // ---------------------------------
-    //   Constructeur
-    // ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Constructeurs">
     /**
      * Constructeur vide de la classe Adresse.
      */
@@ -48,11 +46,9 @@ public class Adresse implements Serializable {
         this.rue = rue;
         this.ville = ville;
     }
+    // </editor-fold>
     
-    
-    // ---------------------------------
-    //   Accesseur
-    // ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Accesseurs">
     // TODO : Ecrire un descriptif pour la JavaDoc
     /**
      * 
@@ -77,11 +73,9 @@ public class Adresse implements Serializable {
     public Ville getVille(){
         return ville;
     }
-
+    // </editor-fold>
     
-    // ---------------------------------
-    //   Modificateur
-    // ---------------------------------
+    // <editor-fold defaultstate="collapsed" desc="Modificateurs">
     /**
      * 
      * @param id Le nouvel id d'Adresse.
@@ -105,5 +99,5 @@ public class Adresse implements Serializable {
     public void setVille(Ville ville){
         this.ville = ville;
     }
-
+    // </editor-fold>
 }

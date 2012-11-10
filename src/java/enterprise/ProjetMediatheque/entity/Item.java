@@ -4,6 +4,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -21,8 +23,11 @@ public class Item implements Serializable {
 
     @Column(name = "STATUT")
     private String statut;
-  
-   
+        
+    
+    @ManyToOne
+    @JoinColumn(name="ID")
+    private Ouvrage ouvrage;
     
     /**
      * Creates a new instance of Item
@@ -30,9 +35,10 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(String id, String statut) {
+    public Item(String id, String statut, Ouvrage ouvrage) {
         this.id = id;
         this.statut = statut;
+        this.ouvrage=ouvrage;
         
     }
 
@@ -43,6 +49,9 @@ public class Item implements Serializable {
     public String getStatut() {
         return this.statut;
     }
-
+    
+    public Ouvrage GetOuvrage(){
+        return this.ouvrage;
+}
    
 }
