@@ -8,11 +8,15 @@ import javax.persistence.Table;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.CascadeType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -24,11 +28,18 @@ import javax.persistence.Enumerated;
 @Entity
 @Table(name = "OUVRAGE")
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@SequenceGenerator(
+        name = "WORK_SEQUENCE",
+        sequenceName = "WORK_SEQUENCE",
+        initialValue = 0,
+        allocationSize = 1)
+@NamedQuery(name = "Ouvrage.get", query = "SELECT o FROM Ouvrage o WHERE o.id = :id")
 public class Ouvrage implements Serializable {
 
     @Id
     @Column(name = "ID_OUVRAGE")
-    private String id;
+    @GeneratedValue(strategy=SEQUENCE, generator="WORK_SEQUENCE")
+    private Long id;
 
     @Column(name = "TITRE")
     private String titre;
@@ -68,8 +79,7 @@ public class Ouvrage implements Serializable {
     public Ouvrage() {
     }
 
-    public Ouvrage(String id, String titre, Date datePremierePublication, Set<Auteur> auteurs, Set<Genre> genres) {
-        this.id = id;
+    public Ouvrage(String titre, Date datePremierePublication, Set<Auteur> auteurs, Set<Genre> genres) {
         this.titre = titre;
         this.datePremierePublication=datePremierePublication;
         this.auteurs=auteurs;
@@ -77,7 +87,7 @@ public class Ouvrage implements Serializable {
         
     }
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 

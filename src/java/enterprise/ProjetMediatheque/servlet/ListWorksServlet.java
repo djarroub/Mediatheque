@@ -4,9 +4,10 @@
  */
 package enterprise.ProjetMediatheque.servlet;
 
-import enterprise.ProjetMediatheque.entity.Adherent;
+import enterprise.ProjetMediatheque.entity.Ouvrage;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -22,46 +23,35 @@ import javax.servlet.http.HttpSession;
  *
  * @author guyader
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/Login"})
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ListWorksServlet", urlPatterns = {"/ListWorks"})
+public class ListWorksServlet extends HttpServlet {
     
     @PersistenceUnit
     private EntityManagerFactory emf;
     
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long cardNumber = Long.valueOf(request.getParameter("cardNumber"));
-        String password = request.getParameter("password");
-        
-        if (cardNumber != null && password != null) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("adherent") != null) {
             assert emf != null;  //Make sure injection went through correctly.
             EntityManager em = null;
             try {
                 em = emf.createEntityManager();
                 
-                TypedQuery<Adherent> query = em.createNamedQuery("Adherent.get", Adherent.class);
-                query.setParameter("numCarte", cardNumber);
-                Adherent adherent = query.getSingleResult();
+                List ouvrages = em.createQuery("SELECT o FROM Ouvrage o").getResultList();
+                request.setAttribute("ouvrages", ouvrages);
                 
-                if (adherent.isRightPassword(password)) {
-                    HttpSession session = request.getSession(true);
-                    
-                    session.setAttribute("adherent", adherent);
-                    response.sendRedirect("/ListWorks");
-                } else {
-                    request.setAttribute("title", "lors de la connexion");
-                    request.setAttribute("message", "Le numéro de carte ou le mot de passe "
-                        + "que vous avez entré n'est pas bon.");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
-                }
+                //Forward to the jsp page for rendering
+                request.getRequestDispatcher("listWorks.jsp").forward(request, response);
             } catch (Exception ex) {
                 throw new ServletException(ex);
             } finally {
@@ -71,9 +61,7 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         } else {
-            request.setAttribute("title", "lors de la connexion");
-            request.setAttribute("message", "Veuillez remplir tous les champs.");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            response.sendRedirect("index.jsp");
         }
     }
 
@@ -83,6 +71,6 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet responsable de la connexion d'un adhérent";
+        return "Short description";
     }// </editor-fold>
 }
