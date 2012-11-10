@@ -8,7 +8,6 @@ import enterprise.ProjetMediatheque.entity.Adherent;
 import enterprise.ProjetMediatheque.entity.Adresse;
 import enterprise.ProjetMediatheque.entity.Ville;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -60,15 +59,17 @@ public class CreateMemberServlet extends HttpServlet {
             String req_ville            = (String) request.getParameter("ville");
             String req_codePostal       = (String) request.getParameter("codePostal");
             
+            System.out.println(req_dateNaissance);
+            
             Ville ville = new Ville(Integer.parseInt(req_codePostal), req_ville);
             Adresse adresse = new Adresse(req_rueAdresse, ville);
             
             Date aujourdhui = new Date();
             // TODO : check la date de naissance
-            Date dateNaissance = new Date(req_dateNaissance);
+            //Date dateNaissance = new Date(req_dateNaissance);
             
             // Creation de l'adherent
-            Adherent newAdherent = new Adherent(req_nom, req_prenom, dateNaissance, aujourdhui, 0, adresse);
+            Adherent newAdherent = new Adherent(req_nom, req_prenom, aujourdhui, aujourdhui, 0, adresse);
             
             if(req_motDePasse.equals(req_motDePasseBis)){
                 newAdherent.setMotDePasse(req_motDePasse);
@@ -105,23 +106,6 @@ public class CreateMemberServlet extends HttpServlet {
             }
         }
         
-        // <editor-fold defaultstate="collapsed" desc="vieux code">
-        /*response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-           /*out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CreateMember</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CreateMember at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {            
-            out.close();
-        }*/
-        // </editor-fold>
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
