@@ -40,7 +40,7 @@ import static javax.persistence.TemporalType.DATE;
         + "WHERE o = :work "
         + "AND i.statut = \"disponible\""),
     @NamedQuery(name = "Reservation.countReservations", query = "SELECT count(r) "
-        + "FROM Reservation r JOIN r.ouvrage "
+        + "FROM Reservation r JOIN r.ouvrage o "
         + "WHERE o = :work "
         + "AND r.dateDExpiration != null"
         + "AND r.dateDExpiration < :date")
