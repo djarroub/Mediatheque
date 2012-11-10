@@ -1,6 +1,7 @@
 package enterprise.ProjetMediatheque.entity;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -16,6 +18,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table (name="ADRESS")
+@NamedQuery(name = "Adresse.get", query = "SELECT a "
+        + "FROM Adresse a "
+        + "WHERE a.rue = :rue "
+        + "AND a.ville = :ville "
+        + "HAVING COUNT(a) > 0")
 public class Adresse implements Serializable {
     @Id
     @GeneratedValue
@@ -25,7 +32,7 @@ public class Adresse implements Serializable {
     @Column(name="STREET")
     private String rue;
     
-    @ManyToOne
+    @ManyToOne(cascade= CascadeType.PERSIST)
     @JoinColumns ({
         @JoinColumn (name="CITY_NAME", referencedColumnName="CITY_NAME"),
         @JoinColumn (name="POSTAL_CODE", referencedColumnName="POSTAL_CODE")
