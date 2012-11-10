@@ -19,14 +19,14 @@ public class Item implements Serializable {
 
     @Id
     @Column(name = "ID")
-    private String id;
+    private Long id;
 
-    @Column(name = "STATUT")
+    @Column(name = "STATUS")
     private String statut;
         
     
     @ManyToOne
-    @JoinColumn(name="ID")
+    @JoinColumn(name="WORK_ID")
     private Ouvrage ouvrage;
     
     /**
@@ -35,14 +35,13 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(String id, String statut, Ouvrage ouvrage) {
-        this.id = id;
+    public Item(String statut, Ouvrage ouvrage) {
         this.statut = statut;
         this.ouvrage=ouvrage;
         
     }
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -50,7 +49,7 @@ public class Item implements Serializable {
         return this.statut;
     }
     
-    public Ouvrage GetOuvrage(){
+    public Ouvrage getOuvrage(){
         return this.ouvrage;
 }
    
