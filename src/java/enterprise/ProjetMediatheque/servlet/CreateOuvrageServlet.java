@@ -86,13 +86,12 @@ public class CreateOuvrageServlet extends HttpServlet {
             
             em = emf.createEntityManager();
 
-            Set<Auteur> auteurs = (Set<Auteur>) em.createQuery("select Auteur.nom from AUTEUR_OUVRAGE, Auteur, Ouvrage where Ouvrage.id=AUTEUR_OUVRAGE.id And Auteur.id=AUTEUR_OUVRAGE.id").getResultList();
+            Set<Auteur> auteurs = (Set<Auteur>) em.createQuery("select a.nom, a.prenom from Auteur a").getResultList();
             request.setAttribute("auteursList",auteurs);
             System.out.println(auteurs);
             
-            
-            
-            Set<Genre> genres=(Set<Genre>) em.createQuery("select Genre.nom from GENRE_OUVRAGE, Genre, Ouvrage where Ouvrage.id=GENRE_OUVRAGE.id And Genre.id=GENRE_OUVRAGE.id").getResultList();
+                      
+            Set<Genre> genres=(Set<Genre>) em.createQuery("select g.nom from Genre g").getResultList();
             request.setAttribute("genresList",genres);
             System.out.println(genres);
             
