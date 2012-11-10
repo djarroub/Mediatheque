@@ -8,11 +8,14 @@ import enterprise.ProjetMediatheque.entity.Adherent;
 import enterprise.ProjetMediatheque.entity.Adresse;
 import enterprise.ProjetMediatheque.entity.Ville;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,25 +62,6 @@ public class CreateMemberServlet extends HttpServlet {
             String req_ville            = (String) request.getParameter("ville");
             String req_codePostal       = (String) request.getParameter("codePostal");
             
-            System.out.println(req_dateNaissance);
-            
-            Ville ville = new Ville(Integer.parseInt(req_codePostal), req_ville);
-            Adresse adresse = new Adresse(req_rueAdresse, ville);
-            
-            Date aujourdhui = new Date();
-            // TODO : check la date de naissance
-            //Date dateNaissance = new Date(req_dateNaissance);
-            
-            // Creation de l'adherent
-            Adherent newAdherent = new Adherent(req_nom, req_prenom, aujourdhui, aujourdhui, 0, adresse);
-            
-            if(req_motDePasse.equals(req_motDePasseBis)){
-                newAdherent.setMotDePasse(req_motDePasse);
-            }else{
-                request.setAttribute("alert", "<span class=\"alert\">Les 2 mots de passe sont diff&eacute;rent !</span>");
-                request.getRequestDispatcher("createMember").forward(request, response);
-            }
-            
             // Demarrage de la transaction
             utx.begin();
             
@@ -85,8 +69,76 @@ public class CreateMemberServlet extends HttpServlet {
             //Since the em is created inside a transaction, it is associsated with the transaction
             em = emf.createEntityManager();
             
+            // <editor-fold defaultstate="collapsed" desc="Initialisation de la Ville">
+            Ville ville;
+            // appelle la namedQuery "Ville.get"
+            TypedQuery<Ville> getVille = em.createNamedQuery("Ville.get", Ville.class);
+            // definit une valeur aux parametres
+            getVille.setParameter("codePostal", Integer.parseInt(req_codePostal));
+            getVille.setParameter("nomVille", req_ville);
+            try{
+                ville = getVille.getSingleResult();
+                // si la ville n'existe pas deja dans la bdd
+            }catch(NoResultException e){
+                ville = new Ville(Integer.parseInt(req_codePostal), req_ville);
+            }
+            // </editor-fold>
+            
+            // <editor-fold defaultstate="collapsed" desc="Initialisation de l'Adresse">
+            Adresse adresse = null;
+            // appelle la namedQuery "Adresse.get"
+            TypedQuery<Adresse> getAdresse = em.createNamedQuery("Adresse.get", Adresse.class);
+            // definit une valeur aux parametre
+            getAdresse.setParameter("rue", req_rueAdresse);
+            getAdresse.setParameter("ville", ville);
+            try{
+                adresse = getAdresse.getSingleResult();
+            }catch(NoResultException e){
+                // si l'adresse n'existe pas deja dans la bdd
+                adresse = new Adresse(req_rueAdresse, ville);
+            }
+            // </editor-fold>
+            
+            // <editor-fold defaultstate="collapsed" desc="Initialisation de la Date">
+            Date aujourdhui = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateNaissance = simpleDateFormat.parse(req_dateNaissance);
+            // </editor-fold>
+            
+            // TODO : aller cherche le solde en fction de son age et de sa ville
+            int solde = 0;
+            
+            // <editor-fold defaultstate="collapsed" desc="Initialisation de l'Adherent">
+            //Adherent newAdherent = new Adherent(req_nom, req_prenom, aujourdhui, aujourdhui, 0, adresse);
+            Adherent adherent = null;
+            // appelle la namedQuery "Adherent.get"
+            TypedQuery<Adherent> getAdherent = em.createNamedQuery("Adherent.get", Adherent.class);
+            // definit une valeur aux parametre
+            getAdherent.setParameter("nom", req_nom);
+            getAdherent.setParameter("prenom", req_prenom);
+            getAdherent.setParameter("dateNaissance", dateNaissance);
+            try{
+                adherent = getAdherent.getSingleResult();
+                request.setAttribute("alert", "<span class=\"alert\">L'ad&eacute;rent " + req_prenom + " " + req_nom + " existe d&eacute;j&agrave;</span>");
+                request.getRequestDispatcher("createMember.jsp").forward(request, response);
+            }catch(NoResultException e){
+                // si l'adherent n'existe pas deja dans la bdd
+                adherent = new Adherent(req_nom, req_prenom, dateNaissance, aujourdhui, solde, adresse);
+            }
+            // </editor-fold>
+            
+            // <editor-fold defaultstate="collapsed" desc="Check que les 2 mots de passe sont identiques">
+            if(req_motDePasse.equals(req_motDePasseBis)){
+                adherent.setMotDePasse(req_motDePasse);
+            }else{
+                request.setAttribute("alert", "<span class=\"alert\">Les 2 mots de passe sont diff&eacute;rent !</span>");
+                request.getRequestDispatcher("createMember.jsp").forward(request, response);
+            }
+            // </editor-fold>
+            
+            
             // persist the person entity
-            em.persist(newAdherent);
+            em.persist(adherent);
             
             //commit transaction which will trigger the em to 
             //commit newly created entity into database
@@ -96,7 +148,8 @@ public class CreateMemberServlet extends HttpServlet {
             //created person above
             request.setAttribute("nom", req_nom);
             request.setAttribute("prenom", req_prenom);
-            request.getRequestDispatcher("confirmationCreateMember").forward(request, response);
+            request.getRequestDispatcher("confirmationCreateMember.jsp").forward(request, response);
+            
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {

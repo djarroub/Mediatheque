@@ -17,7 +17,7 @@
         
         ${requestScope.alert}
         
-        <form id="createMemberForm" action="/CreateMember" method="post">
+        <form id="createMemberForm" action="CreateMember" method="post">
             <label for="prenom">Pr&eacute;nom</label>
             <input type="text"      id="prenom"         name="prenom"/>         <br/>
             
@@ -46,6 +46,6 @@
             <input type="submit"    id="CreateRecord"   value="Valider" />      <br/>
             
         </form>
-        <a href="ListeMember">Acc&eacute;der &agrave; la liste des membres</a>
+        <a href="ListMember">Acc&eacute;der &agrave; la liste des adh&eacute;rent</a>
     </body>
 </html>
