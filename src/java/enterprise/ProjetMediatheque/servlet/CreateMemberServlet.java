@@ -6,8 +6,10 @@ package enterprise.ProjetMediatheque.servlet;
 
 import enterprise.ProjetMediatheque.entity.Adherent;
 import enterprise.ProjetMediatheque.entity.Adresse;
+import enterprise.ProjetMediatheque.entity.Ville;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -49,16 +51,19 @@ public class CreateMemberServlet extends HttpServlet {
         
         try {
             //Get the data from user's form
-            String prenom           = (String) request.getParameter("prenom");
-            String nom              = (String) request.getParameter("nom");
-            String dateNaissance    = (String) request.getParameter("dateNaissance");
-            String motDePasse       = (String) request.getParameter("motDePasse");
-            String motDePasseBis    = (String) request.getParameter("motDePasseBis");
-            String rueAdresse       = (String) request.getParameter("rueAdresse");
-            String ville            = (String) request.getParameter("ville");
-            int codePostal          = Integer.parseInt(request.getParameter("codePostal"));
+            String req_prenom           = (String) request.getParameter("prenom");
+            String req_nom              = (String) request.getParameter("nom");
+            String req_dateNaissance    = (String) request.getParameter("dateNaissance");
+            String req_motDePasse       = (String) request.getParameter("motDePasse");
+            String req_motDePasseBis    = (String) request.getParameter("motDePasseBis");
+            String req_rueAdresse       = (String) request.getParameter("rueAdresse");
+            String req_ville            = (String) request.getParameter("ville");
+            String req_codePostal       = (String) request.getParameter("codePostal");
             
-            //Adresse adresse
+            Ville ville = new Ville(Integer.parseInt(req_codePostal), req_ville);
+            Adresse adresse = new Adresse(req_rueAdresse, ville);
+            
+            Date aujourdhui = new Date();
             /*
             String _nom,
             String _prenom,
@@ -69,7 +74,7 @@ public class CreateMemberServlet extends HttpServlet {
             */
             
             //Create a person instance out of it
-            Adherent newAdherent = new Adherent(nom, prenom, null, null, codePostal, null);
+            Adherent newAdherent = new Adherent(req_nom, req_prenom, aujourdhui, aujourdhui, 0, adresse);
             //Person person = new Person(id, firstName, lastName);
             
             //begin a transaction
