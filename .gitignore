@@ -2,3 +2,4 @@ build/*
 nbproject/*
 dist/*
 src/conf/persistence.xml
+setup/
