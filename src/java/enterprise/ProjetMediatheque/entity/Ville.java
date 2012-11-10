@@ -18,7 +18,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @IdClass(VilleKey.class)
-@Table (name="CITY",uniqueConstraints = @UniqueConstraint(columnNames={"POSTAL_CODE", "CITY_NAME"}))
+@Table (name="CITY")
 public class Ville implements Serializable {
     @Id
     @Column (name="POSTAL_CODE")
