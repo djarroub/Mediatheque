@@ -1,7 +1,7 @@
 <%-- 
     Document   : CreateGenre
     Created on : 10 nov. 2012, 15:00:50
-    Author     : Personnel
+    Author     : sbai
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

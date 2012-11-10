@@ -96,9 +96,7 @@ public class CreateOuvrageServlet extends HttpServlet {
             request.setAttribute("genresList",genres);
             System.out.println(genres);
             
-            
-            
-            
+                              
             //Create an Ouvrage instance out of it
             Ouvrage ouvrage = new Ouvrage(id, titre, datePremierePublication, auteurs, genres);
             

@@ -29,7 +29,8 @@ public class Auteur implements Serializable {
     @Column(name = "NOM")
     private String nom;
   
-   
+    @Column(name = "PRENOM")
+    private String prenom;
     
    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "AUTEUR_OUVRAGE",
@@ -48,9 +49,10 @@ public class Auteur implements Serializable {
     public Auteur() {
     }
 
-    public Auteur(String id, String nom) {
+    public Auteur(String id, String nom, String prenom) {
         this.id = id;
         this.nom = nom;
+        this.prenom=prenom;
        
     }
 
@@ -62,8 +64,10 @@ public class Auteur implements Serializable {
         return this.nom;
     }
 
-    
-   public Set<Ouvrage> getOuvrages() {
+    public String getPrenom() {
+        return this.prenom;
+    }
+    public Set<Ouvrage> getOuvrages() {
         
        return ouvrages;
    }
