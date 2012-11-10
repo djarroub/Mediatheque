@@ -16,7 +16,23 @@
     <form id="createOuvrageForm" action="CreateOuvrage" method="post">
     <table>
         <tr><td>Titre</td><td><input type="text" id = "titre" name="titre" /></td></tr>
-        <tr><td>Date Première Publication</td><td><input type="text" id = "datePremierePublication" name="datePremierePublication" /></td></tr>
+        <tr><td>Date Première Publication</td><td><input type="date" id = "datePremierePublication" name="datePremierePublication" /></td></tr>
+        <tr><td>Auteurs</td><td>
+                <select name="id" id="id" multiple="multiple">
+                  <c:forEach var="auteur" begin="0" items="${requestScope.auteursList}">
+                      <option value="${auteur.id}">${auteur.nom} - ${auteur.prenom}</option>
+                   </c:forEach>   
+                </select>
+            </td></tr>
+        
+        <tr><td>Genres</td><td>
+                <select name="nomGenre" id="nomGenre" multiple="multiple">
+                  <c:forEach var="genre" begin="0" items="${requestScope.auteursList}">
+                      <option value="${genre.nomGenre}">${genre.nomGenre} </option>
+                   </c:forEach>   
+                </select>
+            </td></tr>
+    
     </table>
     <input type="submit" id="CreateRecord" value="CreateRecord" />
     </form>
