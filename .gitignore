@@ -1,4 +1,4 @@
-/build/*
-/nbproject/*
-/dist/*
-/src/conf/persistence.xml
+build/*
+nbproject/*
+dist/*
+src/conf/persistence.xml

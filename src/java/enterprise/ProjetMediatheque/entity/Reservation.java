@@ -42,7 +42,7 @@ import static javax.persistence.TemporalType.DATE;
     @NamedQuery(name = "Reservation.countReservations", query = "SELECT count(r) "
         + "FROM Reservation r JOIN r.ouvrage o "
         + "WHERE o = :work "
-        + "AND r.dateDExpiration != null"
+        + "AND r.dateDExpiration IS NOT NULL "
         + "AND r.dateDExpiration < :date")
 })
 public class Reservation {
