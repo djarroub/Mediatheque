@@ -24,6 +24,7 @@ import javax.persistence.Temporal;
 import static javax.persistence.TemporalType.DATE;
 import javax.persistence.UniqueConstraint;
 import java.security.SecureRandom;
+import javax.persistence.NamedQuery;
 
 /**
  *
@@ -36,6 +37,7 @@ import java.security.SecureRandom;
         sequenceName = "MEMBER_SEQUENCE",
         initialValue = 0,
         allocationSize = 1)
+@NamedQuery(name = "Adherent.get", query = "SELECT a FROM Adherent a WHERE a.numCarte = :numCarte")
 public class Adherent implements Serializable {
     @Id
     @Column(name = "CARD_NUMBER")
