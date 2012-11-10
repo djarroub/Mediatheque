@@ -40,7 +40,7 @@ public class Adherent implements Serializable {
     @Id
     @Column(name = "CARD_NUMBER")
     @GeneratedValue(strategy=SEQUENCE, generator="MEMBER_SEQUENCE")
-    private int numCarte;
+    private Long numCarte;
     
     @Column(name = "LAST_NAME")
     private String nom;
@@ -53,7 +53,7 @@ public class Adherent implements Serializable {
     private Date dateNaissance;
     
     @Column(name = "PASSWORD")
-    private String motDePasse; // en MD5 ?
+    private String motDePasse;
     
     @Column(name = "SUBSCRIPTION_EXPIRY")
     @Temporal(DATE)
@@ -76,12 +76,7 @@ public class Adherent implements Serializable {
     @OneToMany(cascade = ALL, mappedBy = "CARD_NUMBER")
     private List<Reservation> reservations;
     
-    public Adherent() {
-        this.dateAdhesion = new Date();
-        this.soldeCompte = 0;
-        this.emprunts = new ArrayList<Emprunt>();
-        this.reservations = new ArrayList<Reservation>();
-    }
+    public Adherent() {}
     
     public Adherent(
             String _nom,
@@ -102,5 +97,9 @@ public class Adherent implements Serializable {
         this.adresse = _adresse;        
         this.emprunts = new ArrayList<Emprunt>();
         this.reservations = new ArrayList<Reservation>();
+    }
+    
+    public Boolean isRightPassword(String pwd) {
+        return this.motDePasse.equals(pwd);
     }
 }

@@ -4,6 +4,7 @@
  */
 package enterprise.ProjetMediatheque.entity;
 
+import javax.persistence.Table;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
@@ -22,6 +23,7 @@ import static javax.persistence.TemporalType.DATE;
  * @author guyader
  */
 @Entity
+@Table(name = "BORROWINGS")
 @SequenceGenerator(
         name = "BORROWING_SEQUENCE",
         sequenceName = "BORROWING_SEQUENCE",
@@ -31,7 +33,7 @@ public class Emprunt {
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy=SEQUENCE, generator="BORROWING_SEQUENCE")
-    private int id;
+    private Long id;
     
     @Column(name = "BEGINNING_DATE")
     @Temporal(DATE)
@@ -45,6 +47,9 @@ public class Emprunt {
     @JoinColumn(name = "ITEM_ID")
     private Item item;
     
+    @Column(name = "IS_BACK")
+    private Boolean estRentre;
+    
     public Emprunt() {}
     
     public Emprunt(
@@ -53,5 +58,6 @@ public class Emprunt {
         this.adherent = _adherent;
         this.item = _item;
         this.dateDebut = new Date();
+        this.estRentre = false;
     }
 }
