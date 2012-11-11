@@ -23,5 +23,6 @@
                 <input type="submit" name="connexion" value="connexion"/>
             </p>
         </form>
+        <a href="listMember.jsp">listMember.jsp</a>
     </body>
 </html>
