@@ -15,16 +15,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Liste des adh&eacute;rents</title>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/defaultstyle.css">
+        <link rel="stylesheet" href="./css/defaultstyle.css" type="text/css" />
     </head>
     <body>
         <header>
             <a href="index.jsp">Accueil</a>
             <a href="ListMember" id="current-page">Adh&eacute;rents</a>
             <a href="listWorks.jsp">Ouvrages</a>
-            <!--<a href=".jsp"></a>-->
         </header>
-        
+
         <div id="wrap-text">
             <h1>Liste des Adh&eacute;rents</h1>
             <a href="createMember.jsp">+ Ajouter un nouvel Adh&eacute;rent.</a>
@@ -61,10 +60,10 @@
                 </tbody>
             </table>
         </div>
-        
-            
-        
-        
+
+
+
+
         <script>
             /*
              * Affiche la date sous la forme "dd/mm/yyyy"

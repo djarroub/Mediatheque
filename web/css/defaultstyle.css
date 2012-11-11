@@ -2,7 +2,7 @@ body{
     margin: 0px;
     padding: 0px;
     /* image de la planete : http://www.123rf.com/photo_5567895_multimedia-sphere.html */
-    
+    background: url("../img/bg-planete.jpg") -10% 110% no-repeat fixed;
 }
 
 header{
@@ -26,6 +26,7 @@ header a{
     color: white;
 }
 #wrap-text{
+    background: white;
     margin: 0px auto;
     padding: 15px;
     width: 80%;
@@ -33,6 +34,7 @@ header a{
     max-width: 900px;
     box-shadow: 0px -10px 15px #3c3c3c;
     color: #009;
+    z-index: 10;
 
 }
 
@@ -63,4 +65,9 @@ table td{
 table tbody tr:hover td{
     color: #009;
     background: #e8e8e8;
+}
+
+.alert{
+    color: red;
+    font-weight: bold;
 }

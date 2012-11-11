@@ -5,24 +5,31 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bienvenue sur le catalogue en ligne de la Médiathèque</title>
+        <link rel="stylesheet" href="./css/defaultstyle.css" type="text/css" />
     </head>
     <body>
-        <h1>Bienvenue sur le catalogue en ligne de la Médiathèque</h1>
-        <form method="POST" action="/Login">
-            <p>
-                <label for="login">Numéro de carte</label>
-                <input type="text" id="login" name="cardNumber"/><br />
-                <label for="password">Mot de passe</label>
-                <input type="text" id="password" name="password"/><br />
-                <input type="submit" name="connexion" value="connexion"/>
-            </p>
-        </form>
-        <a href="listMember.jsp">listMember.jsp</a>
+        <header>
+            <a href="index.jsp">Accueil</a>
+            <a href="ListMember" id="current-page">Adh&eacute;rents</a>
+            <a href="listWorks.jsp">Ouvrages</a>
+        </header>
+
+        <div id="wrap-text">
+            <h1>Bienvenue sur le catalogue en ligne de la Médiathèque</h1>
+            <form method="POST" action="/Login">
+                <p>
+                    <label for="login">Numéro de carte</label>
+                    <input type="text" id="login" name="cardNumber"/><br />
+                    <label for="password">Mot de passe</label>
+                    <input type="text" id="password" name="password"/><br />
+                    <input type="submit" name="connexion" value="connexion"/>
+                </p>
+            </form>
+        </div>
     </body>
 </html>
