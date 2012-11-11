@@ -14,8 +14,8 @@
     </head>
     <body>
         <header>
-            <a href="index.jsp">Accueil</a>
-            <a href="ListMember" id="current-page">Adh&eacute;rents</a>
+            <a href="index.jsp" id="current-page">Accueil</a>
+            <a href="ListMember">Adh&eacute;rents</a>
             <a href="listWorks.jsp">Ouvrages</a>
         </header>
 
