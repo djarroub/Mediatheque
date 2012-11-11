@@ -1,0 +1,66 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    /* image de la planete : http://www.123rf.com/photo_5567895_multimedia-sphere.html */
+    
+}
+
+header{
+    position: absolute;
+    padding: 6px 0px;
+    background: #3c3c3c;
+    width: 100%;
+    top: 0%;
+    left: 0%;
+    font-family: Arial, sans-serif;
+}
+header a{
+    position: relative;
+    color: lightgray;
+    font-size: 105%;
+    text-decoration: none;
+    padding-left: 2%;
+    font-weight: bold;
+}
+#current-page{
+    color: white;
+}
+#wrap-text{
+    margin: 0px auto;
+    padding: 15px;
+    width: 80%;
+    height: 900px;
+    max-width: 900px;
+    box-shadow: 0px -10px 15px #3c3c3c;
+    color: #009;
+
+}
+
+h1{
+    font-family: Arial, sans-serif;
+    color: #66a8d7;
+}
+
+/* style du tableau provenant de : http://coding.smashingmagazine.com/2008/08/13/top-10-css-table-designs/ */
+table{
+    font-size: 90%;
+    background: #fff;
+    margin: 30px;
+    border-collapse: collapse;
+    text-align: left;
+}
+table th{
+    font-size: 110%;
+    color: #039;
+    padding: 10px 8px;
+    border-bottom: 2px solid #6678b1;
+}
+table td{
+    border-bottom: 1px solid #ccc;
+    color: #669;
+    padding: 6px 8px;
+}
+table tbody tr:hover td{
+    color: #009;
+    background: #e8e8e8;
+}
