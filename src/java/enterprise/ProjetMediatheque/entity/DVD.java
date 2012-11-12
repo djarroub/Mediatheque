@@ -1,6 +1,7 @@
 package enterprise.ProjetMediatheque.entity;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -11,14 +12,11 @@ import javax.persistence.Table;
  * @author sbai
  */
 @Entity
+@DiscriminatorColumn(name="DVD")
 @Table(name = "DVD")
 public class DVD extends Ouvrage{
 
-    @Id
-    @Column(name = "ID")
-    private int id;
-
-    @Column(name = "LANGUE")
+    @Column(name = "LANGUAGE")
     private String langue;
   
     @Column(name = "FORMAT")
@@ -31,8 +29,7 @@ public class DVD extends Ouvrage{
     public DVD() {
     }
 
-    public DVD(int id, String langue, String format) {
-        this.id = id;
+    public DVD(String langue, String format) {
         this.langue = langue;
         this.format=format;
                

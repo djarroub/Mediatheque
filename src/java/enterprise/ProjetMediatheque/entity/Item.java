@@ -22,8 +22,7 @@ public class Item implements Serializable {
     private Long id;
 
     @Column(name = "STATUS")
-    private String statut;
-        
+    private String statut;        
     
     @ManyToOne
     @JoinColumn(name="WORK_ID")

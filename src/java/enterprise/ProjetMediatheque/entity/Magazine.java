@@ -1,8 +1,8 @@
 package enterprise.ProjetMediatheque.entity;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -11,16 +11,12 @@ import javax.persistence.Table;
  * @author sbai
  */
 @Entity
+@DiscriminatorColumn(name="MAGAZINE")
 @Table(name = "MAGAZINE")
 public class Magazine extends Ouvrage{
 
-    @Id
-    @Column(name = "ID")
-    private int id;
-
-    @Column(name = "NUMERO")
-    private int numero;
-  
+    @Column(name = "NUMBER")
+    private int numero;  
      
     /**
      * Creates a new instance of CD
@@ -28,12 +24,9 @@ public class Magazine extends Ouvrage{
     public Magazine() {
     }
 
-    public Magazine(int id, int numero) {
-        this.id = id;
+    public Magazine(int numero) {
         this.numero = numero;
-               
     }
-
    
     public int getNumero() {
         return this.numero;

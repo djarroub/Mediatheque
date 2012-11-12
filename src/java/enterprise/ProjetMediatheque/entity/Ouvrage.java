@@ -6,8 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Inheritance;
@@ -18,8 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -27,7 +27,8 @@ import javax.persistence.Enumerated;
  */
 @Entity
 @Table(name = "OUVRAGE")
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="WORK_TYPE")
 @SequenceGenerator(
         name = "WORK_SEQUENCE",
         sequenceName = "WORK_SEQUENCE",
@@ -37,49 +38,54 @@ import javax.persistence.Enumerated;
 public class Ouvrage implements Serializable {
 
     @Id
-    @Column(name = "ID_OUVRAGE")
+    @Column(name = "WORK_ID")
     @GeneratedValue(strategy=SEQUENCE, generator="WORK_SEQUENCE")
     private Long id;
 
-    @Column(name = "TITRE")
+    @Column(name = "TITLE")
     private String titre;
   
-    @Column(name = "DATE_PREMIERE_PUBLICATION")
+    @Column(name = "FIRST_PUBLISHED_DATE")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date datePremierePublication;
     
     //for joing the tables (many-to-many entre Genre et Ouvrage)
     @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "GENRE_OUVRAGE",
-    joinColumns = {
-    @JoinColumn(name="ID_OUVRAGE") 
-    },
-    inverseJoinColumns = {
-    @JoinColumn(name="NOM_GENRE")
-    }
+    @JoinTable(name = "WORK_GENRE",
+        joinColumns = {
+            @JoinColumn(name="WORK_ID") 
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name="GENRE_NAME")
+        }
     )
-    @Enumerated(EnumType.STRING)
-    private Set<Genre> genres;
+    private List<Genre> genres;
     
     //for joing the tables (many-to-many entre Auteur et Ouvrage)
     @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "AUTEUR_OUVRAGE",
-    joinColumns = {
-    @JoinColumn(name="ID_OUVRAGE") 
-    },
-    inverseJoinColumns = {
-    @JoinColumn(name="ID_AUTEUR")
-    }
+    @JoinTable(name = "WORK_AUTHOR",
+        joinColumns = {
+            @JoinColumn(name="WORK_ID") 
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name="AUTHOR_ID")
+        }
     )
-    private Set<Auteur> auteurs;
+    private List<Auteur> auteurs;
     
+    @Column(name="IS_NEW")
+    private Boolean estNouveaute;
+    
+    @ManyToOne
+    @JoinColumn(name="TYPE_NAME")
+    private Type type;
     /**
      * Creates a new instance of Ouvrage
      */
     public Ouvrage() {
     }
 
-    public Ouvrage(String titre, Date datePremierePublication, Set<Auteur> auteurs, Set<Genre> genres) {
+    public Ouvrage(String titre, Date datePremierePublication, List<Auteur> auteurs, List<Genre> genres) {
         this.titre = titre;
         this.datePremierePublication=datePremierePublication;
         this.auteurs=auteurs;
@@ -99,10 +105,10 @@ public class Ouvrage implements Serializable {
         return this.datePremierePublication;
     }
     
-    public Set<Auteur> GetAuteurs(){
+    public List<Auteur> GetAuteurs(){
         return this.auteurs;
 }
-    public Set<Genre> GetGenre(){
+    public List<Genre> GetGenre(){
         return this.genres;
     }
 }

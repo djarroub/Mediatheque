@@ -6,7 +6,7 @@ import enterprise.ProjetMediatheque.entity.Genre;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -54,13 +54,13 @@ public class CreateWorkServlet extends HttpServlet {
             
             em = emf.createEntityManager();
 
-            Set<Auteur> auteurs = (Set<Auteur>) em.createQuery("select a.nom, a.prenom from Auteur a").getResultList();
+            List<Auteur> auteurs = em.createQuery("select a from Auteur a").getResultList();
             request.setAttribute("auteursList",auteurs);
             System.out.println(auteurs);
             
             
             
-            Set<Genre> genres=(Set<Genre>) em.createQuery("select g.nom from Genre g").getResultList();
+            List<Genre> genres= em.createQuery("select g from Genre g").getResultList();
             request.setAttribute("genresList",genres);
             System.out.println(genres);
             

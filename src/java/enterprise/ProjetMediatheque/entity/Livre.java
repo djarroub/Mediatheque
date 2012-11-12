@@ -1,6 +1,7 @@
 package enterprise.ProjetMediatheque.entity;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -11,16 +12,15 @@ import javax.persistence.Table;
  * @author sbai
  */
 @Entity
-@Table(name = "LIVRE")
+@DiscriminatorColumn(name="BOOK")
+@Table(name = "BOOK")
 public class Livre extends Ouvrage{
-
     
     @Column(name = "ISBN")
     private String isbn;
   
     @Column(name = "COLLECTION")
-    private String collection;
-  
+    private String collection;  
     
     /**
      * Creates a new instance of DVD
@@ -28,13 +28,10 @@ public class Livre extends Ouvrage{
     public Livre() {
     }
 
-    public Livre(int id, String isbn, String collection) {
-        
+    public Livre(String isbn, String collection) {
         this.isbn = isbn;
-        this.collection=collection;
-               
+        this.collection=collection;               
     }
-
    
     public String getIsbn() {
         return this.isbn;
@@ -44,5 +41,3 @@ public class Livre extends Ouvrage{
         return this.collection;
     }
 }
-
-

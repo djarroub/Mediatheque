@@ -16,15 +16,14 @@ import javax.persistence.Table;
 public class Type implements Serializable {
 
     @Id
-    @Column(name = "NOM")
+    @Column(name = "NAME")
     private String nom;
 
-    @Column(name = "DUREE_EMPRUNT_MAX")
+    @Column(name = "MAX_BORROWING_DURATION")
     private String dureeEmpruntMax;
   
-    @Column(name = "NB_EMPRUNT_MAX")
+    @Column(name = "MAX_BORROWING_NUMBER")
     private int nbEmpruntMax;
-    
     
     /**
      * Creates a new instance of Type
@@ -36,7 +35,6 @@ public class Type implements Serializable {
         this.nom= nom;
         this.dureeEmpruntMax= dureeEmpruntMax;
         this.nbEmpruntMax=nbEmpruntMax;
-        
     }
 
     public String getNom() {
