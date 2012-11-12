@@ -10,9 +10,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Gestion de la Médiathèque</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Gestion de la Médiathèque</h1>
+        <ul>
+            <li><a href="createMember.jsp">Inscrire un individu</a></li>
+            <li><a href="createWork.jsp">Ajouter un Ouvrage</a></li>
+            <li><a href="borrowItem.jsp">Emprunter un Item</a></li>
+        </ul>
     </body>
 </html>

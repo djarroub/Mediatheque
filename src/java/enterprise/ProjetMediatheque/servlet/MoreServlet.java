@@ -45,7 +45,7 @@ public class MoreServlet extends HttpServlet {
                 try {
                     em = emf.createEntityManager();
 
-                    Object ouvrage = em.createNamedQuery("Ouvrage.get").getSingleResult();
+                    Ouvrage ouvrage = em.find(Ouvrage.class, Long.parseLong(request.getParameter("idOuvrage")));
                     request.setAttribute("ouvrage", ouvrage);
 
                     //Forward to the jsp page for rendering

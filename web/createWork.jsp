@@ -13,7 +13,7 @@
     <body>
 
     <h1>Create an Ouvrage record</h1>
-    <form id="createOuvrageForm" action="CreateOuvrage" method="post">
+    <form id="createOuvrageForm" action="CreateOuvrage" method="POST">
     <table>
         <tr><td>Titre</td><td><input type="text" id = "titre" name="titre" /></td></tr>
         <tr><td>Date Première Publication</td><td><input type="date" id = "datePremierePublication" name="datePremierePublication" /></td></tr>

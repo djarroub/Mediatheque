@@ -27,7 +27,7 @@
             </p>
 
             ${requestScope.alert}
-            <form id="createMemberForm" action="CreateMember" method="post">
+            <form id="createMemberForm" action="CreateMember" method="POST">
                 <label for="prenom">Pr&eacute;nom</label>
                 <input type="text"     id="prenom"         name="prenom"        value="${requestScope.prenom}" />        <br/>
 

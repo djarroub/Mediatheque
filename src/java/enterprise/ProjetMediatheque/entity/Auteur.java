@@ -49,8 +49,7 @@ public class Auteur implements Serializable {
     public Auteur() {
     }
 
-    public Auteur(String id, String nom, String prenom) {
-        this.id = id;
+    public Auteur(String nom, String prenom) {
         this.nom = nom;
         this.prenom=prenom;
        

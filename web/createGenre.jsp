@@ -14,19 +14,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Create a Genre Record</title>
+        <title>Ajouter un nouveau Genre</title>
     </head>
     <body>
-
-    <h1>Create a Genre record</h1>
-    <form id="createGenreForm" action="CreateGenre" method="post">
-    <table>
-        
-        <tr><td>Nom Genre</td><td><input type="text" id = "nomGenre" name="nomGenre" /></td></tr>
-        
-    </table>
-    <input type="submit" id="CreateRecord" value="CreateRecord" />
-    </form>
-<a href="ListGenre"><strong>Go to List of genres</strong></a>
-</body>
+        <h1>Ajouter un nouveau Genre</h1>
+        <form action="CreateGenre" method=""POST">
+            <p>
+                <label for="nomGenre">Nom du Genre</label><input type="text" id = "nomGenre" name="nomGenre" />
+                <input type="submit" value="Ajouter" />
+            </p>
+        </form>
+        <a href="ListGenres">Acc&eacute;der &agrave; la liste des Genres</a>
+    </body>
 </html>

@@ -4,6 +4,8 @@
     Author     : guyader
 --%>
 
+<%@page import="java.lang.reflect.Field"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="enterprise.ProjetMediatheque.entity.Ouvrage"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%! Ouvrage ouvrage; %>
@@ -17,16 +19,12 @@
     </head>
     <body>
         <h1>Plus d'infos sur ${ouvrage.titre}</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Titre</th>
-                    <th>Date 1ère publication</th>
-                    <th>Auteurs</th>
-                    <th>Genres</th>
-                    <th></th>
-                </tr>
-            </thead>
-        </table>
+        <p>
+            <%
+                for (Field f : ouvrage.getClass().getDeclaredFields()) {
+                    out.print(f.get(ouvrage) + "<br/>");
+                }
+            %>
+        </p>
     </body>
 </html>
