@@ -3,6 +3,8 @@ package enterprise.ProjetMediatheque.servlet;
 import enterprise.ProjetMediatheque.entity.Ouvrage;
 import enterprise.ProjetMediatheque.entity.Auteur;
 import enterprise.ProjetMediatheque.entity.Genre;
+import enterprise.ProjetMediatheque.entity.Type;
+import enterprise.ProjetMediatheque.entity.TypeName;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 import javax.annotation.Resource;
+import javax.persistence.TypedQuery;
 import javax.transaction.UserTransaction;
 
 /**
@@ -92,11 +95,14 @@ public class CreateWorkServlet extends HttpServlet {
             for(int i=0; i < nomsGenres.length; i++)
                 genres.add(em.find(Genre.class, nomsGenres[i]));
             
+            TypedQuery<Type> typeQuery = em.createNamedQuery("Type.get", Type.class);
+            typeQuery.setParameter("nom", TypeName.valueOf((String)request.getAttribute("type")));
+            Type type = typeQuery.getSingleResult();
             
             em.close();
             
             //Create an Ouvrage instance out of it
-            Ouvrage ouvrage = new Ouvrage(titre, datePremierePublication, auteurs, genres);
+            Ouvrage ouvrage = new Ouvrage(type, titre, datePremierePublication, auteurs, genres);
             
             //begin a transaction
             utx.begin();
