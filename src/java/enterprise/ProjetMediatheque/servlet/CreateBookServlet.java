@@ -117,9 +117,7 @@ public class CreateBookServlet extends HttpServlet {
             Type type = em.createNamedQuery("Type.Get", Type.class)
                     .setParameter("nom", TypeName.LIVRE)
                     .getSingleResult();
-            if (type == null)
-                throw new Exception("poney");
-                       
+                                   
             //Create an Ouvrage instance out of it
             Livre ouvrage = new Livre(type, titre, datePremierePublication, auteurs, genres, isbn, collection);
             
