@@ -92,6 +92,7 @@ public class Ouvrage implements Serializable {
     }
 
     public Ouvrage(Type type, String titre, Date datePremierePublication, List<Auteur> auteurs, List<Genre> genres) {
+        this.type = type;
         this.titre = titre;
         this.datePremierePublication=datePremierePublication;
         this.auteurs=auteurs;
