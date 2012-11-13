@@ -9,6 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author sbai
+ */
+
 @Entity
 @Table(name = "TYPES")
 @NamedQuery(name="Type.Get", query="SELECT t FROM Type t WHERE t.nom = :nom")

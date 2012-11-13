@@ -4,13 +4,27 @@
  */
 package enterprise.ProjetMediatheque.servlet;
 
+import enterprise.ProjetMediatheque.entity.Adherent;
+import enterprise.ProjetMediatheque.entity.Adresse;
+import enterprise.ProjetMediatheque.entity.Emprunt;
+import enterprise.ProjetMediatheque.entity.Item;
+import enterprise.ProjetMediatheque.entity.Ville;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -19,36 +33,113 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "BorrowItemServlet", urlPatterns = {"/BorrowItem"})
 public class BorrowItemServlet extends HttpServlet {
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+    @PersistenceUnit
+    private EntityManagerFactory emf;
+    @Resource
+    private UserTransaction utx;
+    private String req_idItem = "";
+    private String req_idAdherent = "";
+
+    /**
+     * Processes requests for both HTTP
+     * <code>GET</code> and
+     * <code>POST</code> methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        assert emf != null;
+        EntityManager em = null;
+        
         try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BorrowItemServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BorrowItemServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-             */
-        } finally {            
-            out.close();
+            //Get the data from user's form
+            req_idItem = (String) request.getParameter("idItem");
+            req_idAdherent = (String) request.getParameter("idAdherent");
+
+            // <editor-fold defaultstate="collapsed" desc="Check que les donnees ne sont pas vide">
+            if (req_idItem.isEmpty()) {
+                returnMessageError(request, response, "Veuillez entrer un ID d'item !");
+            } else if (req_idAdherent.isEmpty()) {
+                returnMessageError(request, response, "Veuillez entrer Num&eacute;ro de carte d'Adh&eacute;rent !");
+            }
+            // </editor-fold>
+
+            // Demarrage de la transaction
+            utx.begin();
+
+            //Creation d'un Entity Manager
+            //Since the em is created inside a transaction, it is associsated with the transaction
+            em = emf.createEntityManager();
+
+            // <editor-fold defaultstate="collapsed" desc="Initialisation de l'Emprunt">
+            // nous servira pour les parametres de l'emprunt
+            Adherent adherent = null;
+            Item item = null;
+            
+            try {
+                adherent = (Adherent) em.find(Adherent.class, Long.parseLong(req_idAdherent));
+            } catch (Exception e) {
+                returnMessageError(request, response, "Num&eacute;ro d'Adh&eacute;rent incorrect !");
+            }
+
+            try {
+                item = (Item) em.find(Item.class, Long.parseLong(req_idItem));
+            } catch (Exception e) {
+                returnMessageError(request, response, "ID d'item incorrect !");
+            }
+            if(adherent == null || item == null){
+                returnMessageError(request, response, "Id d'adh&eacute;rent ou ID d'item incorrect !" );
+            }
+            Emprunt emprunt = new Emprunt(adherent, item);
+                
+            // </editor-fold>
+
+            // persist the person entity
+            em.persist(emprunt);
+
+            //commit transaction which will trigger the em to 
+            //commit newly created entity into database
+            utx.commit();
+
+            //Forward to ListPerson servlet to list persons along with the newly
+            //created person above
+            request.setAttribute("confirmationCreationMembre", "<div class=\"info\">L'adh&eacute;rent " + adherent.getPrenom() + " " + adherent.getNom() + " (id: " + adherent.getNumCarte() + ") a bien emprunt&eacute; l'item " + item.getOuvrage().getTitre() + " (id: " + item.getId() + ").</div>");
+            request.getRequestDispatcher("createMember.jsp").forward(request, response);
+
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        } finally {
+            //close the em to release any resources held up by the persistebce provider
+            if (em != null) {
+                em.close();
+            }
         }
+
+
     }
 
+    /**
+     * Retourne une message d'erreur a la page borrowItem.jsp
+     *
+     * @param request
+     * @param response
+     * @param msg
+     */
+    private void returnMessageError(HttpServletRequest request, HttpServletResponse response, String msg) throws ServletException, IOException {
+        request.setAttribute("alert", "<span class=\"alert\">" + msg + "</span>");
+        request.setAttribute("idItem", req_idItem);
+        request.setAttribute("idAdherent", req_idAdherent);
+        request.getRequestDispatcher("borrowItem.jsp").forward(request, response);
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
+
+    /**
+     * Handles the HTTP
+     * <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -60,8 +151,10 @@ public class BorrowItemServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
+    /**
+     * Handles the HTTP
+     * <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -73,8 +166,9 @@ public class BorrowItemServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
