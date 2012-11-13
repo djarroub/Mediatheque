@@ -53,7 +53,7 @@ public class ListBookingsServlet extends HttpServlet {
             em = emf.createEntityManager();
 
             List reservations = em.createQuery("SELECT r FROM Reservation r").getResultList();
-            request.setAttribute("ouvrages", reservations);
+            request.setAttribute("reservations", reservations);
             request.getRequestDispatcher("listBookings.jsp").forward(request, response);
 
             //commit transaction which will trigger the em to 

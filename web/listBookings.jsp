@@ -29,13 +29,19 @@
             <table>
                 <thead>
                     <tr class="title">
-                        <th scope="col">Nom du Genre</th>
+                        <th scope="col">Date de reservation</th>
+                        <th scope="col">Date d'expiration</th>
+                        <th scope="col">Nom de l'Adherent</th>
+                        <th scope="col">Titre de l'Ouvrage</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="genre" begin="0" items="${requestScope.genres}">
+                    <c:forEach var="reservation" begin="0" items="${requestScope.reservations}">
                         <tr class="content">
-                            <td>${genre.nomGenre}</td>
+                            <td>${reservation.dateDeReservation}</td>
+                            <td>${reservation.dateDExpiration}</td>
+                            <td>${reservation.adherent.prenom} ${reservation.adherent.nom}</td>
+                            <td>${reservation.ouvrage.titre}</td>
                         </tr>
                     </c:forEach>
                 </tbody>
