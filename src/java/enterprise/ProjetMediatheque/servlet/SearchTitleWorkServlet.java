@@ -39,7 +39,7 @@ public class SearchTitleWorkServlet extends HttpServlet {
             request.setAttribute("ouvrageList",ouvrages);
           
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("ListSearchTitleWork.jsp").forward(request, response);
+            request.getRequestDispatcher("ListSearchWork.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {            

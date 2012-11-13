@@ -1,4 +1,3 @@
-
 package enterprise.ProjetMediatheque.servlet;
 
 import java.io.IOException;
@@ -14,20 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
-
 /**
  *
  * @author sbai
  */
-@WebServlet(name = "SearchAuthorWorkServlet", urlPatterns = {"/RechercheAuteur"})
-public class SearchAuthorWorkServlet extends HttpServlet {
+@WebServlet(name = "SearchTypeWorkServlet", urlPatterns = {"/RechercheType"})
+public class SearchTypeWorkServlet extends HttpServlet {
 
-    @PersistenceUnit
+     @PersistenceUnit
     private EntityManagerFactory emf;  
     
     @Resource
     private UserTransaction utx;
     
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
@@ -35,12 +34,12 @@ public class SearchAuthorWorkServlet extends HttpServlet {
         try {          
             em = emf.createEntityManager();
 
-            String nom = (String) request.getParameter("auteur");
-            List auteurs = em.createQuery("select p from Auteur p where p.nom like '"+nom+"'").getResultList();
-            request.setAttribute("auteurList",auteurs);
+            String type = (String) request.getParameter("type");
+            List ouvrages = em.createQuery("select p from Ouvrage p where p.type like '"+type+"'").getResultList();
+            request.setAttribute("ouvrageList",ouvrages);
           
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("ListSearchAuthorWork.jsp").forward(request, response);
+            request.getRequestDispatcher("ListSearchWork.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {            

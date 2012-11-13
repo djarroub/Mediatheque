@@ -16,19 +16,22 @@
         <link rel="stylesheet" href="./css/defaultstyle.css" type="text/css" />
     </head>
     <body>
-        <h1>Recherche d'un Ouvrage Par Titre</h1>
+        <h1>Recherche d'un Ouvrage</h1>
         
     
         <form id="RechercheForm" action="RechercheTitre" method="post">
-            
-              Recherche par titre:<input type="text" name="titre" /> <br/>
+            <p>
+              Recherche par titre:               <input type="text" name="titre" /> 
             
             <input type="submit" id="RechercheTitre" value="Rechercher Titre" />
+            </p>
         </form>
           
-        <form id="RechercheForm" action="RechercheAuteur" method="post">
-            Rechercher par auteur:              <input type="text" name="auteur" /> <br/>
-            <input type="submit" id="RechercheAuteur" value="Rechercher Auteur" />
+        <form id="RechercheForm" action="RechercheType" method="post">
+            <p>
+              Recherche par type:              <input type="text" name="type" /> 
+            <input type="submit" id="RechercheType" value="Rechercher Type" />
+            </p>
         </form>
        
     </body>
