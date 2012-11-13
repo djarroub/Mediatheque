@@ -6,10 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "TYPES")
+@NamedQuery(name="Type.get", query="SELECT t FROM Type t WHERE t.nom = :nom")
 public class Type implements Serializable {
 
     @Id
