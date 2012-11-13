@@ -20,12 +20,12 @@
             <a href="borrowItem.jsp">Enregistrer un emprunt</a>
             <a href="returnItem.jsp">Retourner un emprunt</a>
             <a href="ListBorrowings">Emprunts</a>
-            <a href="ListBookings">Réservations</a>
+            <a href="ListBookings" id="current-page">Réservations</a>
         </header>
 
         <div id="wrap-text">
-            <h1>Liste des Genres</h1>
-            <a href="createGenre.jsp">+ Ajouter un nouveau Genre.</a>
+            <h1>Liste des Reservations</h1>
+            <a href="CreateReservation">+ Ajouter une Reservation.</a>
             <table>
                 <thead>
                     <tr class="title">

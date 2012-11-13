@@ -6,11 +6,17 @@ package enterprise.ProjetMediatheque.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -19,34 +25,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ListBookingsServlet", urlPatterns = {"/ListBookings"})
 public class ListBookingsServlet extends HttpServlet {
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ListBookingsServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ListBookingsServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-             */
-        } finally {            
-            out.close();
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    @PersistenceUnit
+    private EntityManagerFactory emf;
+    
+    @Resource
+    private UserTransaction utx;
+    
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -57,28 +41,31 @@ public class ListBookingsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        assert emf != null;
+        EntityManager em = null;
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        try {
+            // Demarrage de la transaction
+            utx.begin();
 
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+            //Creation d'un Entity Manager
+            //Since the em is created inside a transaction, it is associsated with the transaction
+            em = emf.createEntityManager();
+
+            List reservations = em.createQuery("SELECT r FROM Reservation r").getResultList();
+            request.setAttribute("ouvrages", reservations);
+            request.getRequestDispatcher("listBookings.jsp").forward(request, response);
+
+            //commit transaction which will trigger the em to 
+            //commit newly created entity into database
+            utx.commit();
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        } finally {
+            //close the em to release any resources held up by the persistebce provider
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 }

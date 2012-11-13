@@ -48,19 +48,20 @@ public class ShowBasketServlet extends HttpServlet {
                 em = emf.createEntityManager();
                 
                 List<String> ids = (List)session.getAttribute("ids");
-                if (ids == null)
+                if (ids != null) {
+                    List<Ouvrage> ouvrages = new ArrayList<Ouvrage>();
+                    for (String id : ids)
+                        ouvrages.add(
+                                em.createNamedQuery("Ouvrage.get", Ouvrage.class)
+                                .setParameter("id", Long.parseLong(id))
+                                .getSingleResult());
+
+                    request.setAttribute("ouvrages", ouvrages);
+                    //Forward to the jsp page for rendering
+                    request.getRequestDispatcher("showBasket.jsp").forward(request, response);
+                } else {
                     response.sendRedirect("BrowseCatalog");
-                
-                List<Ouvrage> ouvrages = new ArrayList<Ouvrage>();
-                for (String id : ids)
-                    ouvrages.add(
-                            em.createNamedQuery("Ouvrage.get", Ouvrage.class)
-                            .setParameter("id", Long.parseLong(id))
-                            .getSingleResult());
-                
-                request.setAttribute("ouvrages", ouvrages);
-                //Forward to the jsp page for rendering
-                request.getRequestDispatcher("showBasket.jsp").forward(request, response);
+                }
             } catch (Exception ex) {
                 throw new ServletException(ex);
             } finally {

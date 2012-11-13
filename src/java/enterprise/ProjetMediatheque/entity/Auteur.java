@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
@@ -19,10 +20,15 @@ import javax.persistence.ManyToMany;
  */
 @Entity
 @Table(name = "AUTHORS")
+@SequenceGenerator(
+        name = "AUTHOR_SEQUENCE",
+        sequenceName = "AUTHOR_SEQUENCE",
+        initialValue = 0,
+        allocationSize = 1)
 public class Auteur implements Serializable {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="AUTHOR_SEQUENCE")
     @Column(name = "ID")
     private Long id;
 

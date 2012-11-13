@@ -61,8 +61,8 @@ public class ValidateBasketServlet extends HttpServlet {
                 
                 List<Ouvrage> ouvrages = new ArrayList<Ouvrage>();
                 for (String id : ids)
-                    ouvrages.add(
-                            em.createNamedQuery("Ouvrage.get", Ouvrage.class)
+                    ouvrages.add((Ouvrage)
+                            em.createNamedQuery("Ouvrage.get")
                             .setParameter("id", Long.parseLong(id))
                             .getSingleResult());
                 
@@ -70,6 +70,8 @@ public class ValidateBasketServlet extends HttpServlet {
                     Reservation reservation = new Reservation((Adherent)session.getAttribute("adherent"), o);
                     em.persist(reservation);
                 }
+                
+                session.removeAttribute("ids");
                 utx.commit();
                 
                 //Forward to the jsp page for rendering
