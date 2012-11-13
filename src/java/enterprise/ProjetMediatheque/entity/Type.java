@@ -16,7 +16,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "TYPES")
-@NamedQuery(name="Type.get", query="SELECT t FROM Type t WHERE t.nom = :nom")
+@NamedQuery(name="Type.Get", query="SELECT t FROM Type t WHERE t.nom = :nom")
 public class Type implements Serializable {
 
     @Id
@@ -25,7 +25,7 @@ public class Type implements Serializable {
     private TypeName nom;
 
     @Column(name = "MAX_BORROWING_DURATION")
-    private String dureeEmpruntMax;
+    private int dureeEmpruntMax;
   
     @Column(name = "MAX_BORROWING_NUMBER")
     private int nbEmpruntMax;
@@ -36,7 +36,7 @@ public class Type implements Serializable {
     public Type() {
     }
 
-    public Type(String nom, String dureeEmpruntMax, int nbEmpruntMax) {
+    public Type(String nom, int dureeEmpruntMax, int nbEmpruntMax) {
         this.nom= TypeName.valueOf(nom);
         this.dureeEmpruntMax= dureeEmpruntMax;
         this.nbEmpruntMax=nbEmpruntMax;
@@ -46,7 +46,7 @@ public class Type implements Serializable {
         return this.nom.toString();
     }
 
-    public String getDureeEmpruntMax() {
+    public int getDureeEmpruntMax() {
         return this.dureeEmpruntMax;
     }
 

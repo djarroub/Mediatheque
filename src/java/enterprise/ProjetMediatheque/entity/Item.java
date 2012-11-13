@@ -37,8 +37,8 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(String statut, Ouvrage ouvrage) {
-        this.statut = Statut.valueOf(statut);
+    public Item(Ouvrage ouvrage) {
+        this.statut = Statut.DISPONIBLE;
         this.ouvrage=ouvrage;
     }
 

@@ -1,47 +1,53 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package enterprise.ProjetMediatheque.servlet;
 
-import enterprise.ProjetMediatheque.entity.Ouvrage;
 import enterprise.ProjetMediatheque.entity.Auteur;
 import enterprise.ProjetMediatheque.entity.Genre;
+import enterprise.ProjetMediatheque.entity.Revue;
 import enterprise.ProjetMediatheque.entity.Type;
 import enterprise.ProjetMediatheque.entity.TypeName;
-import java.io.*;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-
-import javax.persistence.PersistenceUnit;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityManager;
 import javax.annotation.Resource;
-import javax.persistence.TypedQuery;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
 /**
  *
- * @author sbai
+ * @author guyader
  */
-@WebServlet(name="CreateWorkServlet", urlPatterns={"/CreateWork"})
-public class CreateWorkServlet extends HttpServlet {
-    
+@WebServlet(name = "CreateJournalServlet", urlPatterns = {"/CreateJournal"})
+public class CreateJournalServlet extends HttpServlet {
+
     @PersistenceUnit
-    //The emf corresponding to 
-    private EntityManagerFactory emf;  
+    private EntityManagerFactory emf;
     
     @Resource
     private UserTransaction utx;
 
-    
-    /** Handles the HTTP <code>GET</code> method.
+    /** 
+     * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
      * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
@@ -53,7 +59,7 @@ public class CreateWorkServlet extends HttpServlet {
             List genres= em.createQuery("select g from Genre g").getResultList();
             request.setAttribute("genresList",genres);
             
-            request.getRequestDispatcher("createWork.jsp").forward(request, response);
+            request.getRequestDispatcher("createJournal.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
@@ -63,13 +69,17 @@ public class CreateWorkServlet extends HttpServlet {
             }
         }
     }
-    
-    /** Handles the HTTP <code>POST</code> method.
+
+    /** 
+     * Handles the HTTP <code>POST</code> method.
      * @param request servlet request
      * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
@@ -95,14 +105,14 @@ public class CreateWorkServlet extends HttpServlet {
             for(int i=0; i < nomsGenres.length; i++)
                 genres.add(em.find(Genre.class, nomsGenres[i]));
             
-            TypedQuery<Type> typeQuery = em.createNamedQuery("Type.Get", Type.class);
-            typeQuery.setParameter("nom", TypeName.valueOf((String)request.getParameter("type")));
-            Type type = typeQuery.getSingleResult();
-                        
+            Type type = em.find(Type.class, TypeName.REVUE);
+            
+            String domaine = request.getParameter("domaine");
+            
             em.close();
             
             //Create an Ouvrage instance out of it
-            Ouvrage ouvrage = new Ouvrage(type, titre, datePremierePublication, auteurs, genres);
+            Revue ouvrage = new Revue(type, titre, datePremierePublication, auteurs, genres, domaine);
             
             //begin a transaction
             utx.begin();
@@ -137,11 +147,5 @@ public class CreateWorkServlet extends HttpServlet {
                 em.close();
             }
         }
-    }
-    
-    /** Returns a short description of the servlet.
-     */
-    public String getServletInfo() {
-        return "Short description";
     }
 }

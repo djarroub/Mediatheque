@@ -8,7 +8,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Create an Ouvrage</title>
+        <title>Ajouter un Livre</title>
         <link rel="stylesheet" href="./css/defaultstyle.css" type="text/css" />
     </head>
     <body>
@@ -25,8 +25,8 @@
             <a href="ListBookings">Réservations</a>
         </header>
         <div id="wrap-text">
-            <h1>Ajouter un Ouvrage</h1>
-            <form action="CreateWork" method="POST">
+            <h1>Ajouter un Livre</h1>
+            <form action="CreateBook" method="POST">
                 <table>
                     <tr>
                         <td>Titre</td>
@@ -59,14 +59,16 @@
                     </tr>
                     
                     <tr>
-                        <td>Type</td>
+                        <td>ISBN</td>
                         <td>
-                            <select name="type">
-                                <% 
-                                    for (int i=0; i<types.length; i++)
-                                        out.println("<option value=\""+ types[i] +"\">"+ types[i] +"</option>");
-                                %>
-                            </select>
+                            <input type="text" name="isbn"/>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Collection</td>
+                        <td>
+                            <input type="text" name="collection"/>
                         </td>
                     </tr>
                 </table>

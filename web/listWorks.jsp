@@ -31,7 +31,15 @@
 
         <div id="wrap-text">
             <h1>Les ouvrages de la Médiathèque</h1>
-            <a href="CreateWork">+ Ajouter un nouvel Ouvrage.</a>
+            <p>
+                Ajouter :<br/>
+                <a href="CreateBook">+ Un Livre.</a>
+                <a href="CreateCD">+ Un CD.</a>
+                <a href="CreateDVD">+ Un DVD.</a>
+                <a href="CreateJournal">+ Une Revue.</a>
+                <a href="CreateMagazine">+ Un Magazine.</a>
+                <a href="CreateVideotape">+ Une Cassette Video.</a>
+            </p>
             <table>
                 <thead>
                     <tr class="title">
@@ -46,7 +54,7 @@
                 <tbody>
                     <c:forEach var="ouvrage" begin="0" items="${requestScope.ouvrages}">
                         <tr class="content">
-                            <td>${ouvrage.type.getNom()}</td>
+                            <td>${ouvrage.type.nom.toString()}</td>
                             <td>${ouvrage.titre}</td>
                             <td>${ouvrage.datePremierePublication}</td>
                             <td>

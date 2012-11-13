@@ -12,6 +12,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Résultats de la recherche des ouvrages par titre</title>
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <link rel="stylesheet" href="./css/defaultstyle.css" type="text/css" />
     </head>
     <body>
         <h1>Résultats de la recherche des Ouvrages par titre:</h1>
@@ -26,7 +28,7 @@
 </tr> 
         <c:forEach var="ouvrage" begin="0" items="${requestScope.ouvrageList}">
         <tr>
-           <td>${ouvrage.titre}&nbsp;&nbsp;</td> 
+           <td>${ouvrage.titre}&nbsp;&nbsp;</td>
            <td>${ouvrage.auteur}&nbsp;&nbsp;</td> 
            <td>${ouvrage.datePremierePublication}&nbsp;&nbsp;</td> 
            <td>${ouvrage.type}&nbsp;&nbsp;</td> 

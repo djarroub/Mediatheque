@@ -17,10 +17,10 @@ import javax.transaction.UserTransaction;
  *
  * @author sbai
  */
-@WebServlet(name = "RechercheTitreServlet", urlPatterns = {"/RechercheTitre"})
-public class RechercheTitreServlet extends HttpServlet {
+@WebServlet(name = "SearchTypeWorkServlet", urlPatterns = {"/RechercheType"})
+public class SearchTypeWorkServlet extends HttpServlet {
 
-   @PersistenceUnit
+     @PersistenceUnit
     private EntityManagerFactory emf;  
     
     @Resource
@@ -34,12 +34,12 @@ public class RechercheTitreServlet extends HttpServlet {
         try {          
             em = emf.createEntityManager();
 
-            String titre = (String) request.getParameter("titre");
-            List ouvrages = em.createQuery("select p from Ouvrage p where p.titre like '"+titre+"'").getResultList();
+            String type = (String) request.getParameter("type");
+            List ouvrages = em.createQuery("select p from Ouvrage p where p.type like '"+type+"'").getResultList();
             request.setAttribute("ouvrageList",ouvrages);
           
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("ListRechercheOuvrageTitre.jsp").forward(request, response);
+            request.getRequestDispatcher("ListSearchWork.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {            
@@ -85,5 +85,4 @@ public class RechercheTitreServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
