@@ -19,7 +19,7 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author guyader
+ * @author sbai
  */
 @WebServlet(name = "CreateGenreServlet", urlPatterns = {"/CreateGenre"})
 public class CreateGenreServlet extends HttpServlet {

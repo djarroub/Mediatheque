@@ -5,7 +5,6 @@
 package enterprise.ProjetMediatheque.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -20,27 +19,28 @@ import javax.transaction.UserTransaction;
 
 /**
  *
- * @author guyader
+ * @author sbai
  */
 @WebServlet(name = "ListGenresServlet", urlPatterns = {"/ListGenres"})
 public class ListGenresServlet extends HttpServlet {
 
-    @PersistenceUnit
+     @PersistenceUnit
     private EntityManagerFactory emf;
+    
     @Resource
     private UserTransaction utx;
     
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
+    /**
+     * Processes requests for both HTTP
+     * <code>GET</code> and
+     * <code>POST</code> methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         assert emf != null;
         EntityManager em = null;
         
@@ -52,7 +52,7 @@ public class ListGenresServlet extends HttpServlet {
             //Since the em is created inside a transaction, it is associsated with the transaction
             em = emf.createEntityManager();
             
-            List genres = em.createQuery("SELECT g FROM Genre g").getResultList();
+            List genres = em.createQuery("SELECT a FROM Genre a").getResultList();
             request.setAttribute("genres", genres);
             request.getRequestDispatcher("listGenres.jsp").forward(request, response);
             
@@ -69,8 +69,40 @@ public class ListGenresServlet extends HttpServlet {
         }
     }
 
-    /** 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP
+     * <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP
+     * <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

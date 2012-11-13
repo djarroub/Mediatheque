@@ -1,3 +1,10 @@
+<%-- 
+    Document   : CreateGenre
+    Created on : 10 nov. 2012, 15:00:50
+    Author     : sbai
+--%>
+
+
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 

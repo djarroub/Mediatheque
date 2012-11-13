@@ -30,7 +30,7 @@
     
         <div id="wrap-text">
             <h1>Ajouter un nouveau Genre</h1>
-            <form action="CreateGenre" method=""POST">
+            <form action="CreateGenre" method="POST">
                 <p>
                     <label for="nomGenre">Nom du Genre </label><input type="text" id = "nomGenre" name="nomGenre" />
                     <input type="submit" value="Ajouter" />

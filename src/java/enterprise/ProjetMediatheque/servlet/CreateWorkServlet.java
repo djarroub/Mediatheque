@@ -18,9 +18,9 @@ import javax.persistence.EntityManager;
 import javax.annotation.Resource;
 import javax.transaction.UserTransaction;
 
-
 /**
- * The sevelet class to insert Ouvrage into database
+ *
+ * @author sbai
  */
 @WebServlet(name="CreateWorkServlet", urlPatterns={"/CreateWork"})
 public class CreateWorkServlet extends HttpServlet {
