@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Inheritance;
@@ -26,9 +28,10 @@ import javax.persistence.ManyToOne;
  * @author sbai
  */
 @Entity
-@Table(name = "OUVRAGE")
+@Table(name = "WORK")
 @Inheritance(strategy=InheritanceType.JOINED)
-@DiscriminatorColumn(name="WORK_TYPE")
+@DiscriminatorColumn(name="WORK_INH", discriminatorType=DiscriminatorType.STRING,length=20)
+@DiscriminatorValue("WORK")
 @SequenceGenerator(
         name = "WORK_SEQUENCE",
         sequenceName = "WORK_SEQUENCE",
@@ -50,7 +53,7 @@ public class Ouvrage implements Serializable {
     private Date datePremierePublication;
     
     //for joing the tables (many-to-many entre Genre et Ouvrage)
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "WORK_GENRE",
         joinColumns = {
             @JoinColumn(name="WORK_ID") 
@@ -62,7 +65,7 @@ public class Ouvrage implements Serializable {
     private List<Genre> genres;
     
     //for joing the tables (many-to-many entre Auteur et Ouvrage)
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "WORK_AUTHOR",
         joinColumns = {
             @JoinColumn(name="WORK_ID") 

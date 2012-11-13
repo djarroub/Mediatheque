@@ -5,17 +5,15 @@
 package enterprise.ProjetMediatheque.entity;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 
 /**
  *
  * @author Personnel
  */
 @Entity
-@DiscriminatorColumn(name="CD")
+@DiscriminatorValue("CD")
 public class CD extends Ouvrage {
     
     @Column(name="CD_DURATION")

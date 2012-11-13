@@ -1,7 +1,7 @@
 package enterprise.ProjetMediatheque.entity;
 
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,7 +11,7 @@ import javax.persistence.Table;
  * @author sbai
  */
 @Entity
-@DiscriminatorColumn(name="CASSETTE_VIDEO")
+@DiscriminatorValue("CASSETTE_VIDEO")
 @Table(name = "CASSETTE_VIDEO")
 public class CassetteVideo extends Ouvrage{
 

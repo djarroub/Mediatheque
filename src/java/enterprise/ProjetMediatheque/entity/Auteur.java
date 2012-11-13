@@ -1,13 +1,13 @@
 package enterprise.ProjetMediatheque.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,30 +18,30 @@ import javax.persistence.ManyToMany;
  * @author sbai
  */
 @Entity
-@Table(name = "AUTEUR")
+@Table(name = "AUTHOR")
 public class Auteur implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "ID_AUTEUR")
-    private String id;
+    @Column(name = "AUTHOR_ID")
+    private Long id;
 
-    @Column(name = "NOM")
+    @Column(name = "LASTNAME")
     private String nom;
   
-    @Column(name = "PRENOM")
+    @Column(name = "FIRSTNAME")
     private String prenom;
     
    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "AUTEUR_OUVRAGE",
-    joinColumns = {
-    @JoinColumn(name="ID_AUTEUR") 
-    },
-    inverseJoinColumns = {
-    @JoinColumn(name="ID_OUVRAGE")
-    }
-    )
-   private Set<Ouvrage> ouvrages;
+   @JoinTable(name = "WORK_AUTHOR",
+        joinColumns = {
+            @JoinColumn(name="AUTHOR_ID") 
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name="WORK_ID")
+        }
+   )
+   private List<Ouvrage> ouvrages;
    
     /**
      * Creates a new instance of Ouvrage
@@ -55,7 +55,7 @@ public class Auteur implements Serializable {
        
     }
 
-    public String getId() {
+    public Long getId() {
         return this.id;
     }
 
@@ -66,8 +66,8 @@ public class Auteur implements Serializable {
     public String getPrenom() {
         return this.prenom;
     }
-    public Set<Ouvrage> getOuvrages() {
-        
-       return ouvrages;
+    
+    public List<Ouvrage> getOuvrages() {
+        return ouvrages;
    }
 }

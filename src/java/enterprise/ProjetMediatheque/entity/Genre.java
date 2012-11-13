@@ -1,7 +1,7 @@
 package enterprise.ProjetMediatheque.entity;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,20 +21,19 @@ import javax.persistence.Table;
 public class Genre implements Serializable {
 
     @Id
-    @Column(name = "NOM_GENRE")
+    @Column(name = "GENRE_NAME")
     private String nomGenre;
   
-  
     @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name = "GENRE_OUVRAGE",
-    joinColumns = {
-    @JoinColumn(name="NOM_GENRE") 
-    },
-    inverseJoinColumns = {
-    @JoinColumn(name="ID_OUVRAGE")
-    }
+    @JoinTable(name = "WORK_GENRE",
+        joinColumns = {
+            @JoinColumn(name="GENRE_NAME") 
+        },
+        inverseJoinColumns = {
+            @JoinColumn(name="WORK_ID")
+        }
     )
-    private Set<Ouvrage> ouvrages;
+    private List<Ouvrage> ouvrages;
     
     /**
      * Creates a new instance of Genre
@@ -43,16 +42,14 @@ public class Genre implements Serializable {
     }
 
     public Genre(String nomGenre) {
-        
         this.nomGenre = nomGenre;
-               
     }
 
     public String getNomGenre() {
         return this.nomGenre;
     }
       
-    public Set<Ouvrage> getOuvrages() {
+    public List<Ouvrage> getOuvrages() {
         
        return ouvrages;
     }

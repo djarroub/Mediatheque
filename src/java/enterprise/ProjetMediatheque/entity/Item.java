@@ -50,6 +50,5 @@ public class Item implements Serializable {
     
     public Ouvrage getOuvrage(){
         return this.ouvrage;
-}
-   
+    }
 }
