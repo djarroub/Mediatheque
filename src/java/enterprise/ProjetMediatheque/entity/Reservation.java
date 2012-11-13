@@ -38,7 +38,7 @@ import static javax.persistence.TemporalType.DATE;
     @NamedQuery(name = "Reservation.countAvailable", query = "SELECT count(i) "
         + "FROM Item i JOIN i.ouvrage o "
         + "WHERE o = :work "
-        + "AND i.statut = 'Statut.DISPONIBLE'"),
+        + "AND i.statut = enterprise.ProjetMediatheque.entity.Statut.DISPONIBLE"),
     @NamedQuery(name = "Reservation.countReservations", query = "SELECT count(r) "
         + "FROM Reservation r JOIN r.ouvrage o "
         + "WHERE o = :work "
