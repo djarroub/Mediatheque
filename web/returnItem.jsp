@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>JRetourner un Emprunt</title>
         <link rel="stylesheet" href="./css/defaultstyle.css" type="text/css" />
     </head>
     <body><header>
@@ -19,11 +19,21 @@
             <a href="ListWorks">Ouvrages</a>
             <a href="ListGenres">Genres</a>
             <a href="ListAuthors">Auteurs</a>
+            <a href="ListItems">Items</a>
             <a href="borrowItem.jsp">Enregistrer un emprunt</a>
             <a href="returnItem.jsp" id="current-page">Retourner un emprunt</a>
             <a href="ListBorrowings">Emprunts</a>
             <a href="ListBookings">Réservations</a>
         </header>
-        <h1>Hello World!</h1>
+    
+        <div id="wrap-text">
+            <h1>Retourner un Emprunt</h1>
+            <form action="ReturnItem" method="POST">
+                <p>
+                    <label for="idItem">ID de l'Item </label><input type="text" id="idItem" name="idItem"/><br/>
+                    <input type="submit" value="Retourner"/>
+                </p>
+            </form>
+        </div>
     </body>
 </html>

@@ -16,6 +16,7 @@
             <a href="ListWorks" id="current-page">Ouvrages</a>
             <a href="ListGenres">Genres</a>
             <a href="ListAuthors">Auteurs</a>
+            <a href="ListItems">Items</a>
             <a href="borrowItem.jsp">Enregistrer un emprunt</a>
             <a href="returnItem.jsp">Retourner un emprunt</a>
             <a href="ListBorrowings">Emprunts</a>
@@ -28,6 +29,7 @@
             <table>
                 <thead>
                     <tr class="title">
+                        <th scope="col">Type</th>
                         <th scope="col">Titre</th>
                         <th scope="col">Date 1ère publication</th>
                         <th scope="col">Auteurs</th>
@@ -38,6 +40,7 @@
                 <tbody>
                     <c:forEach var="ouvrage" begin="0" items="${requestScope.ouvrages}">
                         <tr class="content">
+                            <td>${ouvrage.type.getNom()}</td>
                             <td>${ouvrage.titre}</td>
                             <td>${ouvrage.datePremierePublication}</td>
                             <td>
@@ -50,7 +53,7 @@
                                     ${genre.nomGenre}<br/>
                                 </c:forEach>
                             </td>
-                            <td><a href="/More?idOuvrage=${ouvrage.id}"</td>
+                            <td><a href="More?idOuvrage=${ouvrage.id}">Plus d'infos</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>

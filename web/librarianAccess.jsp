@@ -20,6 +20,7 @@
             <a href="ListWorks">Ouvrages</a>
             <a href="ListGenres">Genres</a>
             <a href="ListAuthors">Auteurs</a>
+            <a href="ListItems">Items</a>
             <a href="borrowItem.jsp">Enregistrer un emprunt</a>
             <a href="returnItem.jsp">Retourner un emprunt</a>
             <a href="ListBorrowings">Emprunts</a>
