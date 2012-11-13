@@ -17,7 +17,7 @@ import javax.transaction.UserTransaction;
  *
  * @author sbai
  */
-@WebServlet(name = "RechercheTitreServlet", urlPatterns = {"/RechercheTitreServlet"})
+@WebServlet(name = "RechercheTitreServlet", urlPatterns = {"/RechercheTitre"})
 public class RechercheTitreServlet extends HttpServlet {
 
    @PersistenceUnit
