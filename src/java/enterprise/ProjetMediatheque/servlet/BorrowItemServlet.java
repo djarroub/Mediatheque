@@ -37,8 +37,8 @@ public class BorrowItemServlet extends HttpServlet {
     private EntityManagerFactory emf;
     @Resource
     private UserTransaction utx;
-    String req_idItem = "";
-    String req_idAdherent = "";
+    private String req_idItem = "";
+    private String req_idAdherent = "";
 
     /**
      * Processes requests for both HTTP
@@ -53,7 +53,7 @@ public class BorrowItemServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         assert emf != null;
         EntityManager em = null;
-
+        
         try {
             //Get the data from user's form
             req_idItem = (String) request.getParameter("idItem");
@@ -61,9 +61,9 @@ public class BorrowItemServlet extends HttpServlet {
 
             // <editor-fold defaultstate="collapsed" desc="Check que les donnees ne sont pas vide">
             if (req_idItem.isEmpty()) {
-                returnMessageError(request, response, "Veuillez entrer un pr&eacutenom !");
+                returnMessageError(request, response, "Veuillez entrer un ID d'item !");
             } else if (req_idAdherent.isEmpty()) {
-                returnMessageError(request, response, "Veuillez entrer un nom !");
+                returnMessageError(request, response, "Veuillez entrer Num&eacute;ro de carte d'Adh&eacute;rent !");
             }
             // </editor-fold>
 
@@ -76,10 +76,25 @@ public class BorrowItemServlet extends HttpServlet {
 
             // <editor-fold defaultstate="collapsed" desc="Initialisation de l'Emprunt">
             // nous servira pour les parametres de l'emprunt
-            Adherent adherent = (Adherent) em.find(Adherent.class, Long.parseLong(req_idAdherent));
-            Item item = (Item) em.find(Item.class, Long.parseLong(req_idItem));
+            Adherent adherent = null;
+            Item item = null;
             
+            try {
+                adherent = (Adherent) em.find(Adherent.class, Long.parseLong(req_idAdherent));
+            } catch (Exception e) {
+                returnMessageError(request, response, "Num&eacute;ro d'Adh&eacute;rent incorrect !");
+            }
+
+            try {
+                item = (Item) em.find(Item.class, Long.parseLong(req_idItem));
+            } catch (Exception e) {
+                returnMessageError(request, response, "ID d'item incorrect !");
+            }
+            if(adherent == null || item == null){
+                returnMessageError(request, response, "Id d'adh&eacute;rent ou ID d'item incorrect !" );
+            }
             Emprunt emprunt = new Emprunt(adherent, item);
+                
             // </editor-fold>
 
             // persist the person entity
@@ -103,7 +118,7 @@ public class BorrowItemServlet extends HttpServlet {
             }
         }
 
-       
+
     }
 
     /**

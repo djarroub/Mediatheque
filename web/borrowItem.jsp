@@ -34,10 +34,10 @@
             <form action="BorrowItem" method="POST">
                 <p>
                     <label for="idItem">ID de l'Item</label>
-                    <input type="text" id="idItem" name="idItem"/><br/>
+                    <input type="text" id="idItem" name="idItem" value="${requestScope.idItem}" /><br/>
                     
-                    <label for="idAdherent">ID de l'Adherent</label>
-                    <input type="text" id="idAdherent" name="idAdherent"/><br/>
+                    <label for="idAdherent">Num&eacute;ro de carte (ID) de l'Adh&eacute;rent </label>
+                    <input type="text" id="idAdherent" name="idAdherent" value="${requestScope.idAdherent}" /><br/>
                     
                     <input type="submit" value="Enregistrer"/>
                 </p>
