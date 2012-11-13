@@ -94,6 +94,13 @@ public class CreateVideotapeServlet extends HttpServlet {
                 e.printStackTrace();
             }
             
+            int dureeCassette = Integer.parseInt(request.getParameter("duree"));
+            
+            //begin a transaction
+            utx.begin();
+            //create an em. 
+            //Since the em is created inside a transaction, it is associsated with 
+            //the transaction
             em = emf.createEntityManager();
             
             String[] auteursIDs = request.getParameterValues("auteurs");
@@ -108,20 +115,9 @@ public class CreateVideotapeServlet extends HttpServlet {
             
             Type type = em.find(Type.class, TypeName.CASSETTE_VIDEO);
             
-            int dureeCassette = Integer.parseInt(request.getParameter("duree"));
-            
-            em.close();
-            
             //Create an Ouvrage instance out of it
             CassetteVideo ouvrage = new CassetteVideo(type, titre, datePremierePublication, auteurs, genres, dureeCassette);
-            
-            //begin a transaction
-            utx.begin();
-            //create an em. 
-            //Since the em is created inside a transaction, it is associsated with 
-            //the transaction
-            em = emf.createEntityManager();
-            
+
             for (Auteur a : auteurs) {
                 a.addOuvrage(ouvrage);
             }

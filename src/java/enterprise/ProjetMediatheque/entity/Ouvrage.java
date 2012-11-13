@@ -82,7 +82,7 @@ public class Ouvrage implements Serializable {
     @Column(name="IS_NEW")
     private Boolean estNouveaute;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(cascade= CascadeType.PERSIST, fetch=FetchType.EAGER)
     @JoinColumn(name="TYPE_NAME")
     private Type type;
     /**
@@ -92,6 +92,7 @@ public class Ouvrage implements Serializable {
     }
 
     public Ouvrage(Type type, String titre, Date datePremierePublication, List<Auteur> auteurs, List<Genre> genres) {
+        this.type = type;
         this.titre = titre;
         this.datePremierePublication=datePremierePublication;
         this.auteurs=auteurs;
