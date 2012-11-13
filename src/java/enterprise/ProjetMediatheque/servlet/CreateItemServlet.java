@@ -62,7 +62,7 @@ public class CreateItemServlet extends HttpServlet {
             
             //Ouvrage ouvrage = em.find(Ouvrage.class, em)
             
-            Item item = new Item(req_ouvrage, null);
+            Item item = null;//new Item(req_ouvrage, null);
 
             //begin a transaction
             utx.begin();
