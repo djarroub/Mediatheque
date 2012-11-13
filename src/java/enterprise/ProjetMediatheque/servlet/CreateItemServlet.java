@@ -4,8 +4,10 @@
  */
 package enterprise.ProjetMediatheque.servlet;
 
+import enterprise.ProjetMediatheque.entity.Auteur;
+import enterprise.ProjetMediatheque.entity.Item;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,14 +23,17 @@ import javax.transaction.UserTransaction;
  *
  * @author Gilles
  */
-@WebServlet(name = "ListMember", urlPatterns = {"/ListMember"})
-public class ListMember extends HttpServlet {
+@WebServlet(name = "CreateItemServlet", urlPatterns = {"/CreateItemServlet"})
+public class CreateItemServlet extends HttpServlet {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
-    
     @Resource
     private UserTransaction utx;
+    
+    private String req_ouvrage = "";
+    private String req_nbExemplaire = "";
+    
     
     /**
      * Processes requests for both HTTP
@@ -41,29 +46,44 @@ public class ListMember extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        assert emf != null;
+        assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
-        
         try {
-            // Demarrage de la transaction
+
+            //Get the data from user's form
+            req_ouvrage = (String) request.getParameter("titre");
+            req_nbExemplaire = (String) request.getParameter("nbExemplaire");
+            
+            if (req_ouvrage.isEmpty()) {
+                returnMessageError(request, response, "Veuillez s&eacute;lectionner un ouvrage!");
+            } else if (req_nbExemplaire.isEmpty()) {
+                returnMessageError(request, response, "Veuillez entrer un nombre d'exemplaire !");
+            }
+            
+            //Ouvrage ouvrage = em.find(Ouvrage.class, em)
+            
+            Item item = null;//new Item(req_ouvrage, null);
+
+            //begin a transaction
             utx.begin();
-            
-            //Creation d'un Entity Manager
-            //Since the em is created inside a transaction, it is associsated with the transaction
+            //create an em. 
+            //Since the em is created inside a transaction, it is associsated with 
+            //the transaction
             em = emf.createEntityManager();
-            
-            List adherents = em.createQuery("SELECT a FROM Adherent a").getResultList();
-            request.setAttribute("adherents", adherents);
-            request.getRequestDispatcher("listMember.jsp").forward(request, response);
-            
+            //persist the person entity
+            em.persist(item);
             //commit transaction which will trigger the em to 
             //commit newly created entity into database
             utx.commit();
+
+            //Forward to ListPerson servlet to list persons along with the newly
+            //created person above
+            response.sendRedirect("ListAuthors");
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
             //close the em to release any resources held up by the persistebce provider
-            if(em != null) {
+            if (em != null) {
                 em.close();
             }
         }
@@ -109,4 +129,16 @@ public class ListMember extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    
+    /**
+     * Retourne une message d'erreur a la page createItem.jsp
+     * @param request
+     * @param response
+     * @param msg
+     */
+    private void returnMessageError(HttpServletRequest request, HttpServletResponse response, String msg) throws ServletException, IOException {
+        request.setAttribute("alert",           "<span class=\"alert\">" + msg + "</span>");
+        request.getRequestDispatcher("createItem.jsp").forward(request, response);
+    }
 }

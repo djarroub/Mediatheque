@@ -106,7 +106,11 @@ public class CreateBookServlet extends HttpServlet {
             for(int i=0; i < nomsGenres.length; i++)
                 genres.add(em.find(Genre.class, nomsGenres[i]));
             
-            Type type = em.find(Type.class, TypeName.LIVRE);
+            Type type = em.createNamedQuery("Type.Get", Type.class)
+                    .setParameter("nom", TypeName.LIVRE)
+                    .getSingleResult();
+            if (type == null)
+                throw new Exception("poney");
             
             String isbn = request.getParameter("isbn");
             String collection = request.getParameter("collection");

@@ -31,7 +31,7 @@
 
         <div id="wrap-text">
             <h1>Liste des Items</h1>
-            <a href="createAuthor.jsp">+ Ajouter un nouvel Item.</a>
+            <a href="createItem.jsp">+ Ajouter un nouvel Item.</a>
             <table>
                 <thead>
                     <tr class="title">

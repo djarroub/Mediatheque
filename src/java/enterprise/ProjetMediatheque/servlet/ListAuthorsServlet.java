@@ -5,7 +5,6 @@
 package enterprise.ProjetMediatheque.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;

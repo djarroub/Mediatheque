@@ -42,7 +42,7 @@
                 <label for="nom">Nom</label>
                 <input type="text"     id="nom"            name="nom"           value="${requestScope.nom}" />           <br/>
 
-                <label for="date_naissance">Date de naissance</label>
+                <label for="date_naissance">Date de naissance (<i>format : jj-mm-yyyy</i>)</label>
                 <input type="date"     id="date_naissance" name="dateNaissance" value="${requestScope.dateNaissance}" /> <br/>
 
                 <label for="rue_adresse">Adresse : rue</label>
