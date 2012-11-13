@@ -54,7 +54,7 @@
                 <tbody>
                     <c:forEach var="ouvrage" begin="0" items="${requestScope.ouvrages}">
                         <tr class="content">
-                            <td>${ouvrage.type.nom.toString()}</td>
+                            <td>${ouvrage.type.getNom()}</td>
                             <td>${ouvrage.titre}</td>
                             <td>${ouvrage.datePremierePublication}</td>
                             <td>
