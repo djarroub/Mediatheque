@@ -92,6 +92,7 @@ public class CreateWorkServlet extends HttpServlet {
             for(int i=0; i < nomsGenres.length; i++)
                 genres.add(em.find(Genre.class, nomsGenres[i]));
             
+            
             em.close();
             
             //Create an Ouvrage instance out of it
