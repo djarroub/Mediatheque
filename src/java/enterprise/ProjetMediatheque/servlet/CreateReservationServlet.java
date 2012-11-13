@@ -1,9 +1,6 @@
 package enterprise.ProjetMediatheque.servlet;
 
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
