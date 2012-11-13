@@ -29,10 +29,16 @@
         
         <div id="wrap-text">
             <h1>Enregistrer un emprunt</h1>
+            
+            ${requestScope.alert}
             <form action="BorrowItem" method="POST">
                 <p>
-                    <label for="idItem">ID de l'Item</label><input type="text" id="idItem" name="idItem"/><br/>
-                    <label for="idAdherent">ID de l'Adherent</label><input type="text" id="idAdherent" name="idAdherent"/><br/>
+                    <label for="idItem">ID de l'Item</label>
+                    <input type="text" id="idItem" name="idItem"/><br/>
+                    
+                    <label for="idAdherent">ID de l'Adherent</label>
+                    <input type="text" id="idAdherent" name="idAdherent"/><br/>
+                    
                     <input type="submit" value="Enregistrer"/>
                 </p>
             </form>
