@@ -4,18 +4,11 @@
  */
 package enterprise.ProjetMediatheque.servlet;
 
-import enterprise.ProjetMediatheque.entity.Adherent;
-import enterprise.ProjetMediatheque.entity.Adresse;
-import enterprise.ProjetMediatheque.entity.Ville;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

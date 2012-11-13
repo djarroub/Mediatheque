@@ -154,7 +154,7 @@ public class CreateMemberServlet extends HttpServlet {
 
             //Forward to ListPerson servlet to list persons along with the newly
             //created person above
-            request.setAttribute("confirmationCreationMembre", "<div class=\"info\">L'adh&eacute;rent " + req_prenom + " " + req_nom + "a bien &eacute;t&eacute; ajout&eacute;.</div>");
+            request.setAttribute("confirmationCreationMembre", "<div class=\"info\">L'adh&eacute;rent " + req_prenom + " " + req_nom + " a bien &eacute;t&eacute; ajout&eacute;.</div>");
             request.getRequestDispatcher("createMember.jsp").forward(request, response);
 
         } catch (Exception ex) {
