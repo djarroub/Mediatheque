@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,10 +37,10 @@
             ${requestScope.alert}
             ${requestScope.confirmationCreationItem}
 
-            <form id="createItemForm" action="CreateItemServlet" method="POST">
+            <form id="createItemForm" action="CreateItem" method="POST">
                 <select name="ouvrage" size="4">
                     <c:forEach var="ouvrage" begin="0" items="${requestScope.ouvrages}">
-                        <option label="${ouvrage.titre}" value="${ouvrage.id}"/>
+                        <option value="${ouvrage.id}">${ouvrage.titre}</option>
                     </c:forEach>
                 </select>
                 <a href="createWork.jsp">+ Ajouter un ouvrage</a><br/>
