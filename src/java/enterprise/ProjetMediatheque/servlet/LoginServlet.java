@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
             try {
                 em = emf.createEntityManager();
                 
-                TypedQuery<Adherent> query = em.createNamedQuery("Adherent.get", Adherent.class);
+                TypedQuery<Adherent> query = em.createNamedQuery("Adherent.getByNumCarte", Adherent.class);
                 query.setParameter("numCarte", cardNumber);
                 Adherent adherent = query.getSingleResult();
                 
@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
                     HttpSession session = request.getSession(true);
                     
                     session.setAttribute("adherent", adherent);
-                    response.sendRedirect("/ListWorks");
+                    response.sendRedirect("BrowseCatalog");
                 } else {
                     request.setAttribute("title", "lors de la connexion");
                     request.setAttribute("message", "Le numéro de carte ou le mot de passe "

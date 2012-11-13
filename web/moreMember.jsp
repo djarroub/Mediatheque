@@ -13,16 +13,9 @@
     </head>
     <body>
         <header>
-            <a href="librarianAccess.jsp">Accueil</a>
-            <a href="ListMember">Adh&eacute;rents</a>
-            <a href="ListWorks" id="current-page">Ouvrages</a>
-            <a href="ListGenres">Genres</a>
-            <a href="ListAuthors">Auteurs</a>
-            <a href="ListItems">Items</a>
-            <a href="borrowItem.jsp">Enregistrer un emprunt</a>
-            <a href="returnItem.jsp">Retourner un emprunt</a>
-            <a href="ListBorrowings">Emprunts</a>
-            <a href="ListBookings">Réservations</a>
+            <a href="index.jsp">Accueil</a>
+            <a href="BrowseCatalog" id="current-page">Catalogue</a>
+            <a href="showBasket.jsp">Panier</a>
         </header>
     
         <div id="wrap-text">

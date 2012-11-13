@@ -37,7 +37,7 @@ public class MoreServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession(false);
+            HttpSession session = request.getSession(false);
 //        if (session != null && session.getAttribute("adherent") != null) {
             if (request.getParameter("idOuvrage") != null) {
                 assert emf != null;  //Make sure injection went through correctly.
@@ -48,8 +48,10 @@ public class MoreServlet extends HttpServlet {
                     Ouvrage ouvrage = em.find(Ouvrage.class, Long.parseLong(request.getParameter("idOuvrage")));
                     request.setAttribute("ouvrage", ouvrage);
 
-                    //Forward to the jsp page for rendering
-                     request.getRequestDispatcher("more.jsp").forward(request, response);
+                    if (session == null || session.getAttribute("adherent") == null)
+                        request.getRequestDispatcher("more.jsp").forward(request, response);
+                    else
+                        request.getRequestDispatcher("moreMember.jsp").forward(request, response);
                 } catch (Exception ex) {
                     throw new ServletException(ex);
                 } finally {

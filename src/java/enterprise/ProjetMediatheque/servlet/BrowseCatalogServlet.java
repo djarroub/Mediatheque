@@ -45,9 +45,10 @@ public class BrowseCatalogServlet extends HttpServlet {
                 
                 List ouvrages = em.createQuery("SELECT o FROM Ouvrage o").getResultList();
                 request.setAttribute("ouvrages", ouvrages);
+                request.setAttribute("size", ouvrages.size());
                 
                 //Forward to the jsp page for rendering
-                request.getRequestDispatcher("listWorks.jsp").forward(request, response);
+                request.getRequestDispatcher("browseCatalog.jsp").forward(request, response);
             } catch (Exception ex) {
                 throw new ServletException(ex);
             } finally {

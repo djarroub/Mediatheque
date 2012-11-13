@@ -21,7 +21,7 @@
 
         <div id="wrap-text">
             <h1>Bienvenue sur le catalogue en ligne de la Médiathèque</h1>
-            <form method="POST" action="/Login">
+            <form method="POST" action="Login">
                 <p>
                     <label for="login">Numéro de carte</label>
                     <input type="text" id="login" name="cardNumber"/><br />

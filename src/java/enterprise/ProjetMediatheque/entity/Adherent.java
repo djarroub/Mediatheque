@@ -25,6 +25,7 @@ import static javax.persistence.TemporalType.DATE;
 import javax.persistence.UniqueConstraint;
 import java.security.SecureRandom;
 import javax.persistence.CascadeType;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /**
@@ -38,11 +39,16 @@ import javax.persistence.NamedQuery;
         sequenceName = "MEMBER_SEQUENCE",
         initialValue = 0,
         allocationSize = 1)
-@NamedQuery(name = "Adherent.get", query = "SELECT a "
+@NamedQueries({
+    @NamedQuery(name = "Adherent.get", query = "SELECT a "
         + "FROM Adherent a "
         + "WHERE a.nom = :nom "
         + "AND a.prenom = :prenom "
-        + "AND a.dateNaissance = :dateNaissance")
+        + "AND a.dateNaissance = :dateNaissance"),
+    @NamedQuery(name = "Adherent.getByNumCarte", query = "SELECT a "
+        + "FROM Adherent a "
+        + "WHERE a.numCarte = :numCarte")
+})
 public class Adherent implements Serializable {
     @Id
     @Column(name = "CARD_NUMBER")
@@ -97,7 +103,7 @@ public class Adherent implements Serializable {
         this.nom = _nom;
         this.prenom = _prenom;
         this.dateNaissance = _dateNaissance;
-        this.motDePasse = new BigInteger(130, random).toString(8);
+        this.motDePasse = new BigInteger(32, random).toString();
         this.dateFinCotisation = _dateFinCotisation;
         this.dateAdhesion = new Date();
         this.soldeCompte = _soldeCompte;
