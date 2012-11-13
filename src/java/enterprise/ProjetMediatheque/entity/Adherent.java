@@ -43,6 +43,8 @@ import javax.persistence.NamedQuery;
         + "WHERE a.nom = :nom "
         + "AND a.prenom = :prenom "
         + "AND a.dateNaissance = :dateNaissance")
+
+
 public class Adherent implements Serializable {
     @Id
     @Column(name = "CARD_NUMBER")
