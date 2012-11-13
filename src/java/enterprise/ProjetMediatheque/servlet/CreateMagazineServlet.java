@@ -6,11 +6,10 @@ package enterprise.ProjetMediatheque.servlet;
 
 import enterprise.ProjetMediatheque.entity.Auteur;
 import enterprise.ProjetMediatheque.entity.Genre;
-import enterprise.ProjetMediatheque.entity.Livre;
+import enterprise.ProjetMediatheque.entity.Magazine;
 import enterprise.ProjetMediatheque.entity.Type;
 import enterprise.ProjetMediatheque.entity.TypeName;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,8 +29,8 @@ import javax.transaction.UserTransaction;
  *
  * @author guyader
  */
-@WebServlet(name = "CreateBookServlet", urlPatterns = {"/CreateBook"})
-public class CreateBookServlet extends HttpServlet {
+@WebServlet(name = "CreateMagazineServlet", urlPatterns = {"/CreateMagazine"})
+public class CreateMagazineServlet extends HttpServlet {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
@@ -60,7 +59,7 @@ public class CreateBookServlet extends HttpServlet {
             List genres= em.createQuery("select g from Genre g").getResultList();
             request.setAttribute("genresList",genres);
             
-            request.getRequestDispatcher("createBook.jsp").forward(request, response);
+            request.getRequestDispatcher("createMagazine.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
@@ -106,15 +105,14 @@ public class CreateBookServlet extends HttpServlet {
             for(int i=0; i < nomsGenres.length; i++)
                 genres.add(em.find(Genre.class, nomsGenres[i]));
             
-            Type type = em.find(Type.class, TypeName.LIVRE);
+            Type type = em.find(Type.class, TypeName.MAGAZINE);
             
-            String isbn = request.getParameter("isbn");
-            String collection = request.getParameter("collection");
+            int numero = Integer.parseInt(request.getParameter("numero"));
             
             em.close();
             
             //Create an Ouvrage instance out of it
-            Livre ouvrage = new Livre(type, titre, datePremierePublication, auteurs, genres, isbn, collection);
+            Magazine ouvrage = new Magazine(type, titre, datePremierePublication, auteurs, genres, numero);
             
             //begin a transaction
             utx.begin();

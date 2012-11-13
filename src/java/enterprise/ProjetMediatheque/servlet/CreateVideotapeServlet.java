@@ -5,8 +5,8 @@
 package enterprise.ProjetMediatheque.servlet;
 
 import enterprise.ProjetMediatheque.entity.Auteur;
+import enterprise.ProjetMediatheque.entity.CassetteVideo;
 import enterprise.ProjetMediatheque.entity.Genre;
-import enterprise.ProjetMediatheque.entity.Livre;
 import enterprise.ProjetMediatheque.entity.Type;
 import enterprise.ProjetMediatheque.entity.TypeName;
 import java.io.IOException;
@@ -30,8 +30,8 @@ import javax.transaction.UserTransaction;
  *
  * @author guyader
  */
-@WebServlet(name = "CreateBookServlet", urlPatterns = {"/CreateBook"})
-public class CreateBookServlet extends HttpServlet {
+@WebServlet(name = "CreateVideotapeServlet", urlPatterns = {"/CreateVideotape"})
+public class CreateVideotapeServlet extends HttpServlet {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
@@ -60,7 +60,7 @@ public class CreateBookServlet extends HttpServlet {
             List genres= em.createQuery("select g from Genre g").getResultList();
             request.setAttribute("genresList",genres);
             
-            request.getRequestDispatcher("createBook.jsp").forward(request, response);
+            request.getRequestDispatcher("createVideotape.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
@@ -106,15 +106,14 @@ public class CreateBookServlet extends HttpServlet {
             for(int i=0; i < nomsGenres.length; i++)
                 genres.add(em.find(Genre.class, nomsGenres[i]));
             
-            Type type = em.find(Type.class, TypeName.LIVRE);
+            Type type = em.find(Type.class, TypeName.CASSETTE_VIDEO);
             
-            String isbn = request.getParameter("isbn");
-            String collection = request.getParameter("collection");
+            int dureeCassette = Integer.parseInt(request.getParameter("duree"));
             
             em.close();
             
             //Create an Ouvrage instance out of it
-            Livre ouvrage = new Livre(type, titre, datePremierePublication, auteurs, genres, isbn, collection);
+            CassetteVideo ouvrage = new CassetteVideo(type, titre, datePremierePublication, auteurs, genres, dureeCassette);
             
             //begin a transaction
             utx.begin();

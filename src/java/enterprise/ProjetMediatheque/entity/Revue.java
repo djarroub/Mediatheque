@@ -1,5 +1,7 @@
 package enterprise.ProjetMediatheque.entity;
 
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -24,12 +26,25 @@ public class Revue extends Ouvrage{
     public Revue() {
     }
 
-    public Revue(String domaine) {
+    public Revue(Type type, 
+            String titre, 
+            Date datePremierePublication,
+            List<Auteur> auteurs, 
+            List<Genre> genres, 
+            String domaine) {
+        super(type, titre, datePremierePublication, auteurs, genres);
         this.domaine = domaine;
     }
     
     public String getDomaine() {
         return this.domaine;
-    }          
+    }
+    
+    public String toString() {
+        String s = super.toString();
+        s += "Domaine : " + this.domaine;
+        
+        return s;
+    }
 }
 

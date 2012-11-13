@@ -1,5 +1,7 @@
 package enterprise.ProjetMediatheque.entity;
 
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -28,7 +30,14 @@ public class DVD extends Ouvrage{
     public DVD() {
     }
 
-    public DVD(String langue, String format) {
+    public DVD(Type type, 
+            String titre, 
+            Date datePremierePublication,
+            List<Auteur> auteurs, 
+            List<Genre> genres, 
+            String langue,
+            String format) {
+        super(type, titre, datePremierePublication, auteurs, genres);
         this.langue = langue;
         this.format=format;
                
@@ -40,6 +49,14 @@ public class DVD extends Ouvrage{
       
     public String getFormat(){
         return this.format;
+    }
+    
+    public String toString() {
+        String s = super.toString();
+        s += "Langue : " + langue + "<br/>";
+        s += "Format : " + format;
+        
+        return s;
     }
 }
 
