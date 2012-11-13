@@ -30,6 +30,7 @@
                     <input type="submit" name="connexion" value="connexion"/>
                 </p>
             </form>
+            <a href="librarianAccess.jsp">Acc&egrave;s Admin !!</a>
         </div>
     </body>
 </html>

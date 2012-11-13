@@ -6,13 +6,14 @@ body{
 }
 
 header{
-    position: absolute;
+    position: fixed;
     padding: 6px 0px;
     background: #3c3c3c;
     width: 100%;
     top: 0%;
     left: 0%;
     font-family: Arial, sans-serif;
+    z-index: 100;
 }
 header a{
     position: relative;
@@ -26,11 +27,13 @@ header a{
     color: white;
 }
 #wrap-text{
+    position: relative;
     background: white;
     margin: 0px auto;
     padding: 15px;
     width: 80%;
-    height: 900px;
+    height: 100%;
+    min-height: 900px;
     max-width: 900px;
     box-shadow: 0px -10px 15px #3c3c3c;
     color: #009;
@@ -50,6 +53,8 @@ table{
     margin: 30px;
     border-collapse: collapse;
     text-align: left;
+    max-height: 700px;
+    overflow: scroll;
 }
 table th{
     font-size: 110%;

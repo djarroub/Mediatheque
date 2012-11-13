@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,15 +45,18 @@ public class InitServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
+            utx.begin();
+            em = emf.createEntityManager();
+            
+            Query query = em.createQuery("delete from Type t");
+            query.executeUpdate();
+            
             Type cd = new Type("CD", 8, 0);
             Type dvd = new Type("DVD", 3, 1);
             Type livre = new Type("LIVRE", 31, 0);
             Type revue = new Type("REVUE", 0, 0);
             Type magazine = new Type("MAGAZINE", 0, 0);
             Type cassette = new Type("CASSETTE_VIDEO", 0, 0);
-
-            utx.begin();
-            em = emf.createEntityManager();
 
             em.persist(cd);
             em.persist(dvd);
@@ -67,6 +71,7 @@ public class InitServlet extends HttpServlet {
             //close the em to release any resources held up by the persistebce provider
             if(em != null) {
                 em.close();
+                response.sendRedirect("librarianAccess.jsp");
             }
         }
     }
