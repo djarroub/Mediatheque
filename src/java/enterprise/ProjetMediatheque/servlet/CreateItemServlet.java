@@ -6,6 +6,7 @@ package enterprise.ProjetMediatheque.servlet;
 
 import enterprise.ProjetMediatheque.entity.Auteur;
 import enterprise.ProjetMediatheque.entity.Item;
+import enterprise.ProjetMediatheque.entity.Ouvrage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.annotation.Resource;
@@ -51,7 +52,7 @@ public class CreateItemServlet extends HttpServlet {
         try {
 
             //Get the data from user's form
-            req_ouvrage = (String) request.getParameter("titre");
+            req_ouvrage = (String) request.getParameter("ouvrage");
             req_nbExemplaire = (String) request.getParameter("nbExemplaire");
             
             if (req_ouvrage.isEmpty()) {
@@ -60,10 +61,15 @@ public class CreateItemServlet extends HttpServlet {
                 returnMessageError(request, response, "Veuillez entrer un nombre d'exemplaire !");
             }
             
-            //Ouvrage ouvrage = em.find(Ouvrage.class, em)
             
-            Item item = null;//new Item(req_ouvrage, null);
-
+            Ouvrage ouvrage = em.find(Ouvrage.class, Long.parseLong(req_ouvrage));
+            
+            if(ouvrage == null){
+                returnMessageError(request, response, "Un probl&egrave;me est survenu avec l'importation de l'ouvrage !");
+            }
+            
+            Item item = new Item(ouvrage);
+            
             //begin a transaction
             utx.begin();
             //create an em. 

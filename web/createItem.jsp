@@ -36,10 +36,10 @@
             ${requestScope.alert}
             ${requestScope.confirmationCreationItem}
 
-            <form id="createItemForm" action="CreateItem" method="POST">
-                <select size="4">
+            <form id="createItemForm" action="CreateItemServlet" method="POST">
+                <select name="ouvrage" size="4">
                     <c:forEach var="ouvrage" begin="0" items="${requestScope.ouvrages}">
-                        <option label="${ouvrage.id}" value="${ouvrage.titre}"></option>
+                        <option label="${ouvrage.titre}" value="${ouvrage.id}"/>
                     </c:forEach>
                 </select>
                 <a href="createWork.jsp">+ Ajouter un ouvrage</a><br/>
