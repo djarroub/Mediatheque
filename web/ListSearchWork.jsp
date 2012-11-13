@@ -16,7 +16,7 @@
         <link rel="stylesheet" href="./css/defaultstyle.css" type="text/css" />
     </head>
     <body>
-        <h1>Résultats de la recherche des Ouvrages par titre:</h1>
+        <h1>Résultats de la recherche des Ouvrages </h1>
         <table id="ouvrageListTable" border="3">
 <tr >
     
