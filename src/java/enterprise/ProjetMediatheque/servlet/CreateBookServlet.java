@@ -93,7 +93,15 @@ public class CreateBookServlet extends HttpServlet {
             } catch (RuntimeException e) {
                 e.printStackTrace();
             }
+                        
+            String isbn = request.getParameter("isbn");
+            String collection = request.getParameter("collection");
             
+            //begin a transaction
+            utx.begin();
+            //create an em. 
+            //Since the em is created inside a transaction, it is associsated with 
+            //the transaction
             em = emf.createEntityManager();
             
             String[] auteursIDs = request.getParameterValues("auteurs");
@@ -111,21 +119,9 @@ public class CreateBookServlet extends HttpServlet {
                     .getSingleResult();
             if (type == null)
                 throw new Exception("poney");
-            
-            String isbn = request.getParameter("isbn");
-            String collection = request.getParameter("collection");
-            
-            em.close();
-            
+                       
             //Create an Ouvrage instance out of it
             Livre ouvrage = new Livre(type, titre, datePremierePublication, auteurs, genres, isbn, collection);
-            
-            //begin a transaction
-            utx.begin();
-            //create an em. 
-            //Since the em is created inside a transaction, it is associsated with 
-            //the transaction
-            em = emf.createEntityManager();
             
             for (Auteur a : auteurs) {
                 a.addOuvrage(ouvrage);

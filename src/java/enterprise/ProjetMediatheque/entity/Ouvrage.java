@@ -82,7 +82,7 @@ public class Ouvrage implements Serializable {
     @Column(name="IS_NEW")
     private Boolean estNouveaute;
     
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(cascade= CascadeType.PERSIST, fetch=FetchType.EAGER)
     @JoinColumn(name="TYPE_NAME")
     private Type type;
     /**

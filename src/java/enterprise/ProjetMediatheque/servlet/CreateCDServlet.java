@@ -93,6 +93,13 @@ public class CreateCDServlet extends HttpServlet {
                 e.printStackTrace();
             }
             
+            int dureeCD = Integer.parseInt(request.getParameter("dureeCD"));
+            
+            //begin a transaction
+            utx.begin();
+            //create an em. 
+            //Since the em is created inside a transaction, it is associsated with 
+            //the transaction
             em = emf.createEntityManager();
             
             String[] auteursIDs = request.getParameterValues("auteurs");
@@ -107,19 +114,8 @@ public class CreateCDServlet extends HttpServlet {
             
             Type type = em.find(Type.class, TypeName.CD);
             
-            int dureeCD = Integer.parseInt(request.getParameter("dureeCD"));
-            
-            em.close();
-            
             //Create an Ouvrage instance out of it
             CD ouvrage = new CD(type, titre, datePremierePublication, auteurs, genres, dureeCD);
-            
-            //begin a transaction
-            utx.begin();
-            //create an em. 
-            //Since the em is created inside a transaction, it is associsated with 
-            //the transaction
-            em = emf.createEntityManager();
             
             for (Auteur a : auteurs) {
                 a.addOuvrage(ouvrage);

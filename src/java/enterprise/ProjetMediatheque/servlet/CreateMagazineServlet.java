@@ -93,6 +93,13 @@ public class CreateMagazineServlet extends HttpServlet {
                 e.printStackTrace();
             }
             
+            int numero = Integer.parseInt(request.getParameter("numero"));
+            
+            //begin a transaction
+            utx.begin();
+            //create an em. 
+            //Since the em is created inside a transaction, it is associsated with 
+            //the transaction
             em = emf.createEntityManager();
             
             String[] auteursIDs = request.getParameterValues("auteurs");
@@ -107,20 +114,9 @@ public class CreateMagazineServlet extends HttpServlet {
             
             Type type = em.find(Type.class, TypeName.MAGAZINE);
             
-            int numero = Integer.parseInt(request.getParameter("numero"));
-            
-            em.close();
-            
             //Create an Ouvrage instance out of it
             Magazine ouvrage = new Magazine(type, titre, datePremierePublication, auteurs, genres, numero);
-            
-            //begin a transaction
-            utx.begin();
-            //create an em. 
-            //Since the em is created inside a transaction, it is associsated with 
-            //the transaction
-            em = emf.createEntityManager();
-            
+
             for (Auteur a : auteurs) {
                 a.addOuvrage(ouvrage);
             }
