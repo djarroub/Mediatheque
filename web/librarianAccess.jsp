@@ -29,6 +29,11 @@
 
         <div id="wrap-text">
             <h1>Bienvenue sur le système de gestion de la Médiathèque</h1>
+            <a href="index.jsp">Retour côté client</a><br/><br/>
+            
+            <a href="Init">Initialise les types</a><br/>
+            <a href="InitAuthor">Initialise une liste d'auteur</a><br/>
+            <a href="InitGenre">Initialise une liste de Genre</a><br/>
             
         </div>
     </body>
