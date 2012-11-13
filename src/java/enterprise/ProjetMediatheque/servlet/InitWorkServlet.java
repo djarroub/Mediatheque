@@ -5,8 +5,10 @@
 package enterprise.ProjetMediatheque.servlet;
 
 import enterprise.ProjetMediatheque.entity.Auteur;
+import enterprise.ProjetMediatheque.entity.Ouvrage;
+import enterprise.ProjetMediatheque.entity.Type;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -52,9 +54,14 @@ public class InitWorkServlet extends HttpServlet {
             Query query = em.createQuery("delete from Ouvrage o");
             query.executeUpdate();
             
-            /*for (int i = 0; i < nbAuthor; i++) {
-                em.persist(new Auteur(getRandomNom(), getRandomNom()));
-            }*/
+            
+            List auteurs = em.createQuery("SELECT a FROM Auteur a").getResultList();
+            List genres = em.createQuery("SELECT a FROM Genre a").getResultList();
+            //Type t = new Type(null, nbOuvrage, nbOuvrage);
+            
+            for (int i = 0; i < nbOuvrage; i++) {
+                //em.persist(new Ouvrage
+            }
             utx.commit();
         } catch (Exception ex) {
             throw new ServletException(ex);
@@ -66,6 +73,7 @@ public class InitWorkServlet extends HttpServlet {
             }
         }
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

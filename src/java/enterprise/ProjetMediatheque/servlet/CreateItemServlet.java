@@ -121,7 +121,7 @@ public class CreateItemServlet extends HttpServlet {
 
             //Forward to ListPerson servlet to list persons along with the newly
             //created person above
-            response.sendRedirect("ListAuthors");
+            response.sendRedirect("CreateItem");
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {

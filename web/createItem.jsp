@@ -30,7 +30,7 @@
         <div id="wrap-text">
             <h1>Ajout d'un nouvel Item</h1>
             <p>
-                <a href="ListMember">Acc&eacute;der &agrave; la liste des adh&eacute;rent</a>
+                <a href="CreateItem">Acc&eacute;der &agrave; la liste des items</a>
             </p>
 
 
@@ -43,7 +43,6 @@
                         <option value="${ouvrage.id}">${ouvrage.titre}</option>
                     </c:forEach>
                 </select>
-                <a href="createWork.jsp">+ Ajouter un ouvrage</a><br/>
 
                 <input type="number" name="nbExemplaire" value="1"/>
                 <input type="submit"   id="CreateItem"   value="Valider" />      <br/>
