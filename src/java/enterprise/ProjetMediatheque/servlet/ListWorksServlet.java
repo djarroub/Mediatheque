@@ -26,7 +26,6 @@ public class ListWorksServlet extends HttpServlet {
     @PersistenceUnit
     private EntityManagerFactory emf;
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -41,7 +40,7 @@ public class ListWorksServlet extends HttpServlet {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
-
+            
             List ouvrages = em.createQuery("SELECT o FROM Ouvrage o").getResultList();
             request.setAttribute("ouvrages", ouvrages);
 
@@ -64,5 +63,5 @@ public class ListWorksServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 }

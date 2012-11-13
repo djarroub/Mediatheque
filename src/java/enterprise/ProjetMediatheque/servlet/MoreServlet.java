@@ -37,8 +37,8 @@ public class MoreServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute("adherent") != null) {
+//        HttpSession session = request.getSession(false);
+//        if (session != null && session.getAttribute("adherent") != null) {
             if (request.getParameter("idOuvrage") != null) {
                 assert emf != null;  //Make sure injection went through correctly.
                 EntityManager em = null;
@@ -49,7 +49,7 @@ public class MoreServlet extends HttpServlet {
                     request.setAttribute("ouvrage", ouvrage);
 
                     //Forward to the jsp page for rendering
-                    request.getRequestDispatcher("more.jsp").forward(request, response);
+                     request.getRequestDispatcher("more.jsp").forward(request, response);
                 } catch (Exception ex) {
                     throw new ServletException(ex);
                 } finally {
@@ -61,8 +61,8 @@ public class MoreServlet extends HttpServlet {
             } else {
                 response.sendRedirect("/ListWorks");
             }
-        } else {
-            response.sendRedirect("index.jsp");
-        }
+//        } else {
+//            response.sendRedirect("index.jsp");
+//        }
     }
 }

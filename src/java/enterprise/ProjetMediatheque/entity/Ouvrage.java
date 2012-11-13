@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.SEQUENCE;
 import javax.persistence.Inheritance;
@@ -41,7 +42,7 @@ import javax.persistence.ManyToOne;
 public class Ouvrage implements Serializable {
 
     @Id
-    @Column(name = "WORK_ID")
+    @Column(name = "ID")
     @GeneratedValue(strategy=SEQUENCE, generator="WORK_SEQUENCE")
     private Long id;
 
@@ -53,19 +54,21 @@ public class Ouvrage implements Serializable {
     private Date datePremierePublication;
     
     //for joing the tables (many-to-many entre Genre et Ouvrage)
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER, 
+            mappedBy="ouvrages")
     @JoinTable(name = "WORK_GENRE",
         joinColumns = {
-            @JoinColumn(name="WORK_ID") 
+            @JoinColumn(name="WORK_ID", referencedColumnName="ID") 
         },
         inverseJoinColumns = {
-            @JoinColumn(name="GENRE_NAME")
+            @JoinColumn(name="GENRE_NAME", referencedColumnName="NAME")
         }
     )
     private List<Genre> genres;
     
     //for joing the tables (many-to-many entre Auteur et Ouvrage)
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER, 
+            mappedBy="ouvrages")
     @JoinTable(name = "WORK_AUTHOR",
         joinColumns = {
             @JoinColumn(name="WORK_ID") 
@@ -108,10 +111,26 @@ public class Ouvrage implements Serializable {
         return this.datePremierePublication;
     }
     
-    public List<Auteur> GetAuteurs(){
+    public List<Auteur> getAuteurs(){
         return this.auteurs;
 }
-    public List<Genre> GetGenre(){
+    public List<Genre> getGenres(){
         return this.genres;
+    }
+    
+    public Type getType() {
+        return this.type;
+    }
+    
+    public String toString() {
+        String s = "Type : " + getType().getNom() + "<br/>"
+                + "Date de 1ère publication : " + getDatePremierePublication() + "<br/>"
+                + "Auteurs : <br/>";
+        for (Auteur a : getAuteurs())
+            s += "&nbsp;&nbsp;" + a.getPrenom() + " " + a.getNom() + "<br/>";
+        s += "Genres : <br/>";
+        for (Genre g : getGenres())
+            s += "&nbsp;&nbsp;" + g.getNomGenre() + "<br/>";
+        return s;
     }
 }

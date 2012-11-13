@@ -103,8 +103,18 @@ public class CreateWorkServlet extends HttpServlet {
             //Since the em is created inside a transaction, it is associsated with 
             //the transaction
             em = emf.createEntityManager();
+            
+            for (Auteur a : auteurs) {
+                a.addOuvrage(ouvrage);
+            }
+            
+            for (Genre g : genres) {
+                g.addOuvrage(ouvrage);
+            }
+            
             //persist the person entity
             em.persist(ouvrage);
+                     
             //commit transaction which will trigger the em to 
             //commit newly created entity into database
             utx.commit();

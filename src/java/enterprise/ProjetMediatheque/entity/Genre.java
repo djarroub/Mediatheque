@@ -21,16 +21,16 @@ import javax.persistence.Table;
 public class Genre implements Serializable {
 
     @Id
-    @Column(name = "GENRE_NAME")
+    @Column(name = "NAME")
     private String nomGenre;
   
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany
     @JoinTable(name = "WORK_GENRE",
         joinColumns = {
-            @JoinColumn(name="GENRE_NAME") 
+            @JoinColumn(name="GENRE_NAME", referencedColumnName="NAME") 
         },
         inverseJoinColumns = {
-            @JoinColumn(name="WORK_ID")
+            @JoinColumn(name="WORK_ID", referencedColumnName="ID")
         }
     )
     private List<Ouvrage> ouvrages;
@@ -50,7 +50,10 @@ public class Genre implements Serializable {
     }
       
     public List<Ouvrage> getOuvrages() {
-        
        return ouvrages;
+    }
+    
+    public void addOuvrage(Ouvrage o) {
+        this.ouvrages.add(o);
     }
 }

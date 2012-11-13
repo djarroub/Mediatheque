@@ -23,7 +23,7 @@ public class Auteur implements Serializable {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name = "AUTHOR_ID")
+    @Column(name = "ID")
     private Long id;
 
     @Column(name = "LASTNAME")
@@ -35,10 +35,10 @@ public class Auteur implements Serializable {
    @ManyToMany(cascade=CascadeType.ALL)
    @JoinTable(name = "WORK_AUTHOR",
         joinColumns = {
-            @JoinColumn(name="AUTHOR_ID") 
+            @JoinColumn(name="AUTHOR_ID", referencedColumnName="ID") 
         },
         inverseJoinColumns = {
-            @JoinColumn(name="WORK_ID")
+            @JoinColumn(name="WORK_ID", referencedColumnName="ID")
         }
    )
    private List<Ouvrage> ouvrages;
@@ -70,4 +70,8 @@ public class Auteur implements Serializable {
     public List<Ouvrage> getOuvrages() {
         return ouvrages;
    }
+    
+    public void addOuvrage(Ouvrage o) {
+        this.ouvrages.add(o);
+    }
 }

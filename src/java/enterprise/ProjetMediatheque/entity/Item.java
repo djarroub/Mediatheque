@@ -3,6 +3,8 @@ package enterprise.ProjetMediatheque.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,7 +24,8 @@ public class Item implements Serializable {
     private Long id;
 
     @Column(name = "STATUS")
-    private String statut;        
+    @Enumerated(EnumType.STRING)
+    private Statut statut;        
     
     @ManyToOne
     @JoinColumn(name="WORK_ID")
@@ -35,16 +38,15 @@ public class Item implements Serializable {
     }
 
     public Item(String statut, Ouvrage ouvrage) {
-        this.statut = statut;
+        this.statut = Statut.valueOf(statut);
         this.ouvrage=ouvrage;
-        
     }
 
     public Long getId() {
         return this.id;
     }
 
-    public String getStatut() {
+    public Statut getStatut() {
         return this.statut;
     }
     
