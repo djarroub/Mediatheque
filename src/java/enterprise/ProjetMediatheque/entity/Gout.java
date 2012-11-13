@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * @author Gilles
  */
 @Entity
-@Table (name="TASTE")
+@Table (name="TASTES")
 public class Gout implements Serializable {
     @Id
     @GeneratedValue

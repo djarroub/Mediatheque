@@ -18,7 +18,7 @@ import javax.persistence.ManyToMany;
  * @author sbai
  */
 @Entity
-@Table(name = "AUTHOR")
+@Table(name = "AUTHORS")
 public class Auteur implements Serializable {
 
     @Id

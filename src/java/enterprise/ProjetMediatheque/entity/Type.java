@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * @author sbai
  */
 @Entity
-@Table(name = "TYPE")
+@Table(name = "TYPES")
 public class Type implements Serializable {
 
     @Id

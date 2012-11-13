@@ -32,7 +32,7 @@ import javax.persistence.NamedQuery;
  * @author guyader
  */
 @Entity
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"LAST_NAME", "FIRST_NAME", "BIRTH_DATE"})})
+@Table(name="MEMBERS", uniqueConstraints={@UniqueConstraint(columnNames={"LAST_NAME", "FIRST_NAME", "BIRTH_DATE"})})
 @SequenceGenerator(
         name = "MEMBER_SEQUENCE",
         sequenceName = "MEMBER_SEQUENCE",

@@ -11,8 +11,8 @@ import javax.persistence.Table;
  * @author sbai
  */
 @Entity
-@DiscriminatorValue("CASSETTE_VIDEO")
-@Table(name = "CASSETTE_VIDEO")
+@DiscriminatorValue("VIDEOTAPE")
+@Table(name = "VIDEOTAPES")
 public class CassetteVideo extends Ouvrage{
 
     @Column(name = "VIDEOTAPE_DURATION")

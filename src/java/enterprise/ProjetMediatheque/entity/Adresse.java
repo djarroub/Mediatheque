@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author Gilles
  */
 @Entity
-@Table (name="ADRESS")
+@Table (name="ADDRESSES")
 @NamedQuery(name = "Adresse.get", query = "SELECT a "
         + "FROM Adresse a "
         + "WHERE a.rue = :rue "

@@ -13,7 +13,7 @@ import javax.persistence.Entity;
  * @author Personnel
  */
 @Entity
-@DiscriminatorValue("CD")
+@DiscriminatorValue("CDS")
 public class CD extends Ouvrage {
     
     @Column(name="CD_DURATION")

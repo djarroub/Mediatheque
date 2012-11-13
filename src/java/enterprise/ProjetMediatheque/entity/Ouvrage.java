@@ -28,7 +28,7 @@ import javax.persistence.ManyToOne;
  * @author sbai
  */
 @Entity
-@Table(name = "WORK")
+@Table(name = "WORKS")
 @Inheritance(strategy=InheritanceType.JOINED)
 @DiscriminatorColumn(name="WORK_INH", discriminatorType=DiscriminatorType.STRING,length=20)
 @DiscriminatorValue("WORK")

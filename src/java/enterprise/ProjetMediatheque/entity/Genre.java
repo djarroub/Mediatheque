@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * @author sbai
  */
 @Entity
-@Table(name = "GENRE")
+@Table(name = "GENRES")
 public class Genre implements Serializable {
 
     @Id

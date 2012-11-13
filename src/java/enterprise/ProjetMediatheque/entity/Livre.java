@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @DiscriminatorValue("BOOK")
-@Table(name = "BOOK")
+@Table(name = "BOOKS")
 public class Livre extends Ouvrage{
     
     @Column(name = "ISBN")

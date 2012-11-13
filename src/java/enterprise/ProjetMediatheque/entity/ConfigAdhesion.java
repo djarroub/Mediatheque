@@ -17,7 +17,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @IdClass(ConfigAdhesionKey.class)
-@Table (name="CONFIG_MEMBERSHIP")
+@Table (name="CONFIG_MEMBERSHIPS")
 public class ConfigAdhesion implements Serializable {
     @Id
     @ManyToOne

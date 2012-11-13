@@ -19,7 +19,7 @@ import javax.persistence.UniqueConstraint;
  */
 @Entity
 @IdClass(VilleKey.class)
-@Table (name="CITY")
+@Table (name="CITIES")
 @NamedQuery(name = "Ville.get", query = "SELECT v "
         + "FROM Ville v "
         + "WHERE v.codePostal = :codePostal "

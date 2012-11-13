@@ -4,8 +4,8 @@
  */
 package enterprise.ProjetMediatheque.entity;
 
+import javax.persistence.Table;
 import javax.persistence.NamedQueries;
-import java.util.List;
 import javax.persistence.TypedQuery;
 import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
@@ -29,8 +29,8 @@ import static javax.persistence.TemporalType.DATE;
  */
 @Entity
 @SequenceGenerator(
-        name = "RESERVATION_SEQUENCE",
-        sequenceName = "RESERVATION_SEQUENCE",
+        name = "BOOKING_SEQUENCE",
+        sequenceName = "BOOKING_SEQUENCE",
         initialValue = 0,
         allocationSize = 1)
 @NamedQueries({
@@ -45,13 +45,15 @@ import static javax.persistence.TemporalType.DATE;
         + "AND r.dateDExpiration IS NOT NULL "
         + "AND r.dateDExpiration < :date")
 })
+@Table(name="BOOKINGS")
 public class Reservation {
+    
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy=SEQUENCE, generator="RESERVATION_SEQUENCE")
+    @GeneratedValue(strategy=SEQUENCE, generator="BOOKING_SEQUENCE")
     private Long id;
     
-    @Column(name = "RESERVATION_DATE")
+    @Column(name = "BOOKING_DATE")
     @Temporal(DATE)
     private Date dateDeReservation;
     
