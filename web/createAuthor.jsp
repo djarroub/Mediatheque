@@ -31,10 +31,16 @@
     
         <div id="wrap-text">
             <h1>Ajouter un nouvel Auteur</h1>
+            
+            ${requestScope.alert}
             <form action="CreateAuthor" method="POST">
                 <p>
-                    <label for="nomAuteur">Nom de l'Auteur</label><input type="text" id = "nomAuteur" name="nom" /><br/>
-                    <label for="prenomAuteur">Prénom de l'Auteur</label><input type="text" id = "prenomAuteur" name="prenom" />
+                    <label for="prenomAuteur">Prénom de l'Auteur</label>
+                    <input type="text" id = "prenomAuteur" name="prenom" value="${requestScope.prenom}"/><br/>
+                    
+                    <label for="nomAuteur">Nom de l'Auteur</label>
+                    <input type="text" id = "nomAuteur" name="nom" value="${requestScope.nom}"/><br/>
+                    
                     <input type="submit" value="Ajouter" />
                 </p>
             </form>

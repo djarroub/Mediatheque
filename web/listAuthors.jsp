@@ -35,15 +35,15 @@
             <table>
                 <thead>
                     <tr class="title">
-                        <th scope="col">Nom</th>
                         <th scope="col">Prénom</th>
+                        <th scope="col">Nom</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="auteur" begin="0" items="${requestScope.auteurs}">
                         <tr class="content">
-                            <td>${auteur.nom}</td>
                             <td>${auteur.prenom}</td>
+                            <td>${auteur.nom}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

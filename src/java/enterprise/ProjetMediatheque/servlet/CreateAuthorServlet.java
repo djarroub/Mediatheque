@@ -29,6 +29,9 @@ public class CreateAuthorServlet extends HttpServlet {
     @Resource
     private UserTransaction utx;
     
+    private String req_prenom = "";
+    private String req_nom = "";
+    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -43,9 +46,16 @@ public class CreateAuthorServlet extends HttpServlet {
         try {
 
             //Get the data from user's form
-            String nom = (String) request.getParameter("nom");
-            String prenom = (String) request.getParameter("prenom");
-            Auteur auteur = new Auteur(nom, prenom);
+            req_nom = (String) request.getParameter("nom");
+            req_prenom = (String) request.getParameter("prenom");
+            
+            if (req_prenom.isEmpty()) {
+                returnMessageError(request, response, "Veuillez entrer un pr&eacutenom !");
+            } else if (req_nom.isEmpty()) {
+                returnMessageError(request, response, "Veuillez entrer un nom !");
+            }
+            
+            Auteur auteur = new Auteur(req_nom, req_prenom);
 
             //begin a transaction
             utx.begin();
@@ -92,5 +102,19 @@ public class CreateAuthorServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
+    }
+    
+    
+    /**
+     * Retourne une message d'erreur a la page createAuthor.jsp
+     * @param request
+     * @param response
+     * @param msg
+     */
+    private void returnMessageError(HttpServletRequest request, HttpServletResponse response, String msg) throws ServletException, IOException {
+        request.setAttribute("alert",           "<span class=\"alert\">" + msg + "</span>");
+        request.setAttribute("prenom",          req_prenom);
+        request.setAttribute("nom",             req_nom);
+        request.getRequestDispatcher("createAuthor.jsp").forward(request, response);
     }
 }
