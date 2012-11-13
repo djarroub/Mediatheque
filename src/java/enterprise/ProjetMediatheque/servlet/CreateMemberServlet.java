@@ -37,8 +37,6 @@ public class CreateMemberServlet extends HttpServlet {
     private String req_prenom = "";
     private String req_nom = "";
     private String req_dateNaissance = "";
-    private String req_motDePasse = "";
-    private String req_motDePasseBis = "";
     private String req_rueAdresse = "";
     private String req_ville = "";
     private String req_codePostal = "";
@@ -62,8 +60,6 @@ public class CreateMemberServlet extends HttpServlet {
             req_prenom = (String) request.getParameter("prenom");
             req_nom = (String) request.getParameter("nom");
             req_dateNaissance = (String) request.getParameter("dateNaissance");
-            req_motDePasse = (String) request.getParameter("motDePasse");
-            req_motDePasseBis = (String) request.getParameter("motDePasseBis");
             req_rueAdresse = (String) request.getParameter("rueAdresse");
             req_ville = (String) request.getParameter("ville");
             req_codePostal = (String) request.getParameter("codePostal");
@@ -75,19 +71,12 @@ public class CreateMemberServlet extends HttpServlet {
                 returnMessageError(request, response, "Veuillez entrer un nom !");
             } else if (req_dateNaissance.isEmpty()) {
                 returnMessageError(request, response, "Veuillez entrer une date de naissance !");
-            } else if (req_motDePasse.isEmpty()) {
-                returnMessageError(request, response, "Veuillez entrer un mot de passe !");
-            } else if (req_motDePasseBis.isEmpty()) {
-                returnMessageError(request, response, "Veuillez entrer un second mot de passe, identique au premier !");
             } else if (req_rueAdresse.isEmpty()) {
                 returnMessageError(request, response, "Veuillez entrer une adresse !");
             } else if (req_ville.isEmpty()) {
                 returnMessageError(request, response, "Veuillez entrer une ville !");
             } else if (req_codePostal.isEmpty()) {
                 returnMessageError(request, response, "Veuillez entrer un code postal !");
-            }
-            if (!req_motDePasse.equals(req_motDePasseBis)) {
-                returnMessageError(request, response, "Les 2 mots de passe doivent &ecirc;tre identiques!");
             }
             // </editor-fold>
 
@@ -156,10 +145,6 @@ public class CreateMemberServlet extends HttpServlet {
             }
             // </editor-fold>
 
-
-            adherent.setMotDePasse(req_motDePasse);
-
-
             // persist the person entity
             em.persist(adherent);
 
@@ -169,9 +154,8 @@ public class CreateMemberServlet extends HttpServlet {
 
             //Forward to ListPerson servlet to list persons along with the newly
             //created person above
-            request.setAttribute("nom", req_nom);
-            request.setAttribute("prenom", req_prenom);
-            request.getRequestDispatcher("confirmationCreateMember.jsp").forward(request, response);
+            request.setAttribute("confirmationCreationMembre", "<div class=\"info\">L'adh&eacute;rent " + req_prenom + " " + req_nom + "a bien &eacute;t&eacute; ajout&eacute;.</div>");
+            request.getRequestDispatcher("createMember.jsp").forward(request, response);
 
         } catch (Exception ex) {
             throw new ServletException(ex);

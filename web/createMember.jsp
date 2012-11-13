@@ -34,6 +34,7 @@
             </p>
 
             ${requestScope.alert}
+            ${requestScope.confirmationCreationMembre}
             <form id="createMemberForm" action="CreateMember" method="POST">
                 <label for="prenom">Pr&eacute;nom</label>
                 <input type="text"     id="prenom"         name="prenom"        value="${requestScope.prenom}" />        <br/>
@@ -43,12 +44,6 @@
 
                 <label for="date_naissance">Date de naissance</label>
                 <input type="date"     id="date_naissance" name="dateNaissance" value="${requestScope.dateNaissance}" /> <br/>
-
-                <label for="mdp">Mot de passe</label>
-                <input type="password" id="mdp"            name="motDePasse" />     <br/>
-
-                <label for="mdp_bis">R&eacute;p&eacute;ter le mot de passe</label>
-                <input type="password" id="mdp_bis"        name="motDePasseBis" />  <br/>
 
                 <label for="rue_adresse">Adresse : rue</label>
                 <input type="text"     id="rue_adresse"    name="rueAdresse"    value="${requestScope.rue}" />          <br/>
