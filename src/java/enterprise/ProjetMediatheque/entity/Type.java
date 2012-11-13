@@ -8,6 +8,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author sbai
+ */
+
 @Entity
 @Table(name = "TYPES")
 public class Type implements Serializable {
