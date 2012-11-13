@@ -26,6 +26,10 @@
             <input type="submit" id="RechercheTitre" value="Rechercher Titre" />
         </form>
           
+        <form id="RechercheForm" action="RechercheAuteur" method="post">
+            Rechercher par auteur:              <input type="text" name="auteur" /> <br/>
+            <input type="submit" id="RechercheAuteur" value="Rechercher Auteur" />
+        </form>
        
     </body>
 </html>

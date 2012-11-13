@@ -1,3 +1,4 @@
+
 package enterprise.ProjetMediatheque.servlet;
 
 import java.io.IOException;
@@ -13,20 +14,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 
+
 /**
  *
  * @author sbai
  */
-@WebServlet(name = "RechercheTitreServlet", urlPatterns = {"/RechercheTitre"})
-public class SearchTitleWorkServlet extends HttpServlet {
+@WebServlet(name = "SearchAuthorWorkServlet", urlPatterns = {"/RechercheAuteur"})
+public class SearchAuthorWorkServlet extends HttpServlet {
 
-   @PersistenceUnit
+    @PersistenceUnit
     private EntityManagerFactory emf;  
     
     @Resource
     private UserTransaction utx;
     
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
@@ -34,12 +35,12 @@ public class SearchTitleWorkServlet extends HttpServlet {
         try {          
             em = emf.createEntityManager();
 
-            String titre = (String) request.getParameter("titre");
-            List ouvrages = em.createQuery("select p from Ouvrage p where p.titre like '"+titre+"'").getResultList();
-            request.setAttribute("ouvrageList",ouvrages);
+            String nom = (String) request.getParameter("auteur");
+            List auteurs = em.createQuery("select p from Auteur p where p.nom like '"+nom+"'").getResultList();
+            request.setAttribute("auteurList",auteurs);
           
             //Forward to the jsp page for rendering
-            request.getRequestDispatcher("ListSearchTitleWork.jsp").forward(request, response);
+            request.getRequestDispatcher("ListSearchAuthorWork.jsp").forward(request, response);
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {            
@@ -85,5 +86,4 @@ public class SearchTitleWorkServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
