@@ -95,10 +95,10 @@ public class CreateWorkServlet extends HttpServlet {
             for(int i=0; i < nomsGenres.length; i++)
                 genres.add(em.find(Genre.class, nomsGenres[i]));
             
-            TypedQuery<Type> typeQuery = em.createNamedQuery("Type.get", Type.class);
-            typeQuery.setParameter("nom", TypeName.valueOf((String)request.getAttribute("type")));
+            TypedQuery<Type> typeQuery = em.createNamedQuery("Type.Get", Type.class);
+            typeQuery.setParameter("nom", TypeName.valueOf((String)request.getParameter("type")));
             Type type = typeQuery.getSingleResult();
-            
+                        
             em.close();
             
             //Create an Ouvrage instance out of it

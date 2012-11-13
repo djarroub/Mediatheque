@@ -62,9 +62,10 @@
                         <td>Type</td>
                         <td>
                             <select name="type">
-                                <c:forEach var="type" begin="0" items="${types}">
-                                    <option value="${type}">${type}</option>
-                                </c:forEach>
+                                <% 
+                                    for (int i=0; i<types.length; i++)
+                                        out.println("<option value=\""+ types[i] +"\">"+ types[i] +"</option>");
+                                %>
                             </select>
                         </td>
                     </tr>
