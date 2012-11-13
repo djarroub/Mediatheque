@@ -6,7 +6,6 @@ package enterprise.ProjetMediatheque.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,8 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author guyader
  */
-@WebServlet(name = "AddBasketServlet", urlPatterns = {"/AddBasket"})
-public class AddBasketServlet extends HttpServlet {
+@WebServlet(name = "DropBasketServlet", urlPatterns = {"/DropBasket"})
+public class DropBasketServlet extends HttpServlet {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
@@ -47,14 +46,12 @@ public class AddBasketServlet extends HttpServlet {
                 
                 if (idOuvrage != null) {
                     List ids = (List)session.getAttribute("ids");
-                    if (ids == null)
-                        ids = new ArrayList<String>();
-                    ids.add(idOuvrage);
+                    ids.remove(idOuvrage);
                     session.setAttribute("ids", ids);
                 }
                 
                 //Forward to the jsp page for rendering
-                request.getRequestDispatcher("BrowseCatalog").forward(request, response);
+                request.getRequestDispatcher("ShowBasket").forward(request, response);
             } catch (Exception ex) {
                 throw new ServletException(ex);
             } finally {

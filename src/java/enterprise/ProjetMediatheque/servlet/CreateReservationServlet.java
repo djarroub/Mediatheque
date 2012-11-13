@@ -62,36 +62,23 @@ public class CreateReservationServlet extends HttpServlet {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
-           
-            em = emf.createEntityManager();  
+
             utx.begin();
             em = emf.createEntityManager();
             //en premier on reccupère l'adherent 
                                 
-            String adh = request.getParameter("adherent");           
-            System.out.println("ref client"+adh);
-            Query req= (Query) em.createQuery("select a from Adherent a where a.idAdhesion = :ref");
-            req.setParameter("ref", adh);
+            String adh = request.getParameter("adherent");
+            Query req= (Query) em.createNamedQuery("Adherent.getByNumCarte");
+            req.setParameter("numCarte", Long.parseLong(adh));
             Adherent adherent = (Adherent)req.getSingleResult();
             
             TypedQuery<Ouvrage> typeQuery = em.createNamedQuery("Ouvrage.Get", Ouvrage.class);
             typeQuery.setParameter("id", TypeName.valueOf((String)request.getParameter("ouvrage")));
             Ouvrage ouvrage = typeQuery.getSingleResult();
-                        
-            em.close();
             
             //Create an Ouvrage instance out of it
             Reservation reservation = new Reservation(adherent, ouvrage);
-            
-            //begin a transaction
-            utx.begin();
-            //create an em. 
-            //Since the em is created inside a transaction, it is associsated with 
-            //the transaction
-            em = emf.createEntityManager();
-            
-            
-                      //persist the person entity
+
             em.persist(reservation);
                      
             //commit transaction which will trigger the em to 

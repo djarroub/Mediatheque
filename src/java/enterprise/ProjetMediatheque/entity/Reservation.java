@@ -81,14 +81,14 @@ public class Reservation {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("libraryPU");
         EntityManager em = emf.createEntityManager();
         
-        TypedQuery<Integer> countAvailable = em.createNamedQuery("Reservation.countAvailable", Integer.class);
+        TypedQuery<Long> countAvailable = em.createNamedQuery("Reservation.countAvailable", Long.class);
         countAvailable.setParameter("work", this.ouvrage);
-        Integer available = countAvailable.getSingleResult();
+        Long available = countAvailable.getSingleResult();
         
-        TypedQuery<Integer> countReservations = em.createNamedQuery("Reservation.countReservations", Integer.class);
+        TypedQuery<Long> countReservations = em.createNamedQuery("Reservation.countReservations", Long.class);
         countReservations.setParameter("work", this.ouvrage);
         countReservations.setParameter("date", this.dateDeReservation);
-        Integer reserved = countReservations.getSingleResult();
+        Long reserved = countReservations.getSingleResult();
         
         if (available > reserved) { // verifier s'il y a encore des items de l'ouvrage disponibles
             // Si oui alors on a jusqu'au soir

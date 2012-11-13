@@ -12,7 +12,7 @@
         <header>
             <a href="index.jsp">Accueil</a>
             <a href="BrowseCatalog" id="current-page">Catalogue</a>
-            <a href="showBasket.jsp">Panier</a>
+            <a href="ShowBasket">Panier</a>
         </header>
 
         <div id="wrap-text">

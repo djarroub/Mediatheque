@@ -4,6 +4,7 @@
  */
 package enterprise.ProjetMediatheque.servlet;
 
+import enterprise.ProjetMediatheque.entity.Ouvrage;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -22,12 +23,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author guyader
  */
-@WebServlet(name = "AddBasketServlet", urlPatterns = {"/AddBasket"})
-public class AddBasketServlet extends HttpServlet {
+@WebServlet(name = "ShowBasketServlet", urlPatterns = {"/ShowBasket"})
+public class ShowBasketServlet extends HttpServlet {
 
     @PersistenceUnit
-    private EntityManagerFactory emf;
+    EntityManagerFactory emf;
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -43,18 +45,22 @@ public class AddBasketServlet extends HttpServlet {
             assert emf != null;  //Make sure injection went through correctly.
             EntityManager em = null;
             try {
-                String idOuvrage = request.getParameter("idOuvrage");
+                em = emf.createEntityManager();
                 
-                if (idOuvrage != null) {
-                    List ids = (List)session.getAttribute("ids");
-                    if (ids == null)
-                        ids = new ArrayList<String>();
-                    ids.add(idOuvrage);
-                    session.setAttribute("ids", ids);
-                }
+                List<String> ids = (List)session.getAttribute("ids");
+                if (ids == null)
+                    response.sendRedirect("BrowseCatalog");
                 
+                List<Ouvrage> ouvrages = new ArrayList<Ouvrage>();
+                for (String id : ids)
+                    ouvrages.add(
+                            em.createNamedQuery("Ouvrage.get", Ouvrage.class)
+                            .setParameter("id", Long.parseLong(id))
+                            .getSingleResult());
+                
+                request.setAttribute("ouvrages", ouvrages);
                 //Forward to the jsp page for rendering
-                request.getRequestDispatcher("BrowseCatalog").forward(request, response);
+                request.getRequestDispatcher("showBasket.jsp").forward(request, response);
             } catch (Exception ex) {
                 throw new ServletException(ex);
             } finally {
