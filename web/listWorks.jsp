@@ -11,17 +11,20 @@
     </head>
     <body>
         <header>
-            <a href="index.jsp">Accueil</a>
+            <a href="librarianAccess.jsp">Accueil</a>
             <a href="ListMember">Adh&eacute;rents</a>
             <a href="ListWorks" id="current-page">Ouvrages</a>
             <a href="ListGenres">Genres</a>
             <a href="ListAuthors">Auteurs</a>
-            <!--<a href=".jsp"></a>-->
+            <a href="borrowItem.jsp">Enregistrer un emprunt</a>
+            <a href="returnItem.jsp">Retourner un emprunt</a>
+            <a href="ListBorrowings">Emprunts</a>
+            <a href="ListBookings">Réservations</a>
         </header>
 
         <div id="wrap-text">
             <h1>Les ouvrages de la Médiathèque</h1>
-            <a href="createWork.jsp">+ Ajouter un nouvel Ouvrage.</a>
+            <a href="CreateWork">+ Ajouter un nouvel Ouvrage.</a>
             <table>
                 <thead>
                     <tr class="title">

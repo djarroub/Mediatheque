@@ -20,13 +20,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author guyader
  */
-@WebServlet(name = "ListWorksServlet", urlPatterns = {"/ListWorks"})
-public class ListWorksServlet extends HttpServlet {
+@WebServlet(name = "BrowseCatalogServlet", urlPatterns = {"/BrowseCatalog"})
+public class BrowseCatalogServlet extends HttpServlet {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    
     /** 
      * Handles the HTTP <code>GET</code> method.
      * @param request servlet request
@@ -37,23 +36,28 @@ public class ListWorksServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        assert emf != null;  //Make sure injection went through correctly.
-        EntityManager em = null;
-        try {
-            em = emf.createEntityManager();
-
-            List ouvrages = em.createQuery("SELECT o FROM Ouvrage o").getResultList();
-            request.setAttribute("ouvrages", ouvrages);
-
-            //Forward to the jsp page for rendering
-            request.getRequestDispatcher("listWorks.jsp").forward(request, response);
-        } catch (Exception ex) {
-            throw new ServletException(ex);
-        } finally {
-            //close the em to release any resources held up by the persistence provider
-            if (em != null) {
-                em.close();
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("adherent") != null) {
+            assert emf != null;  //Make sure injection went through correctly.
+            EntityManager em = null;
+            try {
+                em = emf.createEntityManager();
+                
+                List ouvrages = em.createQuery("SELECT o FROM Ouvrage o").getResultList();
+                request.setAttribute("ouvrages", ouvrages);
+                
+                //Forward to the jsp page for rendering
+                request.getRequestDispatcher("listWorks.jsp").forward(request, response);
+            } catch (Exception ex) {
+                throw new ServletException(ex);
+            } finally {
+                //close the em to release any resources held up by the persistence provider
+                if(em != null) {
+                    em.close();
+                }
             }
+        } else {
+            response.sendRedirect("index.jsp");
         }
     }
 

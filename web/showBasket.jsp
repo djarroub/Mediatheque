@@ -5,7 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<% if (session == null || session.getAttribute("adherent") == null) response.sendRedirect("index.jsp"); %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,22 +16,14 @@
     </head>
     <body>
         <header>
-            <a href="index.jsp" id="current-page">Accueil</a>
+            <a href="index.jsp">Accueil</a>
             <a href="BrowseCatalog">Catalogue</a>
-            <a href="showBasket.jsp">Panier</a>
+            <a href="showBasket.jsp" id="current-page">Panier</a>
         </header>
 
         <div id="wrap-text">
             <h1>Bienvenue sur le catalogue en ligne de la Médiathèque</h1>
-            <form method="POST" action="/Login">
-                <p>
-                    <label for="login">Numéro de carte</label>
-                    <input type="text" id="login" name="cardNumber"/><br />
-                    <label for="password">Mot de passe</label>
-                    <input type="text" id="password" name="password"/><br />
-                    <input type="submit" name="connexion" value="connexion"/>
-                </p>
-            </form>
+            
         </div>
     </body>
 </html>

@@ -14,22 +14,14 @@
     </head>
     <body>
         <header>
-            <a href="index.jsp" id="current-page">Accueil</a>
-            <a href="BrowseCatalog">Catalogue</a>
+            <a href="index.jsp">Accueil</a>
+            <a href="BrowseCatalog" id="current-page">Catalogue</a>
             <a href="showBasket.jsp">Panier</a>
         </header>
 
         <div id="wrap-text">
             <h1>Bienvenue sur le catalogue en ligne de la Médiathèque</h1>
-            <form method="POST" action="/Login">
-                <p>
-                    <label for="login">Numéro de carte</label>
-                    <input type="text" id="login" name="cardNumber"/><br />
-                    <label for="password">Mot de passe</label>
-                    <input type="text" id="password" name="password"/><br />
-                    <input type="submit" name="connexion" value="connexion"/>
-                </p>
-            </form>
+            
         </div>
     </body>
 </html>

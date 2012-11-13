@@ -4,31 +4,21 @@
  */
 package enterprise.ProjetMediatheque.servlet;
 
-import enterprise.ProjetMediatheque.entity.Genre;
 import java.io.IOException;
-import javax.annotation.Resource;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.UserTransaction;
 
 /**
  *
  * @author guyader
  */
-@WebServlet(name = "CreateGenreServlet", urlPatterns = {"/CreateGenre"})
-public class CreateGenreServlet extends HttpServlet {
+@WebServlet(name = "ListBookingsServlet", urlPatterns = {"/ListBookings"})
+public class ListBookingsServlet extends HttpServlet {
 
-    @PersistenceUnit
-    private EntityManagerFactory emf;
-    @Resource
-    private UserTransaction utx;
-    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -38,36 +28,21 @@ public class CreateGenreServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        assert emf != null;  //Make sure injection went through correctly.
-        EntityManager em = null;
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
         try {
-
-            //Get the data from user's form
-            String nomGenre = (String) request.getParameter("nomGenre");
-            Genre genre = new Genre(nomGenre);
-
-            //begin a transaction
-            utx.begin();
-            //create an em. 
-            //Since the em is created inside a transaction, it is associsated with 
-            //the transaction
-            em = emf.createEntityManager();
-            //persist the person entity
-            em.persist(genre);
-            //commit transaction which will trigger the em to 
-            //commit newly created entity into database
-            utx.commit();
-
-            //Forward to ListPerson servlet to list persons along with the newly
-            //created person above
-            response.sendRedirect("ListGenres");
-        } catch (Exception ex) {
-            throw new ServletException(ex);
-        } finally {
-            //close the em to release any resources held up by the persistebce provider
-            if (em != null) {
-                em.close();
-            }
+            /* TODO output your page here
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ListBookingsServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ListBookingsServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+             */
+        } finally {            
+            out.close();
         }
     }
 

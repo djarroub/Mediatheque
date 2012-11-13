@@ -17,11 +17,15 @@
     </head>
     <body>
         <header>
-            <a href="index.jsp">Accueil</a>
+            <a href="librarianAccess.jsp">Accueil</a>
             <a href="ListMember">Adh&eacute;rents</a>
             <a href="ListWorks">Ouvrages</a>
             <a href="ListGenres" id="current-page">Genres</a>
             <a href="ListAuthors">Auteurs</a>
+            <a href="borrowItem.jsp">Enregistrer un emprunt</a>
+            <a href="returnItem.jsp">Retourner un emprunt</a>
+            <a href="ListBorrowings">Emprunts</a>
+            <a href="ListBookings">Réservations</a>
         </header>
 
         <div id="wrap-text">

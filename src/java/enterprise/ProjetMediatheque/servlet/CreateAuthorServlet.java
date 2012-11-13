@@ -4,7 +4,7 @@
  */
 package enterprise.ProjetMediatheque.servlet;
 
-import enterprise.ProjetMediatheque.entity.Genre;
+import enterprise.ProjetMediatheque.entity.Auteur;
 import java.io.IOException;
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
@@ -21,8 +21,8 @@ import javax.transaction.UserTransaction;
  *
  * @author guyader
  */
-@WebServlet(name = "CreateGenreServlet", urlPatterns = {"/CreateGenre"})
-public class CreateGenreServlet extends HttpServlet {
+@WebServlet(name = "CreateAuthorServlet", urlPatterns = {"/CreateAuthor"})
+public class CreateAuthorServlet extends HttpServlet {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
@@ -43,8 +43,9 @@ public class CreateGenreServlet extends HttpServlet {
         try {
 
             //Get the data from user's form
-            String nomGenre = (String) request.getParameter("nomGenre");
-            Genre genre = new Genre(nomGenre);
+            String nom = (String) request.getParameter("nom");
+            String prenom = (String) request.getParameter("prenom");
+            Auteur auteur = new Auteur(nom, prenom);
 
             //begin a transaction
             utx.begin();
@@ -53,14 +54,14 @@ public class CreateGenreServlet extends HttpServlet {
             //the transaction
             em = emf.createEntityManager();
             //persist the person entity
-            em.persist(genre);
+            em.persist(auteur);
             //commit transaction which will trigger the em to 
             //commit newly created entity into database
             utx.commit();
 
             //Forward to ListPerson servlet to list persons along with the newly
             //created person above
-            response.sendRedirect("ListGenres");
+            response.sendRedirect("ListAuthors");
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
@@ -69,20 +70,6 @@ public class CreateGenreServlet extends HttpServlet {
                 em.close();
             }
         }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /** 
@@ -105,5 +92,5 @@ public class CreateGenreServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 }

@@ -5,6 +5,7 @@ import enterprise.ProjetMediatheque.entity.Auteur;
 import enterprise.ProjetMediatheque.entity.Genre;
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.*;
@@ -32,39 +33,67 @@ public class CreateWorkServlet extends HttpServlet {
     private UserTransaction utx;
 
     
-    /** Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+    /** Handles the HTTP <code>GET</code> method.
      * @param request servlet request
      * @param response servlet response
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        assert emf != null;  //Make sure injection went through correctly.
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            
+            List auteurs = em.createQuery("select a from Auteur a").getResultList();
+            request.setAttribute("auteursList",auteurs);
+            
+            List genres= em.createQuery("select g from Genre g").getResultList();
+            request.setAttribute("genresList",genres);
+            
+            request.getRequestDispatcher("createWork.jsp").forward(request, response);
+        } catch (Exception ex) {
+            throw new ServletException(ex);
+        } finally {
+            //close the em to release any resources held up by the persistebce provider
+            if(em != null) {
+                em.close();
+            }
+        }
+    }
+    
+    /** Handles the HTTP <code>POST</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
         assert emf != null;  //Make sure injection went through correctly.
         EntityManager em = null;
         try {
             String titre  = (String) request.getParameter("titre");
            
-            Date datePremierePublication = new Date();
+            Date datePremierePublication = null;
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yy-MM-dd");
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
                 datePremierePublication = formatter.parse(request.getParameter("datePremierePublication"));
             } catch (RuntimeException e) {
                 e.printStackTrace();
             }
             
-            
             em = emf.createEntityManager();
-
-            List<Auteur> auteurs = em.createQuery("select a from Auteur a").getResultList();
-            request.setAttribute("auteursList",auteurs);
-            System.out.println(auteurs);
             
+            String[] auteursIDs = request.getParameterValues("auteurs");
+            List<Auteur> auteurs = new ArrayList<Auteur>();
+            for(int i=0; i < auteursIDs.length; i++)
+                auteurs.add(em.find(Auteur.class, Long.parseLong(auteursIDs[i])));
             
+            String[] nomsGenres = request.getParameterValues("genres");
+            List<Genre> genres = new ArrayList<Genre>();
+            for(int i=0; i < nomsGenres.length; i++)
+                genres.add(em.find(Genre.class, nomsGenres[i]));
             
-            List<Genre> genres= em.createQuery("select g from Genre g").getResultList();
-            request.setAttribute("genresList",genres);
-            System.out.println(genres);
+            em.close();
             
-                              
             //Create an Ouvrage instance out of it
             Ouvrage ouvrage = new Ouvrage(titre, datePremierePublication, auteurs, genres);
             
@@ -82,7 +111,7 @@ public class CreateWorkServlet extends HttpServlet {
             
             //Forward to ListWorks servlet to list works along with the newly
             //created work above
-            request.getRequestDispatcher("/ListWorks").forward(request, response);
+            response.sendRedirect("ListWorks");
         } catch (Exception ex) {
             throw new ServletException(ex);
         } finally {
@@ -93,29 +122,9 @@ public class CreateWorkServlet extends HttpServlet {
         }
     }
     
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    }
-    
-    /** Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
-    }
-    
     /** Returns a short description of the servlet.
      */
     public String getServletInfo() {
         return "Short description";
     }
-    // </editor-fold>
 }
